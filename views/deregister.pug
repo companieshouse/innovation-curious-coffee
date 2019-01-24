@@ -1,0 +1,47 @@
+extends layout
+
+block content
+    div(class='container center-div')
+        h1(class='text-center')
+            img(src='icons/coffee.svg' width='50' height='50' class='rotate')
+            = 'Deregister'
+        div(class='row')
+            div(class='col-sm-2')
+            div(class='col-sm-8')
+                span
+                | Enter your email address below and submit to remove your email address from the
+                | #CuriousCoffee participants list.
+
+        br
+        div(class='row')
+            div(class='col-sm-2')
+            div(class='col-sm-8')
+                div(class='alert alert-warning', role='alert')
+                    span 
+                        | Warning: If you submit your email below, you will need to re-register at a
+                        | later date to participate in #CuriousCoffee again.
+
+        form(class='form-horizontal' method='POST', action='/deregister' role='form')
+            div(class='form-group form-row align-items-center')
+                div(class='col-sm-2')
+                label(for='email' class='control-label col-sm-2 text-right') Email: 
+                div(class='col-sm-4')
+                    input#email(class='form-control custom-form-control' type='text', placeholder='email', name='email' value=undefined===email ? '' : email)
+                div(class='col-sm-4 text-left')
+                    if email_error
+                        for error in errors
+                            if error.param == 'email'
+                                    span= error.msg
+
+            div(class='form-group form-row align-items-center')
+                div(class='col-sm-4')
+                div(class='col-sm-2')
+                    button(class='btn btn-primary custom-button' type='submit') Submit
+
+            span#email_error(hidden)= email_error
+    
+    script(src='/javascripts/jquery.min.js')
+    script(src='/javascripts/error-deregister.js')
+
+
+

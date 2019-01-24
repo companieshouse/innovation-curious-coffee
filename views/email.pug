@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    h1(class='text-center') 
+        img(src='icons/coffee.svg' width='50' height='50' class='rotate')
+        = 'Email matched participants'
+
+    div(class='row align-items-center')
+        div(class='col-sm-2')
+        div(class='col-sm-8')
+            div(class='alert alert-warning', role='alert')
+                span 
+                    | Press the button below to let the participants know
+                    | that they have been matched in the latest round of 
+                    | #CuriousCoffee.
+
+    form(method='POST' action='/email')
+        div(class='row')    
+            div(class='col-sm-4')
+            div(class='col-sm-2')
+                button(class='btn btn-primary custom-button' type='submit') Email
