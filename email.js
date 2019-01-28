@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const middleware = require('./middleware');
 
 var nodemailer = require('nodemailer');
 
@@ -13,11 +14,11 @@ var fs = require('fs');
 var transporter = nodemailer.createTransport(fs.readFileSync("email_config.json"));
 var mailOptionsJSON = fs.readFileSync("email_mail_options.json");
 
-router.get('/', function(req, res) {
+router.get('/', middleware, function(req, res) {
     res.render('email');
 });
 
-router.post('/', function(req, res) {
+router.post('/', middleware, function(req, res) {
 
     getMatchedParticipants().then(function(matches) {
 

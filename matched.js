@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const middleware = require('./middleware');
 
 const dbname = 'matches';
 
 const mongojs = require('mongojs');
 const db = mongojs('curious', [dbname]);
 
-router.get('/', function(req, res) {
+router.get('/', middleware, function(req, res) {
 
     db.matches.find(function(err, docs) {
 

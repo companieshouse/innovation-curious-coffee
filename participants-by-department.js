@@ -1,17 +1,18 @@
 var express = require('express');
 var router = express.Router();
+const middleware = require('./middleware');
 
 const dbname = 'people';
 
 const mongojs = require('mongojs');
 const db = mongojs('curious', [dbname]);
 
-router.get('/', function(req, res) {
+router.get('/', middleware, function(req, res) {
 
     res.render('participants_department_chart');
 });
 
-router.get('/data', function(req, res) {
+router.get('/data', middleware, function(req, res) {
     res.setHeader('Content-Type', 'application/json');
 
     getParticipantsByDepartment().then(function(docs) {

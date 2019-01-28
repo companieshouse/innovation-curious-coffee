@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const middleware = require('./middleware');
 
 const mongojs = require('mongojs');
 const db = mongojs('curious', ['people', 'matches']);
@@ -17,11 +18,11 @@ var getParticipants = function() {
     });
 }
 
-router.get('/', function(req, res) {
+router.get('/', middleware, function(req, res) {
     res.render('match');
 });
 
-router.post('/', function(req, res) {
+router.post('/', middleware, function(req, res) {
     getParticipants().then(function(participants) {
 
         participants = shuffle(participants);

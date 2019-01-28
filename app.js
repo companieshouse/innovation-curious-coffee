@@ -12,6 +12,7 @@ const matched = require('./matched');
 const email = require('./email');
 const participantsByDepartment = require('./participants-by-department');
 const feedback = require('./feedback');
+const admin = require('./admin');
 
 const port = 3000;
 
@@ -41,12 +42,15 @@ app.use(express.static('public'));
 app.use('/', index);
 app.use('/register', register);
 app.use('/deregister', deregister);
+app.use('/feedback', feedback);
+
+app.use('/admin', admin);
+
 app.use('/match', match);
 app.use('/participants', participants);
 app.use('/matched', matched);
 app.use('/email', email);
 app.use('/participants-by-department', participantsByDepartment);
-app.use('/feedback', feedback);
 
 app.listen(port, () => {
     console.log('Listening on port ' + port);

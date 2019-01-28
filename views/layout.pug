@@ -23,15 +23,29 @@ html
                                     a(class='dropdown-item' href='/deregister') Deregister
                             li(class='nav-item')
                                 a(class='nav-link' href='/feedback') Feedback
-                            li(class='nav-item')
+                        ul(class='navbar-nav ml-auto')
+                            li(class='nav-item dropdown')
+                                a(class='nav-link dropdown-toggle' href='#' id='navbarDropdownAdmin' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') Admin
+                                div(class='dropdown-menu' aria-labelledby='navbarDropdownAdmin')
+
+                                    if user
+                                        a(class='nav-link' href='/participants') Participants
+                                        a(class='nav-link' href='/match') Match
+                                        a(class='nav-link' href='/matched') Matched
+                                        a(class='nav-link' href='/email') Email
+                                        a(class='nav-link' href='/participants-by-department') Participants by department
+                                    else 
+                                        a(class='nav-link' href='/admin') Log in
+
+                            //li(class='nav-item')
                                 a(class='nav-link' href='/participants') Participants
-                            li(class='nav-item')
+                            //li(class='nav-item')
                                 a(class='nav-link' href='/match') Match
-                            li(class='nav-item')
+                            //li(class='nav-item')
                                 a(class='nav-link' href='/matched') Matched
-                            li(class='nav-item')
+                            //li(class='nav-item')
                                 a(class='nav-link' href='/email') Email
-                            li(class='nav-item')
+                            //li(class='nav-item')
                                 a(class='nav-link' href='/participants-by-department') Participants by department
             block content
 
