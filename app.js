@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 
 const validator = require('express-validator');
+const session = require('express-session');
 
 const index = require('./index');
 const register = require('./register');
@@ -37,7 +38,16 @@ app.use(validator({
         }
     }
 }));
+
 app.use(express.static('public'));
+
+app.use(session({secret: 'curious', resave: false, saveUninitialized: true}));
+
+app.use(function(req, res, next) {
+
+    res.locals.session = req.session;
+    next();
+});
 
 app.use('/', index);
 app.use('/register', register);

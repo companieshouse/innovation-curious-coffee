@@ -12,8 +12,7 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
 
     if (req.body.password == adminJSON.password) {
-        var app = req.app;
-        app.locals.user = true;
+        res.locals.session.user = true;
         res.redirect('/');
     } else {
         res.render('admin', {

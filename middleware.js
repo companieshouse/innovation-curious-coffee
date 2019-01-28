@@ -4,11 +4,10 @@ var adminJSON = fs.readFileSync("admin.json");
 
 function validateAdmin(req, res, next) {
 
-    var app = req.app;
-
-    if (app.locals.user) {
+    if (req.session.user) {
         return next();
-    }    
+    }
+     
     res.redirect('/admin');
 }
 
