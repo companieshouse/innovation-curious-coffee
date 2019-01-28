@@ -1,6 +1,6 @@
-<a href="#">
-    <img src="readme-images/curious-coffee.png" alt="Curious Coffee" title="Curious Coffee" align="right" height="60" />
-</a>
+<p align="center">
+    <img src="readme-images/curious-coffee.png" alt="Curious Coffee" title="Curious Coffee" width="30%" />
+</p>
 
 # #CuriousCoffee
 Source code for the internal #CuriousCoffee initiative
