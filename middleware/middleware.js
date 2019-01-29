@@ -1,6 +1,6 @@
 var fs = require('fs');
 
-var adminJSON = fs.readFileSync("admin.json");
+var adminJSON = fs.readFileSync("./admin/admin.json");
 
 function validateAdmin(req, res, next) {
 

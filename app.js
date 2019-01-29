@@ -4,16 +4,16 @@ const app = express();
 const validator = require('express-validator');
 const session = require('express-session');
 
-const index = require('./index');
-const register = require('./register');
-const deregister = require('./deregister');
-const match = require('./match');
-const participants = require('./participants');
-const matched = require('./matched');
-const email = require('./email');
-const participantsByDepartment = require('./participants-by-department');
-const feedback = require('./feedback');
-const admin = require('./admin');
+const index = require('./index/index');
+const register = require('./register/register');
+const deregister = require('./deregister/deregister');
+const match = require('./match/match');
+const participants = require('./participants/participants');
+const matched = require('./matched/matched');
+const email = require('./email/email');
+const participantsByDepartment = require('./participants-by-department/participants-by-department');
+const feedback = require('./feedback/feedback');
+const admin = require('./admin/admin');
 
 const port = 3000;
 
@@ -34,6 +34,13 @@ app.use(validator({
                 return false;
             } else {
                 return true;
+            }
+        },
+        consentChecked: function(value) {
+            if (value == "on") {
+                return true;
+            } else {
+                return false;
             }
         }
     }
