@@ -1,9 +1,0 @@
-{
-    "from": "Curious Coffee <matcher.curious.coffee@gmail.com>",
-    "auth": {
-        "user": "matcher.curious.coffee@gmail.com",
-        "refreshToken": "1/O-VQqTUHYRyrQeJb45hrtreQgoI9Eo1ngfrWMjU75s0", 
-        "accessToken": "ya29.Glt4BnQWhqWjiiOW3gs0eYAndkfvvPHsZtzYeOGin6G2MMldUL7Bn729bu-XKKqaKySjhlKKq55AGcteBOWit4Kd8VCpt5_O4I6yqfygw2fRzLWVyBeB_05ehPYR",
-        "scope": "https://mail.google.com/"
-    }
-}
