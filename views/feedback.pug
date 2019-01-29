@@ -1,0 +1,48 @@
+extends layout
+
+block content
+    div(class='container center-div')
+        h1(class='text-center')
+            img(src='icons/coffee.svg' width='50' height='50' class='rotate')
+            = 'Feedback'
+        div(class='row')
+            div(class='col-sm-2')
+            div(class='col-sm-8')
+                span
+                | Got any feedback for #CuriousCoffee? Enter your email and feedback below!
+
+        br
+
+        form(class='form-horizontal' method='POST', action='/feedback' role='form')
+            div(class='form-group form-row align-items-center')
+                div(class='col-sm-2')
+                label(for='email' class='control-label col-sm-2 text-right') Email: 
+                div(class='col-sm-4')
+                    input#email(class='form-control custom-form-control' type='text', placeholder='email', name='email' value=undefined===email ? '' : email)
+                div(class='col-sm-4 text-left')
+                    if email_error
+                        for error in errors
+                            if error.param == 'email'
+                                    span= error.msg
+
+            div(class='form-group form-row align-items-center')
+                div(class='col-sm-2')
+                label(for='feedback' class='control-label col-sm-2 text-right') Feedback:
+                div(class='col-sm-4')
+                    textarea#feedback(class='form-control custom-form-control' rows=5 name='feedback')= feedback
+                div(class='col-sm-4 text-left')
+                    if feedback_error
+                        for error in errors
+                            if error.param == 'feedback'
+                                    span= error.msg
+
+            div(class='form-group form-row align-items-center')
+                div(class='col-sm-4')
+                div(class='col-sm-2')
+                    button(class='btn btn-primary custom-button' type='submit') Submit
+
+            span#email_error(hidden)= email_error
+            span#feedback_error(hidden)= feedback_error
+    
+    script(src='/javascripts/jquery.min.js')
+    script(src='/javascripts/error-feedback.js')

@@ -1,0 +1,125 @@
+extends layout
+
+block content
+    div(class='container center-div')
+        h1(class='text-center')
+            img(src='icons/coffee.svg' width='50' height='50' class='rotate')
+            = 'Register'
+        
+        form(class='form-horizontal' method='POST', action='/register' role='form')
+            div(class='form-group form-row align-items-center')
+                div(class='col-sm-2')
+                label(class='control-label col-sm-2 text-right' for='name') Name:
+                div(class='col-sm-4')
+                    input#name(class='form-control custom-form-control' type='text', placeholder='name', name='name' value=undefined===name ? '' : name)
+                div(class='col-sm-4 text-left')
+                    if name_error
+                        for error in errors
+                            if error.param == 'name'
+                                    span= error.msg
+            
+            div(class='form-group form-row align-items-center')
+                div(class='col-sm-2')
+                label(for='email' class='control-label col-sm-2 text-right') Email: 
+                div(class='col-sm-4')
+                    input#email(class='form-control custom-form-control' type='text', placeholder='email', name='email' value=undefined===email ? '' : email)
+                div(class='col-sm-4 text-left')
+                    if email_error
+                        for error in errors
+                            if error.param == 'email'
+                                    span= error.msg
+            
+            div(class='form-group form-row align-items-center')
+                div(class='col-sm-2')
+                label(for='department' class='control-label col-sm-2 text-right') Department: 
+                div(class='col-sm-4')
+                    select#department(class='form-control custom-form-control' name='department')
+                        option(value='--choose a department--')= "--choose a department--"
+                        option(value='Analysis & Corporate Insight' selected= department == 'Analysis & Corporate Insight')= "Analysis & Corporate Insight"
+                        option(value='Belfast Office' selected= deparment == 'Belfast Office')= "Belfast Office"
+                        option(value='Building Services' selected= department == 'Building Services')= "Building Services"
+                        option(value='Business Change and Development' selected= department == 'Business Change and Development')= "Business Change and Development"
+                        option(value='Communications Team' selected= department == 'Communications Team')= "Communications Team"
+                        option(value='COT Company Support' selected= department == 'COT Company Support')= "COT Company Support"
+                        option(value='CPES' selected= department == 'CPES')= "CPES"
+                        option(value='Customer Services' selected= department == 'Customer Services')= "Customer Services"
+                        option(value='Development' selected= department == 'Development')= "Development"
+                        option(value='Directorate' selected= department == 'Directorate')= "Directorate"
+                        option(value='Directors Support' selected= department == 'Directors Support')= "Directors Support"
+                        option(value='Edinburgh Office' selected= department == 'Edinburgh Office')= "Edinburgh Office"
+                        option(value='Finance Operations' selected= department == 'Finance Operations')= "Finance Operations"
+                        option(value='Finance Systems' selected= department == 'Finance Systems')= "Finance Systems"
+                        option(value='Human Resources' selected= department == 'Human Resources')= "Human Resources"
+                        option(value='Legal' selected= department == 'Legal')= "Legal"
+                        option(value='LFP' selected= department == 'LFP')= "LFP"
+                        option(value='LFP Belfast' selected= department == 'LFP Belfast')= "LFP Belfast"
+                        option(value='LFP Edinburgh' selected= department == 'LFP Edinburgh')= "LFP Edinburgh"
+                        option(value='London Office' selected= department == 'London Office')= "London Office"
+                        option(value='Management Accounts' selected= department == 'Management Accounts')= "Management Accounts"
+                        option(value='Payroll' selected= department == 'Payroll')= "Payroll"
+                        option(value='Product' selected= department == 'Product')= "Product"
+                        option(value='Programmes & Project Management' selected= department == 'Programmes & Project Management')= "Programmes & Project Management"
+                        option(value='Purchasing' selected= department == 'Purchasing')= "Purchasing"
+                        option(value='Register Integrity' selected= department == 'Register Integrity')= "Register Integrity" 
+                        option(value='Software Management' selected= department == 'Software Management')= "Software Management"
+                        option(value='Strategy and Policy' selected= department == 'Strategy and Policy')= "Strategy and Policy"
+                        option(value='Technical Ops Management' selected= department == 'Technical Ops Management')= "Technical Ops Management"
+                div(class='col-sm-4 text-left')
+                    if department_error
+                        for error in errors
+                            if error.param == 'department'
+                                    span= error.msg
+
+            div(class='form-group form-row align-items-center')
+                div(class='col-sm-2')
+                div(class='col-sm-8')
+                    div(class='alert alert-warning', role='alert')
+                        span
+                            | By submitting your data using the button below, you consent for
+                            | your data to be used purely for the purposes of Curious Coffee. 
+                            | The name and email address provided will only be used to contact the
+                            | matched participants, and the department is used to match you with other
+                            | participants. None of this data is shared with anyone else and is used
+                            | solely for the purposes of #CuriousCoffee. Please tick the checkbox
+                            | below to acknowledge this notice and submit your consent.
+            div(class='form-group form-row align-items-center')
+                div(class='col-sm-2')
+                label(for='consent' class='control-label col-sm-2 text-right') Consent:
+                div(class='checkbox')
+                    input#consent(type='checkbox' class='custom-checkbox' name='consent')
+                div(class='col-sm-4 text-center')
+                    if consent_error
+                        for error in errors
+                            if error.param == 'consent'
+                                    span= error.msg
+                
+
+            //div(class='form-group form-row align-items-center')
+                div(class='col-sm-2')
+                div(class='col-sm-8')
+                    div(class='alert alert-warning', role='alert')
+                        span 
+                            | Please check the box below if you would like to be repeatedly matched.
+                            | If you don't check this box, you will have to re-register if you'd like to be
+                            | matched again.
+
+            //div(class='form-group form-row align-items-center')
+                div(class='col-sm-2')
+                label(for='repeat' class='control-label col-sm-2 text-right') Repeated matches:
+                div(class='checkbox')
+                    input#repeat(type='checkbox' class='custom-checkbox' name='repeat')
+            
+            div(class='form-group form-row align-items-center')
+                div(class='col-sm-4')
+                div(class='col-sm-2')
+                    button(class='btn btn-primary custom-button' type='submit') Register
+
+            span#name_error(hidden)= name_error
+            span#email_error(hidden)= email_error
+            span#department_error(hidden)= department_error
+            span#consent_error(hidden)= consent_error
+
+    script(src='/javascripts/jquery.min.js')
+    script(src='/javascripts/error-register.js')
+
+        
