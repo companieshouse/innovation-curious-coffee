@@ -6,6 +6,7 @@ function displayError() {
   name();
   email();
   department();
+  consent();
 };
 
 function name() {
@@ -35,5 +36,15 @@ function department() {
         $('#department').removeClass('is-valid');
     } else {
         $('#department').addClass('is-invalid');
+    }
+};
+
+function consent() {
+    var fn = document.getElementById('consent_error').textContent;
+
+    if (undefined === fn || '' == fn) {
+        $('#consent').removeClass('is-valid');
+    } else {
+        $('#consent').addClass('is-invalid');
     }
 };

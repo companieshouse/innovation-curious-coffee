@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const middleware = require('./middleware');
+const middleware = require('../middleware/middleware');
 
 var nodemailer = require('nodemailer');
 
@@ -11,8 +11,8 @@ const db = mongojs('curious', [dbname]);
 
 var fs = require('fs');
 
-var transporter = nodemailer.createTransport(fs.readFileSync("email_config.json"));
-var mailOptionsJSON = fs.readFileSync("email_mail_options.json");
+var transporter = nodemailer.createTransport(JSON.parse(fs.readFileSync("./email/email_config.json")));
+var mailOptionsJSON = JSON.parse(fs.readFileSync("./email/email_mail_options.json"));
 
 router.get('/', middleware, function(req, res) {
     res.render('email');

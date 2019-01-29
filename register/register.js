@@ -15,6 +15,7 @@ router.post('/', function(req, res) {
     req.checkBody('name', 'Name cannot be blank').isLength({min:1}).trim();
     req.checkBody('email', 'Please enter a valid email address').isEmail();
     req.checkBody('department', 'Please select a department').departmentError();
+    req.checkBody('consent', 'You must consent for your data to be used to register').consentChecked();
 
     var errors = req.validationErrors();
 
@@ -23,6 +24,7 @@ router.post('/', function(req, res) {
         var name_error;
         var email_error;
         var department_error;
+        var consent_error;
 
         errors.forEach(function(error) {
             if ("name" == error.param) {
@@ -31,6 +33,8 @@ router.post('/', function(req, res) {
                 email_error = true;
             } else if ("department" == error.param) {
                 department_error = true;
+            } else if ("consent" == error.param) {
+                consent_error = true;
             }
         });
 
@@ -41,7 +45,8 @@ router.post('/', function(req, res) {
             department_error: department_error,
             email: req.body.email,
             email_error: email_error,
-            repeat: req.body.repeat,
+            consent: req.body.consent,
+            consent_error: consent_error,
             errors: errors
         });
 
@@ -63,7 +68,7 @@ router.post('/', function(req, res) {
                     name: req.body.name,
                     department: req.body.department,
                     email: req.body.email,
-                    repeat: req.body.repeat,
+                    consent: req.body.consent,
                     errors: errors
                 });
             });
@@ -80,7 +85,7 @@ router.post('/', function(req, res) {
                 name: req.body.name,
                 department: req.body.department,
                 email: req.body.email,
-                repeat: req.body.repeat,
+                consent: req.body.consent,
                 errors: errors
             });
         });
@@ -105,8 +110,7 @@ var insert = function(req) {
         db.people.insert({
             name: req.body.name,
             department: req.body.department,
-            email: req.body.email,
-            repeat: req.body.repeat
+            email: req.body.email
         }, function(err, doc) {
 
             if (err) {
