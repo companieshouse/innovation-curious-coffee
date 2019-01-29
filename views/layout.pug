@@ -1,0 +1,48 @@
+doctype html
+html
+    head
+        title= 'Curious Coffee'
+        link(rel='stylesheet' href='/bootstrap/css/bootstrap.min.css')
+        link(rel='stylesheet' href='/stylesheets/custom.css')
+    
+    body
+        div(class='container')
+            block navBar
+
+                nav(class='navbar navbar-expand-lg navbar-light bg-light justify-content-between')
+                    button(class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+                        span(class='navbar-toggler-icon')
+                    div(class='collapse navbar-collapse' id='navbarSupportedContent')
+                        a(class='navbar-brand' href='/')
+                            img(src='icons/coffee.svg' width='70' height='70' class='rotate')
+                        ul(class='navbar-nav mr-auto')
+                            li(class='nav-item')
+                                a(class='nav-link' href='/register') Register
+                            //li(class='nav-item dropdown')
+                                a(class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') Registration options
+                                div(class='dropdown-menu' aria-labelledby='navbarDropdown')
+                                    a(class='dropdown-item' href='/register') Register
+                                    a(class='dropdown-item' href='/deregister') Deregister
+                            li(class='nav-item')
+                                a(class='nav-link' href='/feedback') Feedback
+                        ul(class='navbar-nav ml-auto')
+                            li(class='nav-item dropdown')
+                                a(class='nav-link dropdown-toggle' href='#' id='navbarDropdownAdmin' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false') Admin
+                                div(class='dropdown-menu' aria-labelledby='navbarDropdownAdmin')
+
+                                    if session.user
+                                        a(class='nav-link' href='/participants') Participants
+                                        a(class='nav-link' href='/match') Match
+                                        a(class='nav-link' href='/matched') Matched
+                                        a(class='nav-link' href='/email') Email
+                                        a(class='nav-link' href='/participants-by-department') Participants by department
+                                    else 
+                                        a(class='nav-link' href='/admin') Log in
+            block content
+
+            footer(class='fixed-bottom bg-dark')
+                div(class='container')
+                    span(class='text-muted') Created by Dafydd Rosser
+
+            script(src='/javascripts/jquery.min.js')
+            script(src='/bootstrap/js/bootstrap.min.js')

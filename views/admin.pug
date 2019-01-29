@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    div(class='container center-div')
+        h1(class='text-center')
+            img(src='icons/coffee.svg' width='50' height='50' class='rotate')
+            = 'Log in'
+        
+        form(class='form-horizontal' method='POST', action='/admin' role='form')
+            div(class='form-group form-row align-items-center')
+                div(class='col-sm-2')
+                label(class='control-label col-sm-2 text-right' for='password') Password:
+                div(class='col-sm-4')
+                    input#password(class='form-control custom-form-control' type='password', placeholder='password', name='password' value=undefined===password ? '' : password)
+                div(class='col-sm-4 text-left')
+                    if password_error
+                        span= password_error
+
+            div(class='form-group form-row align-items-center')
+                div(class='col-sm-4')
+                div(class='col-sm-2')
+                    button(class='btn btn-primary custom-button' type='submit') Log in
+
+            span#password_error(hidden)= password_error
+
+    script(src='/javascripts/jquery.min.js')
+    script(src='/javascripts/error-admin.js')

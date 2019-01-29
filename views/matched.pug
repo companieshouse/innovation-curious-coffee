@@ -1,0 +1,32 @@
+extends layout
+
+block content
+    h1(class='text-center') 
+        img(src='icons/coffee.svg' width='50' height='50' class='rotate')
+        = 'Matched participants'
+
+    div(class='just-padding')
+        div(class='list-group list-group-root')
+            each match, index in matches
+                div(class='row')
+                    div(class='col-sm-2')
+                    div(class='col-sm-4')
+                        a(href='#item-' + index class='list-group-item' data-toggle='collapse')
+                            span(class='text-dark')= match.person_1.name
+                        div(class='list-group collapse' id='item-' + index)
+                            div(class='list-group-item pl-5 bg-light')
+                                span= match.person_1.email
+                            div(class='list-group-item pl-5 bg-light')
+                                span= match.person_1.department
+                    div(class='col-sm-1')
+                        hr
+                    div(class='col-sm-4')
+                        a(href='#item-' + index class='list-group-item' data-toggle='collapse')
+                            span(class='text-dark')= match.person_2.name
+                        div(class='list-group collapse' id='item-' + index)
+                            div(class='list-group-item pl-5 bg-light')
+                                span= match.person_2.email
+                            div(class='list-group-item pl-5 bg-light')
+                                span= match.person_2.department
+
+    script(src='/javascripts/jquery.min.js')
