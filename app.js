@@ -5,7 +5,7 @@ const validator = require('express-validator');
 const session = require('express-session');
 
 const index = require('./index/index');
-const register = require('./register/register');
+const register = require('./register/registerController');
 const deregister = require('./deregister/deregister');
 const match = require('./match/match');
 const participants = require('./participants/participants');
