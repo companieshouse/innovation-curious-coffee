@@ -3,7 +3,7 @@ const router = express.Router();
 
 var fs = require('fs');
 
-var adminJSON = JSON.parse(fs.readFileSync('./admin/admin.json', 'utf8'));
+var adminJSON = require('./admin.json');
 
 router.get('/', function(req, res, next) {
     res.render('admin');
