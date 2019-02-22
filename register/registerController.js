@@ -1,10 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const dbname = 'people';
-
-const mongojs = require('mongojs');
-const db = mongojs('curious', [dbname]);
+const RegisterService = require('./registerService');
 
 router.get('/', function(req, res) {
     res.render('register');
@@ -52,9 +49,10 @@ router.post('/', function(req, res) {
 
         return;
     } else {
-        checkRegistered(req).then(function() {
+        var registerService = new RegisterService();
+        registerService.checkRegistered(req.body.email).then(function() {
 
-            insert(req).then(function(doc) {
+            registerService.insert(req.body.name, req.body.department, req.body.email).then(function(doc) {
                 res.redirect('/');
             }).catch(function(err) {
                 var error = {
@@ -91,35 +89,5 @@ router.post('/', function(req, res) {
         });
     }
 });
-
-var checkRegistered = function(req) {
-
-    return new Promise(function(resolve, reject) {
-        db.people.find({email: req.body.email}, function(err, docs) {
-            if (docs.length < 1) {
-                resolve(docs);
-            } else {
-                reject(err);
-            }
-        })
-    });
-}
-
-var insert = function(req) {
-    return new Promise(function(resolve, reject) {
-        db.people.insert({
-            name: req.body.name,
-            department: req.body.department,
-            email: req.body.email
-        }, function(err, doc) {
-
-            if (err) {
-                reject(err);
-            }
-
-            resolve(doc);
-        });
-    });
-};
 
 module.exports = router;
