@@ -14,6 +14,7 @@ const email = require('./email/email');
 const participantsByDepartment = require('./participants-by-department/participants-by-department');
 const feedback = require('./feedback/feedback');
 const admin = require('./admin/admin');
+const error = require('./error/error');
 
 const port = 3000;
 
@@ -68,6 +69,7 @@ app.use('/participants', participants);
 app.use('/matched', matched);
 app.use('/email', email);
 app.use('/participants-by-department', participantsByDepartment);
+app.use('/oops', error);
 
 app.listen(port, () => {
     console.log('Listening on port ' + port);
