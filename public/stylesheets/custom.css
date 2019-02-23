@@ -64,3 +64,11 @@
 .navbar-light .navbar-nav .dropdown-item:hover {
     color: #2EE59D;
 }
+
+.jumbotron {
+    background-image: url('../icons/curious_alternate.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-top: 5.25%;
+    padding-bottom: 5.25%;
+}
