@@ -65,6 +65,11 @@
     color: #2EE59D;
 }
 
+
+.force-img-load {
+    display:none;
+}
+
 .jumbotron {
     background-image: url('../icons/curious_alternate.png');
     background-size: cover;
