@@ -92,28 +92,12 @@ block content
                         for error in errors
                             if error.param == 'consent'
                                     span= error.msg
-                
-
-            //div(class='form-group form-row align-items-center')
-                div(class='col-sm-2')
-                div(class='col-sm-8')
-                    div(class='alert alert-warning', role='alert')
-                        span 
-                            | Please check the box below if you would like to be repeatedly matched.
-                            | If you don't check this box, you will have to re-register if you'd like to be
-                            | matched again.
-
-            //div(class='form-group form-row align-items-center')
-                div(class='col-sm-2')
-                label(for='repeat' class='control-label col-sm-2 text-right') Repeated matches:
-                div(class='checkbox')
-                    input#repeat(type='checkbox' class='custom-checkbox' name='repeat')
             
             div(class='form-group form-row align-items-center')
                 div(class='col-sm-4')
                 div(class='col-sm-2')
                     button(class='btn btn-primary custom-button' type='submit') Register
-
+            
             span#name_error(hidden)= name_error
             span#email_error(hidden)= email_error
             span#department_error(hidden)= department_error
