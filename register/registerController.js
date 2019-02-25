@@ -53,6 +53,7 @@ router.post('/', function(req, res) {
         registerService.checkRegistered(req.body.email).then(function() {
 
             registerService.insert(req.body.name, req.body.department, req.body.email).then(function(doc) {
+                req.flash('info', 'Congratulations! You have signed up for #CuriousCoffee. You will receive an email in due course matching you for your #CuriousCoffee date');
                 res.redirect('/');
             }).catch(function(err) {
                 var error = {
