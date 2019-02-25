@@ -3,6 +3,7 @@ const app = express();
 
 const validator = require('express-validator');
 const session = require('express-session');
+const flash = require('connect-flash');
 
 const index = require('./index/index');
 const register = require('./register/registerController');
@@ -48,7 +49,6 @@ app.use(validator({
 }));
 
 app.use(express.static('public'));
-
 app.use(session({secret: 'curious', resave: false, saveUninitialized: true}));
 
 app.use(function(req, res, next) {
@@ -56,6 +56,8 @@ app.use(function(req, res, next) {
     res.locals.session = req.session;
     next();
 });
+
+app.use(flash());
 
 app.use('/', index);
 app.use('/register', register);
