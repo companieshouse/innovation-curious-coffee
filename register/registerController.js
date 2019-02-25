@@ -74,7 +74,8 @@ router.post('/', function(req, res) {
 
         }).catch(function(err) {
             var error = {
-                msg: err.message
+                msg: err.message,
+                param: 'email'
             };
 
             var errors = [];
@@ -85,7 +86,8 @@ router.post('/', function(req, res) {
                 department: req.body.department,
                 email: req.body.email,
                 consent: req.body.consent,
-                errors: errors
+                errors: errors,
+                email_error: true
             });
         });
     }
