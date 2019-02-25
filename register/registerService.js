@@ -13,7 +13,7 @@ class RegisterService {
                 if (docs.length < 1) {
                     resolve(docs);
                 } else {
-                    reject(err);
+                    reject(new Error('Email address already registered!'));
                 }
             })
         });
