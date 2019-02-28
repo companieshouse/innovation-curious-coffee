@@ -1,18 +1,13 @@
 var express = require('express');
 var router = express.Router();
 const middleware = require('../middleware/middleware');
-
 var nodemailer = require('nodemailer');
-
 const dbname = 'matches';
-
 const mongojs = require('mongojs');
 const db = mongojs('curious', [dbname]);
+const aws = require('aws-sdk');
 
-var fs = require('fs');
-
-var transporter = nodemailer.createTransport(require('./email_config.json'));
-var mailOptionsJSON = require('./email_mail_options.json');
+aws.config.update({region: 'eu-west-1'});
 
 router.get('/', middleware, function(req, res) {
     res.render('email');
@@ -23,28 +18,35 @@ router.post('/', middleware, function(req, res) {
     getMatchedParticipants().then(function(matches) {
 
         matches.forEach(function(match) {
-            var to = match.person_1.name + ' <' + match.person_1.email + '>, ' + 
-                        match.person_2.name + ' <' + match.person_2.email + '>';
 
-            var mailOptions = {
-                from: mailOptionsJSON.from,
-                to: to,
-                subject: 'It\'s a match!',
-                text: 'Congratulations! You have both been matched together to go and get a #CuriousCoffee',
-                auth: {
-                    user: mailOptionsJSON.auth.user,
-                    refreshToken: mailOptionsJSON.auth.refreshToken, 
-                    accessToken: mailOptionsJSON.auth.accessToken,
-                    scope: mailOptionsJSON.auth.scope,
-                }
+            var params = {
+                Destination: {
+                    ToAddresses: [
+                        match.person_1.email,
+                        match.person_2.email
+                    ]
+                },
+                Message: {
+                    Body: {
+                        Text: {
+                            Charset: 'UTF-8',
+                            Data: 'Congratulations! You have both been matched together to go and get a #CuriousCoffee. Now its over to you to start the conversation!'
+                        }
+                    },
+                    Subject: {
+                        Charset: 'UTF-8',
+                        Data: 'It\'s a match!'
+                    }
+                },
+                Source: 'curious-coffee@companieshouse.gov.uk'
             };
-    
-            transporter.sendMail(mailOptions, function(error, info) {
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log('Email sent: ' + info.response);
-                }
+
+            var sendPromise = new aws.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
+
+            sendPromise.then(function(data) {
+                console.log(data.MessageId);
+            }).catch(function(err) {
+                console.log(err);
             });
         });
     });
