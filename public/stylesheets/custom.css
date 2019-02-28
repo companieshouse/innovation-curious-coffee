@@ -71,11 +71,11 @@
 }
 
 .jumbotron {
-    background-image: url('../icons/curious_alternate.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    padding-top: 5.25%;
-    padding-bottom: 5.25%;
+    background-color: #E9BF41;
+    padding-top: 0%;
+    padding-bottom: 0%;
     border-radius: 0 !important;
 }
 
@@ -83,10 +83,22 @@ i.fa {
     display: inline-block;
 }
 
-.nav-link {
+.navbar-light .navbar-nav .nav-link {
     color: #636363;
 }
 
-.text-muted {
+.footer-text {
     color: #D3D5D9;
+}
+
+.banner-header {
+    font-family: 'Amatic SC', cursive;
+    font-size: 5em;
+    color: #f8f9fa;
+}
+
+.vertical-center {
+    position: relative;
+    top: 50%;
+    
 }

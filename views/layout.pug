@@ -5,13 +5,15 @@ html
         link(rel='stylesheet' href='/bootstrap/css/bootstrap.min.css')
         link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' integrity='sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr' crossorigin='anonymous')
         link(rel='stylesheet' href='/stylesheets/custom.css')
+        link(rel='stylesheet' href="https://fonts.googleapis.com/css?family=Amatic+SC")
     
     body
-        img(src='icons/curious_alternate.jpg' class='force-img-load')
-        div(class='jumbotron')
-        //div(class='jumbotron pull-right')
+        img(src='icons/chameleon.png' class='force-img-load')
+        //div(class='jumbotron')
+        div(class='jumbotron pull-right')
             div(class='row')
-                div(class='col-sm-11')
+                div(class='col-sm-11 vertical-center text-right')
+                    h1(class='banner-header') Are you curious?
                 div(class='col-sm-1')
                     img(src='icons/chameleon.png')
         div(class='container')
@@ -51,7 +53,7 @@ html
 
             footer(class='fixed-bottom bg-dark')
                 div(class='container')
-                    span(class='text-muted') Created by Dafydd Rosser
+                    span(class='footer-text') Created by Dafydd Rosser
 
             script(src='/javascripts/jquery.min.js')
             script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js')
