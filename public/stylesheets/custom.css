@@ -97,6 +97,12 @@ i.fa {
     color: #f8f9fa;
 }
 
+@media screen and (max-width: 600px) {
+    .banner-header {
+        font-size: 1em;
+    }
+}
+
 .vertical-center {
     position: relative;
     top: 50%;
