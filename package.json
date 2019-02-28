@@ -9,6 +9,8 @@
   "author": "Dafydd Rosser",
   "license": "MIT",
   "dependencies": {
+    "aws-sdk": "^2.410.0",
+    "popper.js": "^1.14.7",
     "bootstrap": "^4.1.3",
     "chart.js": "^2.7.3",
     "connect-flash": "^0.1.1",
