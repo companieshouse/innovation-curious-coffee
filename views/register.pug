@@ -10,7 +10,6 @@ block content
             div(class='form-group form-row align-items-center')
                 div(class='col-sm-2')
                 div(class='col-sm-2 pull-left text-right')
-                    //i(class="fas fa-info-circle" data-toggle='popover' title='Name' data-content='This is your first and last name')
                     label(class='control-label text-right' for='name') Name:
                 div(class='col-sm-4')
                     input#name(class='form-control custom-form-control' type='text', placeholder='name', name='name' value=undefined===name ? '' : name)
@@ -23,7 +22,6 @@ block content
             div(class='form-group form-row align-items-center')
                 div(class='col-sm-2')
                 div(class='col-sm-2 pull-left text-right')
-                    //i(class="fas fa-info-circle" data-toggle='popover' title='Email' data-content='This is your Companies House email address')
                     label(for='email' class='control-label text-right') Email: 
                 div(class='col-sm-4')
                     input#email(class='form-control custom-form-control' type='text', placeholder='email', name='email' value=undefined===email ? '' : email)
@@ -36,7 +34,6 @@ block content
             div(class='form-group form-row align-items-center')
                 div(class='col-sm-2')
                 div(class='col-sm-2 pull-left text-right')
-                    //i(class="fas fa-info-circle" data-toggle='popover' title='Department' data-content='This is the department you belong to')
                     label(for='department' class='control-label text-right') Department: 
                 div(class='col-sm-4')
                     select#department(class='form-control custom-form-control' name='department')
@@ -50,7 +47,6 @@ block content
                         option(value='CPES' selected= department == 'CPES')= "CPES"
                         option(value='Customer Services' selected= department == 'Customer Services')= "Customer Services"
                         option(value='Development' selected= department == 'Development')= "Development"
-                        //option(value='Directorate' selected= department == 'Directorate')= "Directorate"
                         option(value='Directors Support' selected= department == 'Directors Support')= "Directors Support"
                         option(value='Edinburgh Office' selected= department == 'Edinburgh Office')= "Edinburgh Office"
                         option(value='Finance Operations' selected= department == 'Finance Operations')= "Finance Operations"
@@ -86,7 +82,7 @@ block content
             div(class='form-group form-row align-items-center')
                 div(class='col-sm-2')
                 div(class='col-sm-2 pull-left text-right')
-                    i(style='verticle-align: middle;' class="fas fa-info-circle text-center" data-toggle='popover' data-content='By submitting your data, you consent for \
+                    i(style='verticle-align: middle;' class="fas fa-question-circle text-center" data-toggle='popover' data-content='By submitting your data, you consent for \
                             your data to be used purely for the purposes of Curious Coffee. \
                             The name and email address provided will only be used to contact the \
                             matched participants, and the department is used to match you with other \
