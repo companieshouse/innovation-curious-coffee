@@ -81,16 +81,17 @@ block content
                 div(class='col-sm-8')
                     div(class='alert alert-warning', role='alert')
                         span
-                            | By submitting your data using the button below, you consent for
-                            | your data to be used purely for the purposes of Curious Coffee. 
-                            | The name and email address provided will only be used to contact the
-                            | matched participants, and the department is used to match you with other
-                            | participants. None of this data is shared with anyone else and is used
-                            | solely for the purposes of #CuriousCoffee. Please tick the checkbox
-                            | below to acknowledge this notice and submit your consent.
+                            | Your data is used in accordance with Companies House GDPR standards.
+                            | Please tick the checkbox below to acknowledge this notice and submit your consent.
             div(class='form-group form-row align-items-center')
                 div(class='col-sm-2')
-                label(for='consent' class='control-label col-sm-2 text-right') Consent:
+                div(class='col-sm-2 pull-left text-right')
+                    i(style='verticle-align: middle;' class="fas fa-info-circle text-center" data-toggle='popover' data-content='By submitting your data, you consent for \
+                            your data to be used purely for the purposes of Curious Coffee. \
+                            The name and email address provided will only be used to contact the \
+                            matched participants, and the department is used to match you with other \
+                            participants. None of this data is shared with anyone else.' hspace='20') &nbsp;&nbsp;
+                    label(style='verticle-align: middle;' for='consent' class='control-label text-right') Consent:
                 div(class='checkbox')
                     input#consent(type='checkbox' class='custom-checkbox' name='consent')
                 div(class='col-sm-4 text-center')
