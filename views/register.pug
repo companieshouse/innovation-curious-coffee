@@ -9,7 +9,9 @@ block content
         form(class='form-horizontal' method='POST', action='/register' role='form')
             div(class='form-group form-row align-items-center')
                 div(class='col-sm-2')
-                label(class='control-label col-sm-2 text-right' for='name') Name:
+                div(class='col-sm-2 pull-left text-right')
+                    //i(class="fas fa-info-circle" data-toggle='popover' title='Name' data-content='This is your first and last name')
+                    label(class='control-label text-right' for='name') Name:
                 div(class='col-sm-4')
                     input#name(class='form-control custom-form-control' type='text', placeholder='name', name='name' value=undefined===name ? '' : name)
                 div(class='col-sm-4 text-left')
@@ -20,7 +22,9 @@ block content
             
             div(class='form-group form-row align-items-center')
                 div(class='col-sm-2')
-                label(for='email' class='control-label col-sm-2 text-right') Email: 
+                div(class='col-sm-2 pull-left text-right')
+                    //i(class="fas fa-info-circle" data-toggle='popover' title='Email' data-content='This is your Companies House email address')
+                    label(for='email' class='control-label text-right') Email: 
                 div(class='col-sm-4')
                     input#email(class='form-control custom-form-control' type='text', placeholder='email', name='email' value=undefined===email ? '' : email)
                 div(class='col-sm-4 text-left')
@@ -31,10 +35,12 @@ block content
             
             div(class='form-group form-row align-items-center')
                 div(class='col-sm-2')
-                label(for='department' class='control-label col-sm-2 text-right') Department: 
+                div(class='col-sm-2 pull-left text-right')
+                    //i(class="fas fa-info-circle" data-toggle='popover' title='Department' data-content='This is the department you belong to')
+                    label(for='department' class='control-label text-right') Department: 
                 div(class='col-sm-4')
                     select#department(class='form-control custom-form-control' name='department')
-                        option(value='--choose a department--')= "--choose a department--"
+                        option(value='choose the department you belong to')= "choose the department you belong to"
                         option(value='Analysis & Corporate Insight' selected= department == 'Analysis & Corporate Insight')= "Analysis & Corporate Insight"
                         option(value='Belfast Office' selected= deparment == 'Belfast Office')= "Belfast Office"
                         option(value='Building Services' selected= department == 'Building Services')= "Building Services"
@@ -44,7 +50,7 @@ block content
                         option(value='CPES' selected= department == 'CPES')= "CPES"
                         option(value='Customer Services' selected= department == 'Customer Services')= "Customer Services"
                         option(value='Development' selected= department == 'Development')= "Development"
-                        option(value='Directorate' selected= department == 'Directorate')= "Directorate"
+                        //option(value='Directorate' selected= department == 'Directorate')= "Directorate"
                         option(value='Directors Support' selected= department == 'Directors Support')= "Directors Support"
                         option(value='Edinburgh Office' selected= department == 'Edinburgh Office')= "Edinburgh Office"
                         option(value='Finance Operations' selected= department == 'Finance Operations')= "Finance Operations"
@@ -105,5 +111,6 @@ block content
 
     script(src='/javascripts/jquery.min.js')
     script(src='/javascripts/error-register.js')
+    script(src='/javascripts/popover.js')
 
         
