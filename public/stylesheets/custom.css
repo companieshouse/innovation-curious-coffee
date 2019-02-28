@@ -76,8 +76,17 @@
     background-repeat: no-repeat;
     padding-top: 5.25%;
     padding-bottom: 5.25%;
+    border-radius: 0 !important;
 }
 
 i.fa {
     display: inline-block;
+}
+
+.nav-link {
+    color: #636363;
+}
+
+.text-muted {
+    color: #D3D5D9;
 }
