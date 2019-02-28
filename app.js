@@ -17,6 +17,8 @@ const feedback = require('./feedback/feedback');
 const admin = require('./admin/admin');
 const error = require('./error/error');
 
+//const email_test = require('./email_test');
+
 const port = 3000;
 
 app.set('view engine', 'pug');
@@ -32,7 +34,7 @@ app.use(bodyParser.json());
 app.use(validator({
     customValidators: {
         departmentError: function(value) {
-            if (value == "--choose a department--") {
+            if (value == "choose the department you belong to") {
                 return false;
             } else {
                 return true;
@@ -72,6 +74,7 @@ app.use('/matched', matched);
 app.use('/email', email);
 app.use('/participants-by-department', participantsByDepartment);
 app.use('/oops', error);
+//app.use('/email_test', email_test);
 
 app.listen(port, () => {
     console.log('Listening on port ' + port);
