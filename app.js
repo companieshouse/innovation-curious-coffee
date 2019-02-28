@@ -16,6 +16,7 @@ const participantsByDepartment = require('./participants-by-department/participa
 const feedback = require('./feedback/feedback');
 const admin = require('./admin/admin');
 const error = require('./error/error');
+const faq = require('./faq/faq');
 
 //const email_test = require('./email_test');
 
@@ -74,6 +75,8 @@ app.use('/matched', matched);
 app.use('/email', email);
 app.use('/participants-by-department', participantsByDepartment);
 app.use('/oops', error);
+app.use('/faq', faq);
+
 //app.use('/email_test', email_test);
 
 app.listen(port, () => {
