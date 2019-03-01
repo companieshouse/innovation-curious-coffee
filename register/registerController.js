@@ -3,6 +3,10 @@ const router = express.Router();
 
 const RegisterService = require('./registerService');
 
+const aws = require('aws-sdk');
+
+aws.config.update({region: 'eu-west-1'});
+
 router.get('/', function(req, res) {
     res.render('register');
 });
@@ -53,8 +57,41 @@ router.post('/', function(req, res) {
         registerService.checkRegistered(req.body.email).then(function() {
 
             registerService.insert(req.body.name, req.body.department, req.body.email).then(function(doc) {
-                req.flash('info', 'Congratulations! You have signed up for #CuriousCoffee. You will receive an email in due course matching you for your #CuriousCoffee date');
-                res.redirect('/');
+
+                var params = {
+                    Destination: {
+                        ToAddresses: [
+                            req.body.email
+                        ]
+                    },
+                    Message: {
+                        Body: {
+                            Text: {
+                                Charset: 'UTF-8',
+                                Data: 'Congratulations! You have signed up for #CuriousCoffee. You will receive an email in due course matching you for your #CuriousCoffee'
+                            }
+                        },
+                        Subject: {
+                            Charset: 'UTF-8',
+                            Data: 'Sign up confirmed!'
+                        }
+                    },
+                    Source: 'curious-coffee@companieshouse.gov.uk',
+                    ReplyToAddresses: [
+                            'curious-coffee@companieshouse.gov.uk'
+                        ]
+                };
+
+                var sendPromise = new aws.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
+
+                sendPromise.then(function(data) {
+                    console.log(data.MessageId);
+
+                    req.flash('info', 'Congratulations! You have signed up for #CuriousCoffee. You will receive an email in due course matching you for your #CuriousCoffee');
+                    res.redirect('/');
+                }).catch(function(err) {
+                    console.error(err, err.stack);
+                });
             }).catch(function(err) {
                 var error = {
                     msg: err.message
