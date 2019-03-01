@@ -107,3 +107,7 @@ i.fa {
     position: relative;
     top: 50%;
 }
+
+body {
+    padding-bottom: 50px;
+}
