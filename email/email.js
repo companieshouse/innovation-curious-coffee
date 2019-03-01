@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 const middleware = require('../middleware/middleware');
-var nodemailer = require('nodemailer');
 const dbname = 'matches';
 const mongojs = require('mongojs');
 const db = mongojs('curious', [dbname]);
