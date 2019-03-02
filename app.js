@@ -13,12 +13,11 @@ const participants = require('./participants/participants');
 const matched = require('./matched/matched');
 const email = require('./email/email');
 const participantsByDepartment = require('./participants-by-department/participants-by-department');
+const dateParticipantsRegistered = require('./date-participants-registered/dateParticipantsRegistered');
 const feedback = require('./feedback/feedback');
 const admin = require('./admin/admin');
 const error = require('./error/error');
 const faq = require('./faq/faq');
-
-//const email_test = require('./email_test');
 
 const port = 3000;
 
@@ -74,10 +73,9 @@ app.use('/participants', participants);
 app.use('/matched', matched);
 app.use('/email', email);
 app.use('/participants-by-department', participantsByDepartment);
+app.use('/date-participants-registered', dateParticipantsRegistered);
 app.use('/oops', error);
 app.use('/faq', faq);
-
-//app.use('/email_test', email_test);
 
 app.listen(port, () => {
     console.log('Listening on port ' + port);
