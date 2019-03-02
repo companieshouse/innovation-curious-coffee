@@ -24,7 +24,8 @@ class RegisterService {
             db.people.insert({
                 name: name,
                 department: department,
-                email: email
+                email: email,
+                date_registered: new Date()
             }, function(err, doc) {
     
                 if (err) {
