@@ -20,7 +20,7 @@ router.get('/data', middleware, function(req, res) {
         var labels = [];
 
         docs.forEach(function(doc) {
-            labels.push(doc._id);
+            labels.push(doc._id.yearRegistered + "-" + doc._id.monthRegistered + "-" + doc._id.dayRegistered);
         });
 
         Promise.all(labels).then(function() {
@@ -77,7 +77,11 @@ var getDateRegistered = function() {
 
     return new Promise(function(resolve, reject) {
         db.people.aggregate({"$group": {
-            _id: "$date_registered", count: {"$sum": 1}
+            _id: {
+            yearRegistered: {"$year": "$date_registered"},
+            monthRegistered: {"$month": "$date_registered"},
+            dayRegistered: {"$dayOfMonth": "$date_registered"}},
+            count: {"$sum": 1}
         }}, function(err, docs) {
             
             if (err) {
