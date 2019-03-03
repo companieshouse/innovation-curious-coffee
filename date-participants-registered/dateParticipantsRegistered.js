@@ -32,6 +32,9 @@ router.get('/data', middleware, function(req, res) {
 
             Promise.all(data).then(function() {
 
+                var maxPlusOne = Math.max.apply(Math, data) + 1;
+                data.push(maxPlusOne);
+
                 res.send({
                     type: 'line',
                     data: {
