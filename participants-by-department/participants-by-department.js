@@ -58,8 +58,13 @@ router.get('/data', middleware, function(req, res) {
                                     stepValue: 10,
                                     stepSize: 1
                                 }
-                              }]
-                            }
+                              }],
+                            xAxes: [{
+                                ticks: {
+                                    autoSkip: false
+                                }
+                            }]
+                        }
                     }
                 });
             });
