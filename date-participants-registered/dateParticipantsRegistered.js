@@ -79,20 +79,25 @@ router.get('/data', middleware, function(req, res) {
 var getDateRegistered = function() {
 
     return new Promise(function(resolve, reject) {
-        db.people.aggregate({"$group": {
-            _id: {
-            yearRegistered: {"$year": "$date_registered"},
-            monthRegistered: {"$month": "$date_registered"},
-            dayRegistered: {"$dayOfMonth": "$date_registered"}},
-            count: {"$sum": 1}
-        }}, function(err, docs) {
-            
+        db.people.aggregate({
+            "$group": {
+                _id: {
+                yearRegistered: {"$year": "$date_registered"},
+                monthRegistered: {"$month": "$date_registered"},
+                dayRegistered: {"$dayOfMonth": "$date_registered"}},
+                count: {"$sum": 1}
+            }}, {
+            "$sort": {
+                "date_registered": 1
+            }
+        }, function(err, docs) {
+                
             if (err) {
                 reject(err);
             }
 
             resolve(docs);
-        });
+    });
     });
 }
 
