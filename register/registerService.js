@@ -1,8 +1,7 @@
-const express = require('express');
-const dbname = 'people';
-
+const config = require('../config/config');
 const mongojs = require('mongojs');
-const db = mongojs('curious', [dbname]);
+
+const db = mongojs(config.db.name, config.db.collections);
 
 class RegisterService {
 
@@ -25,7 +24,8 @@ class RegisterService {
                 name: name,
                 department: department,
                 email: email,
-                date_registered: new Date()
+                date_registered: new Date(),
+                verify: false
             }, function(err, doc) {
     
                 if (err) {

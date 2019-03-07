@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const config = require('../config/config');
 
 const RegisterService = require('./registerService');
 
@@ -66,28 +67,31 @@ router.post('/', function(req, res) {
                     },
                     Message: {
                         Body: {
-                            Text: {
+                            Html: {
                                 Charset: 'UTF-8',
-                                Data: 'Congratulations! You have signed up for #CuriousCoffee. You will receive an email in due course matching you for your #CuriousCoffee'
+                                Data: '<p>Thank you for registering for #CuriousCoffee. To complete registration, please verify with the link below.</p>'
+                                + '<br/>'
+                                + '<a href="' + config.verify.url + Buffer.from(req.body.email + config.verify.signature).toString('base64') + '">Verify</a>'
                             }
                         },
                         Subject: {
                             Charset: 'UTF-8',
-                            Data: 'Sign up confirmed!'
+                            Data: 'Verification - Curious Coffee'
                         }
                     },
-                    Source: 'curious-coffee@companieshouse.gov.uk',
-                    ReplyToAddresses: [
-                            'curious-coffee@companieshouse.gov.uk'
-                        ]
+                    Source: 'curious-coffee@companieshouse.gov.uk'
                 };
 
+                console.log("Param set up" + params);
+
                 var sendPromise = new aws.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
+
+                console.log("Send promise due to send");
 
                 sendPromise.then(function(data) {
                     console.log(data.MessageId);
 
-                    req.flash('info', 'Congratulations! You have signed up for #CuriousCoffee. You will receive an email in due course matching you for your #CuriousCoffee');
+                    req.flash('info', 'Thank you for registering for #CuriousCoffee. To complete registration, please verify with the link sent to you in an email.');
                     res.redirect('/');
                 }).catch(function(err) {
                     console.error(err, err.stack);
@@ -128,6 +132,8 @@ router.post('/', function(req, res) {
             });
         });
     }
+
+    res.redirect('/');
 });
 
 module.exports = router;
