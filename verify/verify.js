@@ -69,6 +69,8 @@ router.get('/:email', function(req, res) {
                 console.error(err, err.stack);
             });
         });
+    } else {
+        res.redirect('/');
     }
 });
 
