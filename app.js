@@ -19,6 +19,7 @@ const admin = require('./admin/admin');
 const error = require('./error/error');
 const faq = require('./faq/faq');
 const verify = require('./verify/verify');
+const verifyAll = require('./verifyAll/verifyAll');
 
 const port = 3000;
 
@@ -78,6 +79,7 @@ app.use('/date-participants-registered', dateParticipantsRegistered);
 app.use('/oops', error);
 app.use('/faq', faq);
 app.use('/verify', verify);
+app.use('/verifyAll', verifyAll);
 
 app.listen(port, () => {
     console.log('Listening on port ' + port);
