@@ -7,7 +7,7 @@ const db = mongojs('curious', ['people', 'matches']);
 
 var getParticipants = function() {
     return new Promise(function(resolve, reject) {
-        db.people.find(function(err, docs) {
+        db.people.find({verify: true}, function(err, docs) {
 
             if (err) {
                 reject(err);
