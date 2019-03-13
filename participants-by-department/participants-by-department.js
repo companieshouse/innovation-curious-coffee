@@ -1,11 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const middleware = require('../middleware/middleware');
-
-const dbname = 'people';
-
+const config = require('../config/config');
 const mongojs = require('mongojs');
-const db = mongojs('curious', [dbname]);
+
+const db = mongojs(config.db.name, config.db.collections);
 
 router.get('/', middleware, function(req, res) {
 
