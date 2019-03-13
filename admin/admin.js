@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
-var fs = require('fs');
-
-var adminJSON = require('./admin.json');
+const config = require('../config/config');
 
 router.get('/', function(req, res, next) {
     res.render('admin');
@@ -11,7 +8,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
 
-    if (req.body.password == adminJSON.password) {
+    if (req.body.password == config.admin.password) {
         res.locals.session.user = true;
         res.redirect('/');
     } else {
