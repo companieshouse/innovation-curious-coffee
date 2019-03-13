@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const middleware = require('../middleware/middleware');
-
+const config = require('../config/config');
 const mongojs = require('mongojs');
-const db = mongojs('curious', ['people', 'matches']);
+
+const db = mongojs(config.db.name, config.db.collections);
 
 var getParticipants = function() {
     return new Promise(function(resolve, reject) {
