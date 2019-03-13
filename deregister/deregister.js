@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
-
-const dbname = 'people';
-
+const config = require('../config/config');
 const mongojs = require('mongojs');
-const db = mongojs('curious', [dbname]);
+
+const db = mongojs(config.db.name, config.db.collections);
 
 router.get('/', function(req, res) {
     res.render('deregister');
