@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
 const middleware = require('../middleware/middleware');
-const dbname = 'matches';
+const config = require('../config/config');
 const mongojs = require('mongojs');
-const db = mongojs('curious', [dbname]);
 const aws = require('aws-sdk');
 
+const db = mongojs(config.db.name, config.db.collections);
 aws.config.update({region: 'eu-west-1'});
 
 router.get('/', middleware, function(req, res) {
