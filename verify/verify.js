@@ -1,11 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const config =  require('../config/config.js');
-
-const dbname = 'people';
-
 const mongojs = require('mongojs');
-const db = mongojs('curious', [dbname]);
+
+const db = mongojs(config.db.name, config.db.collections);
 
 const aws = require('aws-sdk');
 
