@@ -11,6 +11,11 @@ router.get('/', middleware, function(req, res) {
     res.render('participants_department_chart');
 });
 
+function randomIntFromInterval(min,max) // min and max included
+{
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
+
 router.get('/data', middleware, function(req, res) {
     res.setHeader('Content-Type', 'application/json');
 
@@ -24,12 +29,14 @@ router.get('/data', middleware, function(req, res) {
 
         Promise.all(labels).then(function() {
             var data = [];
+            var bgColor = [];
 
             docs.forEach(function(doc) {
                 data.push(doc.count);
+                bgColor.push("rgba(" + randomIntFromInterval(0,255) + ", " + randomIntFromInterval(0,255) + ", " + randomIntFromInterval(0,255) + ", 0.2)");
             });
 
-            Promise.all(data).then(function() {
+            Promise.all(data, bgColor).then(function() {
 
                 res.send({
                     type: 'bar',
@@ -37,7 +44,7 @@ router.get('/data', middleware, function(req, res) {
                         labels: labels,
                         datasets: [{
                             data: data,
-                            backgroundColor: ["rgba(255, 99, 132, 0.2)","rgba(255, 159, 64, 0.2)","rgba(255, 205, 86, 0.2)","rgba(75, 192, 192, 0.2)","rgba(54, 162, 235, 0.2)","rgba(153, 102, 255, 0.2)","rgba(201, 203, 207, 0.2)"],
+                            backgroundColor: bgColor,
                             borderWidth: 1
                         }]
                     },
