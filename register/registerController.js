@@ -54,10 +54,51 @@ router.post('/', function(req, res) {
 
         return;
     } else {
+        
         var registerService = new RegisterService();
-        registerService.checkRegistered(req.body.email).then(function() {
+        registerService.checkRegistered(req.body.email).then(function(err, participant) {
 
-            registerService.insert(req.body.name, req.body.department, req.body.email).then(function(doc) {
+            //Apparently err is not null even when there's no error...  
+            if (err.message !== undefined) {
+                console.error(err);
+                return res.redirect('/oops');
+            }
+            
+            //If the participant is not null, then we need to error as it already exists under that email address
+            if (participant !== null) {
+    
+                var errors = [];
+                errors.push(registerService.getEmailError());
+    
+                return res.render('register', {
+                    name: req.body.name,
+                    department: req.body.department,
+                    email: req.body.email,
+                    consent: req.body.consent,
+                    errors: errors,
+                    email_error: true
+                    });
+
+            } 
+
+            registerService.insert(req.body).then(function(err, participant, rowsAffected) {
+
+                if (err) {
+                    console.error(err);
+                    return res.redirect('/oops');
+                }
+
+                //This should be 1
+                if (rowsAffected != 1) {
+                    console.error('Something went wrong but we\'re not sure what...');
+                    return res.redirect('/oops');
+                }
+                
+                //Don't attempt to do anything after this if we are in dev mode
+                if (config.devmode) {
+                    console.log('registerController: Devmode is true, redirecting to homepage');
+                    return res.redirect('/');
+                }
 
                 var params = {
                     Destination: {
@@ -92,43 +133,11 @@ router.post('/', function(req, res) {
                     console.log(data.MessageId);
 
                     req.flash('info', 'Thank you for registering for #CuriousCoffee. To complete registration, please verify with the link sent to you in an email.');
-                    res.redirect('/');
+                    return res.redirect('/');
                 }).catch(function(err) {
                     console.error(err, err.stack);
+                    return res.redirect('/oops');
                 });
-            }).catch(function(err) {
-                var error = {
-                    msg: err.message
-                };
-    
-                var errors = [];
-                errors.push(error);
-    
-                res.render('register', {
-                    name: req.body.name,
-                    department: req.body.department,
-                    email: req.body.email,
-                    consent: req.body.consent,
-                    errors: errors
-                });
-            });
-
-        }).catch(function(err) {
-            var error = {
-                msg: err.message,
-                param: 'email'
-            };
-
-            var errors = [];
-            errors.push(error);
-
-            res.render('register', {
-                name: req.body.name,
-                department: req.body.department,
-                email: req.body.email,
-                consent: req.body.consent,
-                errors: errors,
-                email_error: true
             });
         });
     }

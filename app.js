@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-
+const config = require('./config/config');
 const validator = require('express-validator');
 const session = require('express-session');
 const flash = require('connect-flash');
@@ -21,7 +21,7 @@ const faq = require('./faq/faq');
 const verify = require('./verify/verify');
 const verifyAll = require('./verifyAll/verifyAll');
 
-const port = 3000;
+const port = config.app.port;
 
 app.set('view engine', 'pug');
 
@@ -63,13 +63,23 @@ app.use(function(req, res, next) {
 
 app.use(flash());
 
+//MongoDB setup
+const mongoose = require('mongoose');
+mongoose.connect(config.db.url.server + config.db.url.port + "/" + config.db.name, {useNewUrlParser: true});
+global.db = mongoose.connection;
+
+global.db.on('error', console.error.bind(console, 'connection error: '));
+
+global.db.on('open', function() {
+    console.log('Mongoose connection opened');
+});
+
 app.use('/', index);
 app.use('/register', register);
 app.use('/deregister', deregister);
 app.use('/feedback', feedback);
 
 app.use('/admin', admin);
-
 app.use('/match', match);
 app.use('/participants', participants);
 app.use('/matched', matched);
