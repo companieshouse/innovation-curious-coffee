@@ -21,6 +21,7 @@
     "express-validator": "^5.3.0",
     "jade-bootstrap": "^1.0.14",
     "mongojs": "^2.6.0",
+    "mongoose": "^5.4.19",
     "popper.js": "^1.14.7",
     "pug": "^2.0.3"
   }
