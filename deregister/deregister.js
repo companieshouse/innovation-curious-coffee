@@ -1,16 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const config = require('../config/config');
-const mongojs = require('mongojs');
-
-const db = mongojs(config.db.name, config.db.collections);
+const Participant = require('../models/participant');
 
 router.get('/', function(req, res) {
     res.render('deregister');
 });
 
 router.post('/', function(req, res) { 
-
     req.checkBody('email', 'Please enter a valid email address').isEmail();
 
     var errors = req.validationErrors();
@@ -25,52 +21,59 @@ router.post('/', function(req, res) {
             }
         });
 
-        res.render('deregister', {
+        return res.render('deregister', {
             email: req.body.email,
             email_error: email_error,
             errors: errors
         });
-
-        return;
-    } else {
-        checkRegistered(req).then(function() {
-            deleteUser(req).then(function() {
-                res.redirect('/');
-            });
-        });
     }
+
+    checkRegistered(req.body.email, function(err, result) {
+        if (err) {
+            console.error(err);
+            res.redirect('/oops');
+        }
+
+        if (result === null) {
+
+            var errors = [];
+            errors.push(getEmailError());
+
+            return res.render('deregister', {
+                email: req.body.email,
+                email_error: true,
+                errors: errors
+            });
+        }
+
+        removeParticipant(req.body.email, function(err, result) {
+            if (err) {
+                console.error(error);
+                return res.redirect('/oops');
+            }
+    
+            req.flash('info', 'You have now deregistered. If you wish to get involved again, simply re-register.');
+            return res.redirect('/');
+        });
+    });
 });
 
-var checkRegistered = function(req) {
-
-    return new Promise(function(resolve, reject) {
-        db.people.find({email: req.body.email}, function(err, docs) {
-
-            if (err) {
-                reject(err);
-            }
-
-            if (docs.length > 0) {
-                resolve(docs);
-            } else {
-                reject(new Error('A participant with this email address does not exist!'));
-            }
-        })
-    });
+function checkRegistered(email, callback) {
+    return Participant.findOne({email: email}).exec(callback);
 }
 
-var deleteUser = function(req) {
-    
-    return new Promise(function(resolve, reject) {
-        db.people.remove({"email": req.body.email}, function(err, result) {
-
-            if (err) {
-                reject();
-            }
-
-            resolve(result);
-        });
-    });
+function removeParticipant(email, callback) {
+    return Participant.deleteOne({email: email}).exec(callback);
 }
+
+function getEmailError() {
+
+    var error = {
+        msg: 'Email address does not exist!',
+        param: 'email'
+    };
+
+    return error;
+};
 
 module.exports = router;
