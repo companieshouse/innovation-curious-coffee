@@ -1,44 +1,34 @@
 var express = require('express');
 var router = express.Router();
 const middleware = require('../middleware/middleware');
-const config = require('../config/config');
-const mongojs = require('mongojs');
-
-const db = mongojs(config.db.name, config.db.collections);
+const Participant = require('../models/participant');
 
 router.get('/', middleware, function(req, res) {
-
     res.render('participants_department_chart');
 });
-
-function randomIntFromInterval(min,max) // min and max included
-{
-    return Math.floor(Math.random()*(max-min+1)+min);
-}
 
 router.get('/data', middleware, function(req, res) {
     res.setHeader('Content-Type', 'application/json');
 
-    getParticipantsByDepartment().then(function(docs) {
-        
-        var labels = [];
+    getParticipantsByDepartment(function(err, docs) {
+        if (err) {
+            console.error(err);
+            return res.redirect('/oops');
+        }
 
-        docs.forEach(function(doc) {
-            labels.push(doc._id);
-        });
-
-        Promise.all(labels).then(function() {
+        Promise.all(docs).then(function() {
+            var labels = [];
             var data = [];
             var bgColor = [];
 
             docs.forEach(function(doc) {
+                labels.push(doc._id);
                 data.push(doc.count);
                 bgColor.push("rgba(" + randomIntFromInterval(0,255) + ", " + randomIntFromInterval(0,255) + ", " + randomIntFromInterval(0,255) + ", 0.2)");
             });
 
-            Promise.all(data, bgColor).then(function() {
-
-                res.send({
+            Promise.all(labels, data, bgColor).then(function() {
+                return res.send({
                     type: 'bar',
                     data: {
                         labels: labels,
@@ -49,7 +39,7 @@ router.get('/data', middleware, function(req, res) {
                         }]
                     },
                     options: {
-                        title: {
+                        title: {     
                             display: true,
                             text: "Number of participants by department"
                         },
@@ -57,14 +47,14 @@ router.get('/data', middleware, function(req, res) {
                             display: false
                         },
                         scales: {
-                          yAxes: [{
-                                  display: true,
+                            yAxes: [{
+                                    display: true,
                                 ticks: {
                                     beginAtZero: true,
                                     stepValue: 10,
                                     stepSize: 1
                                 }
-                              }],
+                                }],
                             xAxes: [{
                                 ticks: {
                                     autoSkip: false
@@ -78,20 +68,19 @@ router.get('/data', middleware, function(req, res) {
     });
 });
 
-var getParticipantsByDepartment = function() {
+function randomIntFromInterval(min,max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+};
 
-    return new Promise(function(resolve, reject) {
-        db.people.aggregate({"$group": {
-            _id: "$department", count: {"$sum": 1}
-        }}, function(err, docs) {
-            
-            if (err) {
-                reject(err);
+function getParticipantsByDepartment(callback) {
+    return Participant.aggregate([{
+        "$group": {
+            _id: "$department",
+            count: {
+                "$sum": 1
             }
-
-            resolve(docs);
-        });
-    });
-}
+        }
+    }], callback);
+};
 
 module.exports = router;
