@@ -1,40 +1,35 @@
 var express = require('express');
 var router = express.Router();
 const middleware = require('../middleware/middleware');
-const config = require('../config/config');
-const mongojs = require('mongojs');
-
-const db = mongojs(config.db.name, config.db.collections);
+const Participant = require('../models/participant');
 
 router.get('/', middleware, function(req, res) {
-
     res.render('date_registered_chart');
 });
 
 router.get('/data', middleware, function(req, res) {
     res.setHeader('Content-Type', 'application/json');
 
-    getDateRegistered().then(function(docs) {
-        
-        var labels = [];
+    getDateRegistered(function(err, docs) {
+        if (err) {
+            console.error(err);
+            return res.redirect('/oops');
+        }
 
-        docs.forEach(function(doc) {
-            labels.push(doc._id.yearRegistered + "-" + doc._id.monthRegistered + "-" + doc._id.dayRegistered);
-        });
-
-        Promise.all(labels).then(function() {
+        Promise.all(docs).then(function() {
+            var labels = [];
             var data = [];
 
             docs.forEach(function(doc) {
+                labels.push(doc._id.yearRegistered + "-" + doc._id.monthRegistered + "-" + doc._id.dayRegistered);
                 data.push(doc.count);
             });
 
-            Promise.all(data).then(function() {
-
+            Promise.all(labels, data).then(function() {
                 var maxPlusOne = Math.max.apply(Math, data) + 1;
                 data.push(maxPlusOne);
 
-                res.send({
+                return res.send({
                     type: 'line',
                     data: {
                         labels: labels,
@@ -70,34 +65,25 @@ router.get('/data', middleware, function(req, res) {
                         }
                     }
                 });
-            });
+        });
         });
     });
 });
 
-var getDateRegistered = function() {
+function getDateRegistered(callback) {
 
-    return new Promise(function(resolve, reject) {
-        db.people.aggregate([{
-            $group: {
-                _id: {
-                yearRegistered: {"$year": "$date_registered"},
-                monthRegistered: {"$month": "$date_registered"},
-                dayRegistered: {"$dayOfMonth": "$date_registered"}},
-                count: {"$sum": 1}
-            }}, {
-            $sort: {
-                "_id": 1
-            }
-        }], function(err, docs) {
-                
-            if (err) {
-                reject(err);
-            }
-
-            resolve(docs);
-    });
-    });
+    return Participant.aggregate([{
+        $group: {
+            _id: {
+            yearRegistered: {"$year": "$date_registered"},
+            monthRegistered: {"$month": "$date_registered"},
+            dayRegistered: {"$dayOfMonth": "$date_registered"}},
+            count: {"$sum": 1}
+        }}, {
+        $sort: {
+            "_id": 1
+        }
+    }], callback);
 }
 
 module.exports = router;
