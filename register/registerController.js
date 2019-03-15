@@ -56,10 +56,9 @@ router.post('/', function(req, res) {
     } else {
         
         var registerService = new RegisterService();
-        registerService.checkRegistered(req.body.email).then(function(err, participant) {
+        registerService.checkRegistered(req.body.email, function(err, participant) {
 
-            //Apparently err is not null even when there's no error...  
-            if (err.message !== undefined) {
+            if (err !== null) {
                 console.error(err);
                 return res.redirect('/oops');
             }
@@ -78,19 +77,13 @@ router.post('/', function(req, res) {
                     errors: errors,
                     email_error: true
                     });
-
             } 
 
-            registerService.insert(req.body).then(function(err, participant, rowsAffected) {
+            registerService.insert(req.body, function(err, participant) {
 
                 if (err) {
+                    console.log('Error inserting record');
                     console.error(err);
-                    return res.redirect('/oops');
-                }
-
-                //This should be 1
-                if (rowsAffected != 1) {
-                    console.error('Something went wrong but we\'re not sure what...');
                     return res.redirect('/oops');
                 }
                 
