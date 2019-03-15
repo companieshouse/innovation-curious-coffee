@@ -1,8 +1,3 @@
-const config = require('../config/config');
-const mongojs = require('mongojs');
-
-const db = mongojs(config.db.name, config.db.collections);
-
 const Participant = require('../models/participant');
 
 class RegisterService {
@@ -17,11 +12,11 @@ class RegisterService {
         return error;
     }
 
-    checkRegistered(email) {
-        return Participant.find({email: email}).exec();
+    checkRegistered(email, callback) {
+        return Participant.findOne({email: email}).exec(callback);
     };
 
-    insert(body) {
+    insert(body, callback) {
 
         var participant = new Participant({
             name: body.name,
@@ -31,24 +26,7 @@ class RegisterService {
             verify: false
         });
         
-        return participant.save();
-
-        return new Promise(function(resolve, reject) {
-            db.people.insert({
-                name: name,
-                department: department,
-                email: email,
-                date_registered: new Date(),
-                verify: false
-            }, function(err, doc) {
-    
-                if (err) {
-                    reject(err);
-                }
-    
-                resolve(doc);
-            });
-        });
+        return participant.save(callback);
     };
 };
 
