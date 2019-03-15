@@ -3,22 +3,36 @@ const mongojs = require('mongojs');
 
 const db = mongojs(config.db.name, config.db.collections);
 
+const Participant = require('../models/participant');
+
 class RegisterService {
 
-    checkRegistered(email) {
+    getEmailError() {
 
-        return new Promise(function(resolve, reject) {
-            db.people.find({email: email}, function(err, docs) {
-                if (docs.length < 1) {
-                    resolve(docs);
-                } else {
-                    reject(new Error('Email address already registered!'));
-                }
-            })
-        });
+        var error = {
+            msg: 'Email address already registered!',
+            param: 'email'
+        };
+
+        return error;
+    }
+
+    checkRegistered(email) {
+        return Participant.find({email: email}).exec();
     };
 
-    insert(name, department, email) {
+    insert(body) {
+
+        var participant = new Participant({
+            name: body.name,
+            department: body.department,
+            email: body.email,
+            date_registered: new Date(),
+            verify: false
+        });
+        
+        return participant.save();
+
         return new Promise(function(resolve, reject) {
             db.people.insert({
                 name: name,
