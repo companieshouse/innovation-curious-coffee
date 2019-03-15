@@ -10,7 +10,7 @@ class RegisterService {
         };
 
         return error;
-    }
+    };
 
     checkRegistered(email, callback) {
         return Participant.findOne({email: email}).exec(callback);
