@@ -14,7 +14,9 @@ Source code for the internal #CuriousCoffee initiative
 #CuriousCoffee is a initiative designed to break down silos within Companies House and match participants with people from different departments. Participants can register on the site, and the system will ad-hoc match participants and email them to inform them they've been matched and with who. It's then up to the matched participants to decide what to do next.
 
 ## Config
-Config is CAST5-ecrypted, and decoded is in the following format:
+Config is CAST5-ecrypted using [config-leaf](https://github.com/jed/config-leaf). Please see there for instructions on how to encrypt/decrypt it.
+
+It is decoded is in the following format:
 ```javascript
 const config = {
     app: {
