@@ -62,13 +62,13 @@ Each config item is as follows:
 
 | Item | Type | Description | Example |
 | ---- | ---- | ---- | ----|
-| app.port | Integer | The port that the application is run on | 3000 |
-| db.url.server | String | MongoDB server location | "mongodb://localhost:" |
-| db.url.port | String | MongoDB port | 27017 |
-| db.name | String | MongoDB db name | "curious_coffee" |
-| db.collections | Array String | collections in the db | ["people", "feedback"] |
-| admin.password | String | Password for that admin site | "test" |
-| verify.signature | String | Signature to be appended to email before being Base64 encoded to generate unique verify link | "test" |
-| verify.url | String | Base URL to attach to verification email so user can verify their email | "http://localhost:3000/verify" |
+| app.port | Integer | The port that the application is run on | `3000` |
+| db.url.server | String | MongoDB server location | `"mongodb://localhost:"` |
+| db.url.port | String | MongoDB port | `27017` |
+| db.name | String | MongoDB db name | `"curious_coffee"` |
+| db.collections | Array String | collections in the db | `["people", "feedback"]` |
+| admin.password | String | Password for that admin site | `"test"` |
+| verify.signature | String | Signature to be appended to email before being Base64 encoded to generate unique verify link | `"test"` |
+| verify.url | String | Base URL to attach to verification email so user can verify their email | `"http://localhost:3000/verify"` |
 
 
