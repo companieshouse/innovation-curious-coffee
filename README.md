@@ -64,7 +64,7 @@ Each config item is as follows:
 | ---- | ---- | ---- | ----|
 | app.port | Integer | The port that the application is run on | `3000` |
 | db.url.server | String | MongoDB server location | `"mongodb://localhost:"` |
-| db.url.port | String | MongoDB port | `27017` |
+| db.url.port | Integer | MongoDB port | `27017` |
 | db.name | String | MongoDB db name | `"curious_coffee"` |
 | db.collections | Array String | collections in the db | `["people", "feedback"]` |
 | admin.password | String | Password for that admin site | `"test"` |
