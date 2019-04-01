@@ -3,11 +3,6 @@ const router = express.Router();
 const middleware = require('../middleware/middleware');
 const Match = require('../models/match');
 
-const config = require('../config/config');
-const mongojs = require('mongojs');
-
-const db = mongojs(config.db.name, config.db.collections);
-
 router.get('/', middleware, function(req, res) {
 
     getMatches(function(err, docs) {
