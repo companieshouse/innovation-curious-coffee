@@ -1,9 +1,16 @@
 var mongoose = require('mongoose');
-var ParticipantSchema = mongoose.model('Participant').schema;
 
 const schema = new mongoose.Schema({
-    person_1 : ParticipantSchema,
-    person_2 : ParticipantSchema
+    person_1 : {
+        name: String,
+        email: String,
+        department: String
+    },
+    person_2 : {
+        name: String,
+        email: String,
+        department: String
+    }
 });
 
 var Match = mongoose.model('Match', schema, "matches");

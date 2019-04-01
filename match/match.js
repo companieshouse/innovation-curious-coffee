@@ -1,14 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const middleware = require('../middleware/middleware');
-const MasterMatch = require('../models/masterMatch');
 const Match = require('../models/match');
 const Participant = require('../models/participant');
-
-const config = require('../config/config');
-const mongojs = require('mongojs');
-
-const db = mongojs(config.db.name, config.db.collections);
 
 var getParticipants = function(callback) {
     return Participant.find({verify: true}, callback);
@@ -25,112 +19,92 @@ router.post('/', middleware, function(req, res) {
             return err;
         }
 
-        getMasterMatches(participants, function(err, masterMatches) {
-            if (err) {
-                console.error(err);
-                return err;
-            }
+        if (err) {
+            console.error(err);
+            return err;
+        }
 
-            participants = shuffle(participants);
-            var participantsCopy = participants.slice();
+        participants = shuffle(participants);
 
-            var matchedArray = [];
+        const iter = participants.values();
+
+        for (const val of iter) {
+            console.log('Participants: ' + val);
+        }
+
+        var participantsCopy = participants.slice();
+        
+        for (var i = 0, notEnough = false; i < participants.length && notEnough == false; i++) {
             
-            for (var i = 0, notEnough = false; i < participants.length && notEnough == false; i++) {
-                
-                if (participantsCopy.length > 1)  {
+            if (participantsCopy.length > 1)  {
 
-                    let x = 0;
-                    let diffDepartments = false;
-                    let previouslyMatched = false;
+                let x = 0;
+                let diffDepartments = false;
+                let previouslyMatched = false;
 
-                    let first = participantsCopy.splice(0, 1);
+                let first = participantsCopy.splice(0, 1);
+                let firstPerson = first[0];
 
-                    //Love a good hack
-                    if (masterMatches === undefined || masterMatches.length == 0) {
-                        masterMatches = [];
+                let second = participantsCopy.slice(0, 1);
+
+                while (diffDepartments == false && previouslyMatched == false) {
+
+                    let potential = participantsCopy.slice(x, x + 1);
+                    let potentialPerson = potential[0];
+
+                    if (firstPerson.matches !== undefined) {
+                        let found = firstPerson.matches.find(function(element) {
+                            return element === potentialPerson.email;
+                        });
+
+                        if (found !== undefined) {
+                            previouslyMatched = true;
+                        }
                     }
 
-                    let masterMatch = masterMatches.find(function(element) {
-                        console.log('Element: ' + element);
-                        return element.participant === first[0];
+                    if (firstPerson.department != potentialPerson.department) {
+                        second = participantsCopy.splice(x, 1);
+                        diffDepartments = true;
+                    }
+
+                    x++;
+                }
+
+                if (previouslyMatched == false) {
+
+                    var match = new Match({
+                        person_1: {
+                            name: firstPerson.name,
+                            email: firstPerson.email,
+                            department: firstPerson.department
+                        },
+                        person_2: {
+                            name: second[0].name,
+                            email: second[0].email,
+                            department: second[0].department
+                        }
                     });
 
-                    console.log ('masterMatch: ' + masterMatch);
+                    match.save();
 
-                    let second = participantsCopy.slice(0, 1);
-
-                    while (diffDepartments == false && previouslyMatched == false) {
-
-                        let potential = participantsCopy.slice(x, x + 1);
-
-                        if (masterMatch !== undefined) {
-                            let found = masterMatch.matches.find(function(element) {
-                                console.log('Element: ' + element);
-                                return element === potential[0];
-                            });
-
-                            if (found !== undefined) {
-                                previouslyMatched = true;
-                            }
+                    Participant.findOneAndUpdate({email: firstPerson.email}, {$push: {matches: second[0].email}}, function(err, doc) {
+                        if (err) {
+                            console.error(err);
+                            return err;
                         }
+                    });
 
-                        if (first[0].department != potential[0].department) {
-                            second = participantsCopy.splice(x, 1);
-                            diffDepartments = true;
+                    Participant.findOneAndUpdate({email: second[0].email}, {$push: {matches: firstPerson.email}}, function(err, doc) {
+                        if (err) {
+                            console.error(err);
+                            return err;
                         }
-
-                        x++;
-                    }
-
-                    if (previouslyMatched == false) {
-                        matchedArray.push({
-                            "person_1": first[0],
-                            "person_2": second[0]
-                        });
-
-                        if (masterMatch !== undefined) {
-                            masterMatch.matches.push(second[0]);
-                        } else {
-                            let matchesForMaster = [];
-                            matchesForMaster.push(second[0]);
-                            masterMatches.push({
-                                participant : first[0],
-                                matches : matchesForMaster
-                            });
-                        }
-
-                        let otherMatch = masterMatches.find(function(element) {
-                            return element == second[0];
-                        });
-
-                        if (otherMatch == undefined) {
-                            let matchesForMaster = [];
-                            matchesForMaster.push(first[0]);
-                            masterMatches.push({
-                                participant : second[0],
-                                matches : matchesForMaster
-                            });
-                        } else {
-                            otherMatch.matches.push(first[0]);
-                        }
-                    }
-                } else {
-                    notEnough = true;
+                    });
                 }
-            } 
-
-            db.matches.insert(matchedArray);
-
-            masterMatches.forEach(function(match) {
-                MasterMatch.findOneAndUpdate({participant: match.participant}, match, {upsert: true, new: true}, function(err, doc) {
-                    if (err) {
-                        console.error(err);
-                        return err;
-                    }
-                });
-            });
-        });
+            } else {
+                notEnough = true;
+            }
+        }
 
         res.redirect('/');
     });
@@ -154,10 +128,5 @@ function shuffle(array) {
   
     return array;
 };
-
-//Retrieves all the master match lists for a given set of participants
-function getMasterMatches(participants, callback) {
-    return MasterMatch.find({participant : {$in: participants}}).exec(callback);
-}
 
 module.exports = router;

@@ -65,7 +65,7 @@ app.use(flash());
 
 //MongoDB setup
 const mongoose = require('mongoose');
-mongoose.connect(config.db.url.server + config.db.url.port + "/" + config.db.name, {useNewUrlParser: true});
+mongoose.connect(config.db.url.server + config.db.url.port + "/" + config.db.name, {useNewUrlParser: true, useFindAndModify: false});
 global.db = mongoose.connection;
 
 global.db.on('error', console.error.bind(console, 'connection error: '));

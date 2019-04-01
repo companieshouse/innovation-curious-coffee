@@ -5,7 +5,8 @@ const schema = new mongoose.Schema({
     department: String,
     email: String,
     date_registered: Date,
-    verify: Boolean
+    verify: Boolean,
+    matches: [String]
 });
 
 var Participant = mongoose.model('Participant', schema, "people");
