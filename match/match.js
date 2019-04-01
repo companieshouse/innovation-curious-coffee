@@ -19,11 +19,6 @@ router.post('/', middleware, function(req, res) {
             return err;
         }
 
-        if (err) {
-            console.error(err);
-            return err;
-        }
-
         participants = shuffle(participants);
 
         const iter = participants.values();
