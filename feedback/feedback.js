@@ -2,11 +2,6 @@ var express = require('express');
 var router = express.Router();
 var Feedback = require('../models/feedback');
 
-const config = require('../config/config');
-const mongojs = require('mongojs');
-
-const db = mongojs(config.db.name, config.db.collections);
-
 router.get('/', function(req, res) {
     res.render('feedback');
 });
