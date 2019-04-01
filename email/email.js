@@ -1,11 +1,9 @@
 var express = require('express');
 var router = express.Router();
 const middleware = require('../middleware/middleware');
-const config = require('../config/config');
-const mongojs = require('mongojs');
-const aws = require('aws-sdk');
+const Match = require('../models/match');
 
-const db = mongojs(config.db.name, config.db.collections);
+const aws = require('aws-sdk');
 aws.config.update({region: 'eu-west-1'});
 
 router.get('/', middleware, function(req, res) {
@@ -14,7 +12,12 @@ router.get('/', middleware, function(req, res) {
 
 router.post('/', middleware, function(req, res) {
 
-    getMatchedParticipants().then(function(matches) {
+    getMatchedParticipants(function(err, matches) {
+
+        if (err) {
+            console.error(err);
+            return err;
+        }
 
         matches.forEach(function(match) {
 
@@ -53,18 +56,8 @@ router.post('/', middleware, function(req, res) {
     res.redirect('/');
 });
 
-var getMatchedParticipants = function() {
-    
-    return new Promise(function(resolve, reject) {
-        db.matches.find(function(err, docs) {
-
-            if (err) {
-                reject(err);
-            }
-
-            resolve(docs);
-        });
-    });
-};
+function getMatchedParticipants(callback) {
+    return Match.find({}, callback);
+}
 
 module.exports = router;
