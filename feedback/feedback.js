@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var Feedback = require('../models/feedback');
+
 const config = require('../config/config');
 const mongojs = require('mongojs');
 
@@ -29,36 +31,35 @@ router.post('/', function(req, res) {
             }
         });
 
-        res.render('feedback', {
+        return res.render('feedback', {
             email: req.body.email,
             email_error: email_error,
             feedback: req.body.feedback,
             feedback_error: feedback_error,
             errors: errors
         });
-
-        return;
     } else {
-        insert(req).then(function() {
-            res.redirect('/');
+        insert(req.body.email, req.body.feedback, function(err, doc) {
+
+            if (err) {
+                console.error(err);
+                return err;
+            }
+
+            req.flash('info', 'Thank you for your feedback!');
+            return res.redirect('/');
         });
     }
 });
 
-var insert = function(req) {
-    return new Promise(function(resolve, reject) {
-        db.feedback.insert({
-            email: req.body.email,
-            feedback: req.body.feedback,
-        }, function(err, doc) {
+function insert(email, feedback, callback) {
 
-            if (err) {
-                reject(err);
-            }
-
-            resolve(doc);
-        });
+    var feedback = new Feedback({
+        email: email,
+        feedback: feedback
     });
-};
+
+    return feedback.save(callback);
+}
 
 module.exports = router;
