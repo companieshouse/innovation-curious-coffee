@@ -12,11 +12,14 @@ block content
                 th(scope='col' data-sortable='true' data-field='department1') Department
                 th(scope='col' data-sortable='true' data-field='name2') Name
                 th(scope='col' data-sortable='true' data-field='department2') Department
+                th(scope='col') Edit
         each match, index in matches
             tr
                 td= match.person_1.name
                 td= match.person_1.department
                 td= match.person_2.name
                 td= match.person_2.department
+                td
+                    a(href='/match-edit/' + match._id) Edit
 
     script(src='/javascripts/jquery.min.js')
