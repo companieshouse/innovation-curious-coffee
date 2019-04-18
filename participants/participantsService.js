@@ -4,7 +4,7 @@ class ParticipantsService {
 
     getParticipants(callback) {
 
-        return Participant.find().sort({department: 1}).exec(callback);
+        return Participant.find().sort({date_registered: 1}).exec(callback);
     };
 };
 
