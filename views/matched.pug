@@ -5,24 +5,18 @@ block content
         img(src='icons/coffee.svg' width='50' height='50' class='rotate')
         = 'Matched participants'
 
-    table(class='table table-striped')
+    table(class='table table-striped' data-toggle='table')
         thead(class='thead-dark')
             tr
-                th(scope='col') #
-                th(scope='col') Name
-                //th(scope='col') Email
-                th(scope='col') Department
-                th(scope='col') Name
-                //th(scope='col') Email
-                th(scope='col') Department
+                th(scope='col' data-sortable='true' data-field='name1') Name
+                th(scope='col' data-sortable='true' data-field='department1') Department
+                th(scope='col' data-sortable='true' data-field='name2') Name
+                th(scope='col' data-sortable='true' data-field='department2') Department
         each match, index in matches
             tr
-                th(scope='row')= index+1
                 td= match.person_1.name
-                //td= match.person_1.email
                 td= match.person_1.department
                 td= match.person_2.name
-                //td= match.person_2.email
                 td= match.person_2.department
 
     script(src='/javascripts/jquery.min.js')
