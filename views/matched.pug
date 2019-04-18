@@ -5,28 +5,24 @@ block content
         img(src='icons/coffee.svg' width='50' height='50' class='rotate')
         = 'Matched participants'
 
-    div(class='just-padding')
-        div(class='list-group list-group-root')
-            each match, index in matches
-                div(class='row')
-                    div(class='col-sm-2')
-                    div(class='col-sm-4')
-                        a(href='#item-' + index class='list-group-item' data-toggle='collapse')
-                            span(class='text-dark')= match.person_1.name
-                        div(class='list-group collapse' id='item-' + index)
-                            div(class='list-group-item pl-5 bg-light')
-                                span= match.person_1.email
-                            div(class='list-group-item pl-5 bg-light')
-                                span= match.person_1.department
-                    div(class='col-sm-1')
-                        hr
-                    div(class='col-sm-4')
-                        a(href='#item-' + index class='list-group-item' data-toggle='collapse')
-                            span(class='text-dark')= match.person_2.name
-                        div(class='list-group collapse' id='item-' + index)
-                            div(class='list-group-item pl-5 bg-light')
-                                span= match.person_2.email
-                            div(class='list-group-item pl-5 bg-light')
-                                span= match.person_2.department
+    table(class='table table-striped')
+        thead(class='thead-dark')
+            tr
+                th(scope='col') #
+                th(scope='col') Name
+                //th(scope='col') Email
+                th(scope='col') Department
+                th(scope='col') Name
+                //th(scope='col') Email
+                th(scope='col') Department
+        each match, index in matches
+            tr
+                th(scope='row')= index+1
+                td= match.person_1.name
+                //td= match.person_1.email
+                td= match.person_1.department
+                td= match.person_2.name
+                //td= match.person_2.email
+                td= match.person_2.department
 
     script(src='/javascripts/jquery.min.js')
