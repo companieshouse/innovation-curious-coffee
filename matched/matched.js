@@ -9,7 +9,7 @@ router.get('/', middleware, function(req, res) {
 
         if (err) {
             console.log(error);
-            return err;
+            return res.redirect('/oops');
         }
 
         return res.render('matched', {matches: docs});
