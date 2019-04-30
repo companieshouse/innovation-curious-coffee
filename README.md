@@ -8,10 +8,24 @@ Source code for the Curious Coffee initiative
 ## Table of content
 
 - [Introduction](#introduction)
+- [Prerequisites](#prerequisites)
 - [Config](#config)
+  - [App](#app)
+  - [DB](#db)
+  - [Admin](#admin)
+  - [Verify](#verify)
+  - [Devmode](#devmode)
+- [Deploying curious coffee](#deploy)
 
 ## Introduction
 #CuriousCoffee is a initiative designed to break down silos within Companies House and match participants with people from different departments. Participants can register on the site, and the system will ad-hoc match participants and email them to inform them they've been matched and with who. It's then up to the matched participants to decide what to do next.
+
+## Prerequisites
+You will need the following:
+- [npm](https://www.npmjs.com/)
+- [Node.js](https://nodejs.org/en/)
+- [MongoDB](https://www.mongodb.com/)
+- [AWS-SES](https://aws.amazon.com/ses/) (Looking to remove this in later revisions to be less-dependant on specific non-required technologies)
 
 ## Config
 Config is CAST5-ecrypted using [config-leaf](https://github.com/jed/config-leaf). Please see there for instructions on how to encrypt/decrypt it.
@@ -22,7 +36,7 @@ const config = {
     app: {
         port: APPLICATION_PORT
     },
-    db: {
+    db: {z
         url: {
             server: "MONGO_SERVER",
             port: MONGO_PORT
@@ -90,3 +104,24 @@ Each config item is as follows:
 | Item | Type | Description | Example |
 | ---- | ---- | ---- | ----|
 | devmode | Boolean | Flag to indicate whether devmode is enabled or not. Devmode will stop emails being sent (this will be removed in a later revision) | `true` |
+
+
+## Deploy
+To deploy your own implementation of Curious Coffee:
+
+```
+git clone https://github.com/companieshouse/innovation-curious-coffee.git
+```
+
+Inside the directory: 
+
+```
+npm install --save
+```
+
+And run the application:
+```
+node app
+```
+
+You'll need a MongoDB instance deployed somewhere with the config pointing at it, otherwise the app will fail on startup.
