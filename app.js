@@ -20,6 +20,7 @@ const error = require('./error/error');
 const faq = require('./faq/faq');
 const verify = require('./verify/verify');
 const verifyAll = require('./verifyAll/verifyAll');
+const matchEdit = require('./match-edit/matchEdit');
 
 const port = config.app.port;
 
@@ -90,6 +91,7 @@ app.use('/oops', error);
 app.use('/faq', faq);
 app.use('/verify', verify);
 app.use('/verifyAll', verifyAll);
+app.use('/match-edit', matchEdit);
 
 app.listen(port, () => {
     console.log('Listening on port ' + port);

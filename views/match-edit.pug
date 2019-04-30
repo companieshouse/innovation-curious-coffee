@@ -1,0 +1,66 @@
+extends layout
+
+block content
+    div(class='container center-div')
+        h1(class='text-center') 
+            img(src='/icons/coffee.svg' width='50' height='50' class='rotate')
+            = 'Edit an existing match'
+
+        div(class='row')
+            div(class='col-sm-12')
+                if messages !== undefined && messages != ''
+                for message in messages
+                    br
+                    div#message_fail(class='alert alert-danger alert-dismissible fade show text-center' role='alert')
+                        span#message_specific_fail= message
+
+        table(class='table table-striped')
+            thead(class='thead-dark')
+                tr
+                    th(scope='col') Email
+                    th(scope='col') Email
+                tr
+                    td
+                        select#email1(class='form-control custom-form-control' name='email1')
+                            for option in options
+                                option(value= option.email selected= match.person_1.email == option.email)= option.email
+                    td
+                        select#email2(class='form-control custom-form-control' name='email2')
+                            for option in options
+                                option(value= option.email selected= match.person_2.email == option.email)= option.email
+
+        br
+        br
+        div(class='container center-div')
+            div(class='alert alert-warning alert-dismissible fade show text-center' role='alert')
+                        span= 'Please review your updated match before saving:'
+                        button(type='button' class='close' data-dismiss='alert' aria-label='Close')
+        form(class='form-horizontal' method='POST', action='/match-edit/' + match._id role='form')
+            div(class='form-group')
+                table(class='table table-striped')
+                    thead(class='thead-dark')
+                        tr
+                            th(scope='col') Person 1
+                            th(scope='col') Person 2
+                        tr
+                            td
+                                input#match1name(readonly name= 'match1name' value= match.person_1.name)
+                            td
+                                input#match2name(readonly name= 'match2name' value= match.person_2.name)
+                        tr
+                            td
+                                input#match1email(readonly name= 'match1email' value= match.person_1.email)
+                            td
+                                input#match2email(readonly name= 'match2email' value= match.person_2.email)
+                        tr
+                            td
+                                input#match1department(readonly name= 'match1department' value= match.person_1.department)
+                            td
+                                input#match2department(readonly name= 'match2department' value= match.person_2.department)
+            div(class='form-group form-row align-items-center')
+                div(class='col-sm-2')
+                    button(class='btn btn-primary custom-button' type='submit') Update match
+
+
+    script(src='/javascripts/jquery.min.js')
+    script(src='/javascripts/matchEdit.js')
