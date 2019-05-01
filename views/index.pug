@@ -13,6 +13,22 @@ block content
           | and to meet new people from other departments within Companies House.
           | To get started, just click #[a(href='/register') Register].
           | To view the FAQs, simply click #[a(href='/faq') FAQ].
+
+    br
+    br
+    div(class='row')
+      div(class='col-sm-2')
+      div(class='col-sm-4 text-left')
+        - var participantCount = undefined===numParticipants ? '' : numParticipants
+        span
+          strong #{participantCount} participants!
+
+    div(class='row')
+      div(class='col-sm-2')
+      div(class='col-sm-4 text-left')
+        - var matchCount = undefined===numMatches ? '' : numMatches
+        span
+          strong #{matchCount} matches!
     div(class='row')
       div(class='col-sm-12')
         if messages !== undefined && messages != ''
