@@ -56,6 +56,11 @@ router.get('/data', middleware, function(req, res) {
                                       beginAtZero: true,
                                       stepSize: 1
                                     }
+                            }],
+                            xAxes: [{
+                                ticks: {
+                                    autoSkip: false
+                                }
                             }]
                         },
                         elements: {
