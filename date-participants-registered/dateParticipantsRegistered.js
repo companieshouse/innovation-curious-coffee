@@ -7,75 +7,70 @@ router.get('/', middleware, function(req, res) {
     res.render('date_registered_chart');
 });
 
-router.get('/data', middleware, function(req, res) {
+router.get('/data', middleware, getData);
+
+async function getData(req, res) {
     res.setHeader('Content-Type', 'application/json');
 
-    getDateRegistered(function(err, docs) {
-        if (err) {
-            console.error(err);
-            return res.redirect('/oops');
-        }
+    let dateRegisteredData = await getDateRegistered();
 
-        Promise.all(docs).then(function() {
-            var labels = [];
-            var data = [];
+    let labels = [];
+    let data = [];
 
-            docs.forEach(function(doc) {
-                labels.push(doc._id.yearRegistered + "-" + doc._id.monthRegistered + "-" + doc._id.dayRegistered);
-                data.push(doc.count);
-            });
-
-            Promise.all(labels, data).then(function() {
-                var maxPlusOne = Math.max.apply(Math, data) + 1;
-                data.push(maxPlusOne);
-
-                return res.send({
-                    type: 'line',
-                    data: {
-                        labels: labels,
-                        datasets: [{
-                            fill: false,
-                            showLine: true,
-                            data: data,
-                            borderWidth: 1,
-                            borderColor: "rgb(75, 192, 192)"
-                        }]
-                    },
-                    options: {
-                        title: {
-                            display: true,
-                            text: "Registration trends"
-                        },
-                        legend: {
-                            display: false
-                        },
-                        scales: {
-                            yAxes: [{
-                                    display: true,
-                                    ticks: {
-                                      beginAtZero: true,
-                                      stepSize: 1
-                                    }
-                            }],
-                            xAxes: [{
-                                ticks: {
-                                    autoSkip: false
-                                }
-                            }]
-                        },
-                        elements: {
-                            line: {
-                                tension: 0
-                            }
-                        }
-                    }
-                });
-        });
-        });
+    dateRegisteredData.forEach(element => {
+        labels.push(element._id.yearRegistered + "-" + element._id.monthRegistered + "-" + element._id.dayRegistered);
+        data.push(element.count);
     });
-});
 
-function getDateRegistered(callback) {
+    await labels, data;
+
+    var maxPlusOne = Math.max.apply(Math, data) + 1;
+    data.push(maxPlusOne);
+
+    return res.send({
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                fill: false,
+                showLine: true,
+                data: data,
+                borderWidth: 1,
+                borderColor: "rgb(75, 192, 192)"
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: "Registration trends"
+            },
+            legend: {
+                display: false
+            },
+            scales: {
+                yAxes: [{
+                        display: true,
+                        ticks: {
+                          beginAtZero: true,
+                          stepSize: 1
+                        }
+                }],
+                xAxes: [{
+                    ticks: {
+                        autoSkip: false
+                    }
+                }]
+            },
+            elements: {
+                line: {
+                    tension: 0
+                }
+            }
+        }
+    });
+};
+
+function getDateRegistered() {
 
     return Participant.aggregate([{
         $group: {
@@ -88,7 +83,7 @@ function getDateRegistered(callback) {
         $sort: {
             "_id": 1
         }
-    }], callback);
-}
+    }]);
+};
 
 module.exports = router;
