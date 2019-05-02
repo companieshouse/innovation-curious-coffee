@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Feedback = require('../models/feedback');
+var Feedback = require('../../models/feedback');
 
 router.get('/', function(req, res) {
     res.render('feedback');
