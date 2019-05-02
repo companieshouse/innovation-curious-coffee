@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const middleware = require('../middleware/middleware');
-const Match = require('../models/match');
-const Participant = require('../models/participant');
+const middleware = require('../../middleware/middleware');
+const Match = require('../../models/match');
+const Participant = require('../../models/participant');
 
 router.get('/:id', middleware, function(req, res) {
 
