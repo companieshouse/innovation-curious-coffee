@@ -6,8 +6,8 @@ const session = require('express-session');
 const flash = require('connect-flash');
 
 const index = require('./index/index');
-const register = require('./register/registerController');
-const deregister = require('./deregister/deregister');
+const register = require('./registration/register/registerController');
+const deregister = require('./registration/deregister/deregister');
 const match = require('./match/match');
 const participants = require('./participants/participantsController');
 const matched = require('./matched/matched');
