@@ -1,4 +1,4 @@
-const Participant = require('../models/participant');
+const Participant = require('../../models/participant');
 
 class RegisterService {
 
