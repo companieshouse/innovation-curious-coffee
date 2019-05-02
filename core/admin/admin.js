@@ -3,16 +3,16 @@ const router = express.Router();
 const config = require('../../config/config');
 
 router.get('/', function(req, res, next) {
-    res.render('admin');
+    return res.render('admin');
 });
 
 router.post('/', function(req, res, next) {
 
     if (req.body.password == config.admin.password) {
         res.locals.session.user = true;
-        res.redirect('/');
+        return res.redirect('/');
     } else {
-        res.render('admin', {
+        return res.render('admin', {
                 password: req.body.password,
                 password_error: "Incorrect password."
         });
