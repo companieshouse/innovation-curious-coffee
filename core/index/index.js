@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Participant = require('../models/participant');
+const Participant = require('../../models/participant');
 
 router.get('/', get);
 
