@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const config =  require('../../config/config.js');
-const middleware = require('../../middleware/middleware');
+const middleware = require('../../core/middleware/middleware');
 
 const mongojs = require('mongojs');
 const db = mongojs(config.db.name, config.db.collections);
