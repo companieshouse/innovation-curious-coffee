@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const config =  require('../config/config.js');
+const config =  require('../../config/config.js');
 const mongojs = require('mongojs');
 
 const db = mongojs(config.db.name, config.db.collections);
