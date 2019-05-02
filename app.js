@@ -18,8 +18,8 @@ const feedback = require('./feedback/feedback');
 const admin = require('./admin/admin');
 const error = require('./error/error');
 const faq = require('./faq/faq');
-const verify = require('./verify/verify');
-const verifyAll = require('./verifyAll/verifyAll');
+const verify = require('./verification/verify/verify');
+const verifyAll = require('./verification/verifyAll/verifyAll');
 const matchEdit = require('./matching/match-edit/matchEdit');
 
 const port = config.app.port;
