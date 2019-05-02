@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const middleware = require('../../middleware/middleware');
+const middleware = require('../../core/middleware/middleware');
 const Match = require('../../models/match');
 
 const aws = require('aws-sdk');

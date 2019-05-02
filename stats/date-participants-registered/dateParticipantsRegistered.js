@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const middleware = require('../../middleware/middleware');
+const middleware = require('../../core/middleware/middleware');
 const Participant = require('../../models/participant');
 
 router.get('/', middleware, function(req, res) {
