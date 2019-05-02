@@ -4,20 +4,17 @@ const middleware = require('../../core/middleware/middleware');
 
 const ParticipantsService = require('./participantsService');
 
-router.get('/', middleware, function(req, res) {
+router.get('/', middleware, get);
+
+async function get(req, res) {
 
     var participantsService = new ParticipantsService();
 
-    participantsService.getParticipants(function(err, participants) {
-        if (err) {
-            console.error(err);
-            return res.redirect('/oops');
-        }
-
-        res.render('participants', {
-           participants: participants 
-        });
-    });
-});
+    let participants = await participantsService.getParticipants();
+    
+    return res.render('participants', {
+        participants: participants 
+     });
+};
 
 module.exports = router;

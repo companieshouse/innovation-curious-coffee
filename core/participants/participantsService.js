@@ -2,9 +2,9 @@ const Participant = require('../../models/participant');
 
 class ParticipantsService {
 
-    getParticipants(callback) {
+    getParticipants() {
 
-        return Participant.find().sort({date_registered: 1}).exec(callback);
+        return Participant.find().sort({date_registered: 1});
     };
 };
 
