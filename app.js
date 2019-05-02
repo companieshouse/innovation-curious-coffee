@@ -8,10 +8,10 @@ const flash = require('connect-flash');
 const index = require('./index/index');
 const register = require('./registration/register/registerController');
 const deregister = require('./registration/deregister/deregister');
-const match = require('./match/match');
+const match = require('./matching/match/match');
 const participants = require('./participants/participantsController');
-const matched = require('./matched/matched');
-const emailMatched = require('./emailMatched/emailMatched');
+const matched = require('./matching/matched/matched');
+const emailMatched = require('./matching/emailMatched/emailMatched');
 const participantsByDepartment = require('./stats/participants-by-department/participants-by-department');
 const dateParticipantsRegistered = require('./stats/date-participants-registered/dateParticipantsRegistered');
 const feedback = require('./feedback/feedback');
@@ -20,7 +20,7 @@ const error = require('./error/error');
 const faq = require('./faq/faq');
 const verify = require('./verify/verify');
 const verifyAll = require('./verifyAll/verifyAll');
-const matchEdit = require('./match-edit/matchEdit');
+const matchEdit = require('./matching/match-edit/matchEdit');
 
 const port = config.app.port;
 

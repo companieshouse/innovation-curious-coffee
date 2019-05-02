@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const middleware = require('../middleware/middleware');
-const Match = require('../models/match');
+const middleware = require('../../middleware/middleware');
+const Match = require('../../models/match');
 
 router.get('/', middleware, function(req, res) {
 

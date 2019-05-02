@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-const middleware = require('../middleware/middleware');
-const Match = require('../models/match');
+const middleware = require('../../middleware/middleware');
+const Match = require('../../models/match');
 
 const aws = require('aws-sdk');
 aws.config.update({region: 'eu-west-1'});
