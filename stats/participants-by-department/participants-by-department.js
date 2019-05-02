@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const Participant = require('../models/participant');
+const Participant = require('../../models/participant');
 
 router.get('/', function(req, res) {
     res.render('participants_department_chart');

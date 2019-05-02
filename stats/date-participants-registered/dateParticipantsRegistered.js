@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-const middleware = require('../middleware/middleware');
-const Participant = require('../models/participant');
+const middleware = require('../../middleware/middleware');
+const Participant = require('../../models/participant');
 
 router.get('/', middleware, function(req, res) {
     res.render('date_registered_chart');
