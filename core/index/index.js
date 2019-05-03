@@ -32,7 +32,7 @@ async function getMatchCount() {
         count += element.matches.length;
     });
 
-    return await count / 2;
+    return await Math.round(count / 2);
 }
 
 module.exports = router;
