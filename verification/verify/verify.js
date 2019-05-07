@@ -1,11 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const config =  require('../../config/config.js');
-const mongojs = require('mongojs');
-
-const db = mongojs(config.db.name, config.db.collections);
-
 const aws = require('aws-sdk');
+const Participant = require('../../models/participant');
 
 aws.config.update({region: 'eu-west-1'});
 
@@ -73,15 +70,8 @@ router.get('/:email', function(req, res) {
 });
 
 function verifyEmail(decodedEmail) {
-    return new Promise(function(resolve, reject) {
-        db.people.update({
-            "email": decodedEmail
-        }, {"$set": {"verify": true}}, function() {
 
-        });
-
-        resolve();
-    });
+    return Participant.updateOne({email: decodedEmail}, {$set: {verify: true}});
 };
 
 module.exports = router;
