@@ -21,6 +21,7 @@ const faq = require('./core/faq/faq');
 const verify = require('./verification/verify/verify');
 const verifyAll = require('./verification/verifyAll/verifyAll');
 const matchEdit = require('./matching/match-edit/matchEdit');
+require('console-stamp')(console, '[HH:MM:ss.l]');
 
 const port = config.app.port;
 
