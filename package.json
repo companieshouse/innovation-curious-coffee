@@ -11,19 +11,18 @@
   "author": "Dafydd Rosser",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.410.0",
-    "bootstrap": "^4.3.1",
-    "chart.js": "^2.7.3",
+    "aws-sdk": "^2.585.0",
+    "bootstrap": "^4.4.1",
+    "chart.js": "^2.9.3",
     "config-leaf": "^0.3.0",
     "connect-flash": "^0.1.1",
-    "console-stamp": "^0.2.7",
-    "express": "^4.16.4",
-    "express-session": "^1.15.6",
-    "express-validator": "^5.3.0",
+    "console-stamp": "^0.2.9",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "express-validator": "^5.3.1",
     "jquery": "^3.4.1",
-    "mongojs": "^2.6.0",
-    "mongoose": "^5.4.19",
-    "popper.js": "^1.14.7",
-    "pug": "^2.0.3"
+    "mongoose": "^5.7.13",
+    "popper.js": "^1.16.0",
+    "pug": "^2.0.4"
   }
 }
