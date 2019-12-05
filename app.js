@@ -21,6 +21,8 @@ const faq = require('./core/faq/faq');
 const verify = require('./verification/verify/verify');
 const verifyAll = require('./verification/verifyAll/verifyAll');
 const matchEdit = require('./matching/match-edit/matchEdit');
+const cleanup = require('./core/cleanup/cleanup');
+
 require('console-stamp')(console, '[HH:MM:ss.l]');
 
 const port = config.app.port;
@@ -93,6 +95,7 @@ app.use('/faq', faq);
 app.use('/verify', verify);
 app.use('/verifyAll', verifyAll);
 app.use('/match-edit', matchEdit);
+app.use('/cleanup', cleanup);
 
 app.listen(port, () => {
     console.log('Listening on port ' + port);
