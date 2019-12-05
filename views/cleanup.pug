@@ -1,0 +1,21 @@
+extends layout
+
+block content
+    h1(class='text-center') 
+        img(src='/icons/coffee.svg' width='50' height='50' class='rotate')
+        = 'Clean up data'
+
+    div(class='row align-items-center')
+        div(class='col-sm-2')
+        div(class='col-sm-8')
+            div(class='alert alert-warning', role='alert')
+                span 
+                    | Press the button below to clean up existing matches
+                    | and produce a clean slate for the next round of 
+                    | #CuriousCoffee matches.
+
+    form(method='POST' action='/cleanup')
+        div(class='row')    
+            div(class='col-sm-4')
+            div(class='col-sm-2')
+                button(class='btn btn-primary custom-button' type='submit') Clean up
