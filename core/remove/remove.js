@@ -32,7 +32,7 @@ function post(req, res) {
 };
 
 function getParticipantEmails() {
-    return Participant.find({verify: true}, 'email').sort({email: 1});
+    return Participant.find({verify: true}, 'email').collation({ locale: "en" }).sort({email: 1});
 };
 
 module.exports = router;
