@@ -11,7 +11,7 @@ async function get(req, res) {
     console.log('Getting match at id: ', req.params.id);
 
     let match = await getMatch(req.params.id);
-    let options = await getParticipantEmails();
+    let options = await Participant.getAllVerifiedParticipants();
 
     return res.render('match-edit', {match: match, options: options, messages: req.flash('info')});
 };
@@ -81,10 +81,6 @@ async function getData(req, res) {
 
 function getMatch(id) {
     return Match.findById(id);
-};
-
-function getParticipantEmails() {
-    return Participant.find({verify: true}, 'email');
 };
 
 function getParticipant(email) {
