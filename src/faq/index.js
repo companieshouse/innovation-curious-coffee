@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const get = require('./faq');
+const {get} = require('./faq');
 
 router.get('/', get);
 
