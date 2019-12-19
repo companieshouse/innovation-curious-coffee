@@ -2,8 +2,8 @@ const router = require('express').Router();
 
 const index = require('./core/index/index');
 
-const admin = require('./core/admin');
-const cleanup = require('./core/cleanup');
+const admin = require('./src/admin');
+const cleanup = require('./src/admin/cleanup');
 
 router.use('/', index);
 

@@ -1,4 +1,4 @@
-const Match = require('../../models/match');
+const Match = require('../../../models/match');
 
 function get(req, res) {
     return res.render('cleanup');
