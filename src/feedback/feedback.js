@@ -1,58 +1,34 @@
-var Feedback = require('../../models/feedback');
+const {transformViewToDb} = require('./transform');
+
+var ViewFeedback = require('../../models/view/feedback');
 
 function get(req, res) {
-    return res.render('feedback');
+    return res.render('feedback', {
+        feedbackModel: ViewFeedback
+    });
 };
 
-function post(req, res) {
-    req.checkBody('email', 'Please enter a valid email address').isEmail();
-    req.checkBody('feedback', 'Please enter some feedback').isLength({min:1}).trim();
+async function post(req, res) {
+
+    req.checkBody('feedbackModel[email]', 'Please enter a valid email address').isEmail();
+    req.checkBody('feedbackModel[feedback]', 'Please enter some feedback').isLength({min:1}).trim();
 
     var errors = req.validationErrors();
 
     if (errors) {
 
-        var email_error;
-        var feedback_error;
-
-        errors.forEach(function(error) {
-            if ("email" == error.param) {
-                email_error = true;
-            } else if ("feedback" == error.param) {
-                feedback_error = true;
-            }
-        });
-
         return res.render('feedback', {
-            email: req.body.email,
-            email_error: email_error,
-            feedback: req.body.feedback,
-            feedback_error: feedback_error,
+            feedbackModel: req.body.feedbackModel,
             errors: errors
         });
     } else {
-        insert(req.body.email, req.body.feedback, function(err, doc) {
 
-            if (err) {
-                console.error(err);
-                return err;
-            }
+        await transformViewToDb(req.body.feedbackModel).save();
 
-            req.flash('info', 'Thank you for your feedback!');
-            return res.redirect('/');
-        });
+        req.flash('info', 'Thank you for your feedback!');
+        return res.redirect('/');
     }
 };
-
-function insert(email, feedback, callback) {
-
-    var feedback = new Feedback({
-        email: email,
-        feedback: feedback
-    });
-
-    return feedback.save(callback);
-}
 
 module.exports.get = get;
 module.exports.post = post;
