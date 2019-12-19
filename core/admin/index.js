@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const admin = require('./admin');
+const {get, post} = require('./admin');
 
-router.get('/', admin.get);
-router.post('/', admin.post);
+router.get('/', get);
+router.post('/', post);
 
 module.exports = router;
