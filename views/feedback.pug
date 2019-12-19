@@ -18,31 +18,28 @@ block content
                 div(class='col-sm-2')
                 label(for='email' class='control-label col-sm-2 text-right') Email: 
                 div(class='col-sm-4')
-                    input#email(class='form-control custom-form-control' type='text', placeholder='email', name='email' value=undefined===email ? '' : email)
+                    input(id='email' class='form-control custom-form-control' type='text', placeholder='email', name='feedbackModel[email]' value= feedbackModel.email)
                 div(class='col-sm-4 text-left')
-                    if email_error
+                    if errors
                         for error in errors
-                            if error.param == 'email'
-                                    span= error.msg
+                            if error.param == 'feedbackModel.email'
+                                    p#email_error(class='text-danger')= error.msg
 
             div(class='form-group form-row align-items-center')
                 div(class='col-sm-2')
                 label(for='feedback' class='control-label col-sm-2 text-right') Feedback:
                 div(class='col-sm-4')
-                    textarea#feedback(class='form-control custom-form-control' rows=5 name='feedback')= feedback
+                    textarea(id='feedback' class='form-control custom-form-control' rows=5 name='feedbackModel[feedback]')= feedbackModel.feedback
                 div(class='col-sm-4 text-left')
-                    if feedback_error
+                    if errors
                         for error in errors
-                            if error.param == 'feedback'
-                                    span= error.msg
+                            if error.param == 'feedbackModel.feedback'
+                                    p#feedback_error(class='text-danger')= error.msg
 
             div(class='form-group form-row align-items-center')
                 div(class='col-sm-4')
                 div(class='col-sm-2')
                     button(class='btn btn-primary custom-button' type='submit') Submit
-
-            span#email_error(hidden)= email_error
-            span#feedback_error(hidden)= feedback_error
     
     script(src='/javascripts/jquery.min.js')
     script(src='/javascripts/error-feedback.js')
