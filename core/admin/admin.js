@@ -1,13 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const config = require('../../config/config');
+const config = require('../../config');
 
-router.get('/', function(req, res, next) {
+router.get('/', get);
+
+router.post('/', post);
+
+function get(req, res) {
     return res.render('admin');
-});
+};
 
-router.post('/', function(req, res, next) {
-
+function post(req, res) {
     if (req.body.password == config.admin.password) {
         res.locals.session.user = true;
         return res.redirect('/');
@@ -17,6 +20,6 @@ router.post('/', function(req, res, next) {
                 password_error: "Incorrect password."
         });
     }
-});
+};
 
 module.exports = router;
