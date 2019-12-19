@@ -1,13 +1,10 @@
-var express = require('express');
-var router = express.Router();
 var Feedback = require('../../models/feedback');
 
-router.get('/', function(req, res) {
-    res.render('feedback');
-});
+function get(req, res) {
+    return res.render('feedback');
+};
 
-router.post('/', function(req, res) {
-
+function post(req, res) {
     req.checkBody('email', 'Please enter a valid email address').isEmail();
     req.checkBody('feedback', 'Please enter some feedback').isLength({min:1}).trim();
 
@@ -45,7 +42,7 @@ router.post('/', function(req, res) {
             return res.redirect('/');
         });
     }
-});
+};
 
 function insert(email, feedback, callback) {
 
@@ -57,4 +54,5 @@ function insert(email, feedback, callback) {
     return feedback.save(callback);
 }
 
-module.exports = router;
+module.exports.get = get;
+module.exports.post = post;
