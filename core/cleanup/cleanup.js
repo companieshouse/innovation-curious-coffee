@@ -1,10 +1,4 @@
-const express = require('express');
-const router = express.Router();
-const middleware = require('../../core/middleware/middleware');
 const Match = require('../../models/match');
-
-router.get('/', middleware, get);
-router.post('/', middleware, post);
 
 function get(req, res) {
     return res.render('cleanup');
@@ -21,4 +15,5 @@ function post(req, res) {
     res.redirect('/');
 };
 
-module.exports = router;
+module.exports.get = get;
+module.exports.post = post;

@@ -20,7 +20,6 @@ const error = require('./core/error/error');
 const faq = require('./core/faq/faq');
 const verify = require('./verification/verify/verify');
 const matchEdit = require('./matching/match-edit/matchEdit');
-const cleanup = require('./core/cleanup/cleanup');
 const remove = require('./core/remove/remove');
 
 require('console-stamp')(console, '[HH:MM:ss.l]');
@@ -94,7 +93,6 @@ app.use('/oops', error);
 app.use('/faq', faq);
 app.use('/verify', verify);
 app.use('/match-edit', matchEdit);
-app.use('/cleanup', cleanup);
 app.use('/remove', remove);
 
 app.listen(port, () => {
