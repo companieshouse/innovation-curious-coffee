@@ -1,26 +1,20 @@
 const Participant = require('../../models/participant');
 
 async function get(req, res) {
-    let numParticipants = await getParticipantCount();
+    let numParticipants = await Participant.countDocuments({verify: true});
     let numMatches = await getMatchCount();
 
-    res.render('index', {
-        numParticipants: numParticipants, 
-        numMatches: numMatches, 
+    res.render('homepage', {
+        homepageModel: {
+            numParticipants: numParticipants,
+            numMatches: numMatches
+        },
         messages: req.flash('info')
     });
 }
 
-function getParticipantCount() {
-    return Participant.countDocuments({verify: true});
-}
-
-function getParticipantsMatches() {
-    return Participant.find({verify: true, matches: {$exists: true}});
-}
-
 async function getMatchCount() {
-    let participants = await getParticipantsMatches();
+    let participants = await Participant.find({verify: true, matches: {$exists: true}});
 
     let count = 0;
 
