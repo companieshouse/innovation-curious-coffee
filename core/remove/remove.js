@@ -8,7 +8,7 @@ router.post('/', middleware, post);
 
 async function get(req, res) {
 
-    let options = await getParticipantEmails();
+    let options = await Participant.getAllVerifiedParticipants();
 
     return res.render('remove', {options: options});
 };
@@ -29,10 +29,6 @@ function post(req, res) {
     });
 
     res.redirect('/');
-};
-
-function getParticipantEmails() {
-    return Participant.find({verify: true}, 'email').collation({ locale: "en" }).sort({email: 1});
 };
 
 module.exports = router;
