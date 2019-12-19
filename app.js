@@ -7,7 +7,6 @@ const flash = require('connect-flash');
 
 const routes = require('./routes');
 
-const index = require('./core/index/index');
 const register = require('./registration/register/registerController');
 const deregister = require('./registration/deregister/deregister');
 const match = require('./matching/match/match');
@@ -17,7 +16,6 @@ const emailMatched = require('./matching/emailMatched/emailMatched');
 const participantsByDepartment = require('./stats/participants-by-department/participants-by-department');
 const dateParticipantsRegistered = require('./stats/date-participants-registered/dateParticipantsRegistered');
 const feedback = require('./core/feedback/feedback');
-const admin = require('./core/admin/admin');
 const error = require('./core/error/error');
 const faq = require('./core/faq/faq');
 const verify = require('./verification/verify/verify');
