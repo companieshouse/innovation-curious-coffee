@@ -5,6 +5,8 @@ const validator = require('express-validator');
 const session = require('express-session');
 const flash = require('connect-flash');
 
+const routes = require('./routes');
+
 const index = require('./core/index/index');
 const register = require('./registration/register/registerController');
 const deregister = require('./registration/deregister/deregister');
@@ -78,12 +80,12 @@ global.db.on('open', function() {
     console.log('Mongoose connection opened');
 });
 
-app.use('/', index);
+app.use('/', routes);
+
 app.use('/register', register);
 app.use('/deregister', deregister);
 app.use('/feedback', feedback);
 
-app.use('/admin', admin);
 app.use('/match', match);
 app.use('/participants', participants);
 app.use('/matched', matched);
