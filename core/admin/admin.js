@@ -1,10 +1,4 @@
-const express = require('express');
-const router = express.Router();
 const config = require('../../config');
-
-router.get('/', get);
-
-router.post('/', post);
 
 function get(req, res) {
     return res.render('admin');
@@ -22,4 +16,5 @@ function post(req, res) {
     }
 };
 
-module.exports = router;
+module.exports.get = get;
+module.exports.post = post;
