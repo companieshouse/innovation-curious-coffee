@@ -1,8 +1,4 @@
-const express = require('express');
-const router = express.Router();
 const Participant = require('../../models/participant');
-
-router.get('/', get);
 
 async function get(req, res) {
     let numParticipants = await getParticipantCount();
@@ -32,7 +28,7 @@ async function getMatchCount() {
         count += element.matches.length;
     });
 
-    return await Math.round(count / 2);
+    return Math.round(count / 2);
 }
 
-module.exports = router;
+module.exports.get = get;
