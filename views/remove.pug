@@ -1,0 +1,31 @@
+extends layout
+
+block content
+    h1(class='text-center') 
+        img(src='/icons/coffee.svg' width='50' height='50' class='rotate')
+        = 'Remove participant'
+
+    div(class='row align-items-center')
+        div(class='col-sm-2')
+        div(class='col-sm-8')
+            div(class='alert alert-warning', role='alert')
+                span 
+                    | Select a participant (by email) below and press the remove button. 
+                    | This will set their verification status to false, effectively 
+                    | soft-deleting them from the system, meaning they can no longer be matched.
+
+    form(method='POST' action='/remove')
+        if options
+            div(class='form-group form-row align-items-center')
+                div(class='col-sm-2')
+                div(class='col-sm-2 pull-left text-right')
+                    label(class='control-label text-right' for='name') Email:
+                div(class='col-sm-4')
+                    select#email(class='form-control custom-form-control' name='email')
+                            for option in options
+                                option(value= option.email)= option.email
+
+        div(class='row')    
+            div(class='col-sm-4')
+            div(class='col-sm-2')
+                button(class='btn btn-primary custom-button' type='submit') Remove participant
