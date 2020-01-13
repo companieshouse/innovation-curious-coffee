@@ -18,7 +18,7 @@ router.use('/oops', oops);
 
 router.use('/admin', admin);
 router.use('/admin/cleanup', cleanup);
-router.use('/admin/participants', participants);
+router.use('/admin/participants/all', participants);
 router.use('/admin/participants/remove', removeParticipant);
 
 module.exports = router;
