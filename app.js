@@ -9,8 +9,6 @@ const routes = require('./routes');
 
 const register = require('./registration/register/registerController');
 const deregister = require('./registration/deregister/deregister');
-const participantsByDepartment = require('./stats/participants-by-department/participants-by-department');
-const dateParticipantsRegistered = require('./stats/date-participants-registered/dateParticipantsRegistered');
 
 require('console-stamp')(console, '[HH:MM:ss.l]');
 
@@ -71,9 +69,6 @@ app.use('/', routes);
 
 app.use('/register', register);
 app.use('/deregister', deregister);
-
-app.use('/participants-by-department', participantsByDepartment);
-app.use('/date-participants-registered', dateParticipantsRegistered);
 
 app.listen(port, () => {
     console.log('Listening on port ' + port);

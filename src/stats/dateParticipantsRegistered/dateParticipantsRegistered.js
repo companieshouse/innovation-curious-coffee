@@ -1,13 +1,8 @@
-var express = require('express');
-var router = express.Router();
-const middleware = require('../../core/middleware/middleware');
-const Participant = require('../../models/participant');
+const Participant = require('../../../models/participant');
 
-router.get('/', middleware, function(req, res) {
-    res.render('date_registered_chart');
-});
-
-router.get('/data', middleware, getData);
+function get(req, res) {
+    return res.render('date_registered_chart');
+}
 
 async function getData(req, res) {
     res.setHeader('Content-Type', 'application/json');
@@ -86,4 +81,5 @@ function getDateRegistered() {
     }]);
 };
 
-module.exports = router;
+module.exports.get = get;
+module.exports.getData = getData;
