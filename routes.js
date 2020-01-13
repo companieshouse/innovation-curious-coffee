@@ -6,9 +6,12 @@ const homepage = require('./src/homepage');
 const oops = require('./src/error');
 
 const admin = require('./src/admin');
+
+const match = require('./src/admin/match');
 const cleanup = require('./src/admin/match/cleanup');
 const email = require('./src/admin/match/email');
 const matched = require('./src/admin/match/matched');
+
 const participants = require('./src/admin/participants');
 const removeParticipant = require('./src/admin/participants/remove');
 
@@ -20,6 +23,7 @@ router.use('/oops', oops);
 
 router.use('/admin', admin);
 
+router.use('/admin/matches/match', match);
 router.use('/admin/matches/all', matched);
 router.use('/admin/matches/cleanup', cleanup);
 router.use('/admin/matches/email', email);
