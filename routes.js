@@ -4,6 +4,7 @@ const faq = require('./src/faq');
 const feedback = require('./src/feedback');
 const homepage = require('./src/homepage');
 const oops = require('./src/error');
+const verify = require('./src/verify');
 
 const admin = require('./src/admin');
 
@@ -21,6 +22,7 @@ router.use('/', homepage);
 router.use('/faq', faq);
 router.use('/feedback', feedback);
 router.use('/oops', oops);
+router.use('/verify', verify);
 
 router.use('/admin', admin);
 
