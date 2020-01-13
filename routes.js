@@ -6,7 +6,8 @@ const homepage = require('./src/homepage');
 const oops = require('./src/error');
 
 const admin = require('./src/admin');
-const cleanup = require('./src/admin/cleanup');
+const cleanup = require('./src/admin/match/cleanup');
+const matched = require('./src/admin/match/matched');
 const participants = require('./src/admin/participants');
 const removeParticipant = require('./src/admin/participants/remove');
 
@@ -17,9 +18,9 @@ router.use('/feedback', feedback);
 router.use('/oops', oops);
 
 router.use('/admin', admin);
-router.use('/admin/cleanup', cleanup);
+router.use('/admin/matches/all', matched);
+router.use('/admin/matches/cleanup', cleanup);
 router.use('/admin/participants/all', participants);
 router.use('/admin/participants/remove', removeParticipant);
 
 module.exports = router;
-
