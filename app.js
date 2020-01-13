@@ -7,7 +7,6 @@ const flash = require('connect-flash');
 
 const routes = require('./routes');
 
-const register = require('./registration/register/registerController');
 const deregister = require('./registration/deregister/deregister');
 
 require('console-stamp')(console, '[HH:MM:ss.l]');
@@ -67,7 +66,6 @@ global.db.on('open', function() {
 
 app.use('/', routes);
 
-app.use('/register', register);
 app.use('/deregister', deregister);
 
 app.listen(port, () => {
