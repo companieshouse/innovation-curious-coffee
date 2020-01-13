@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     var jsonData = $.getJSON({
-        url: 'date-participants-registered/data',
+        url: '/stats/dateParticipantsRegistered/data',
         dataType: 'json'
     }).done(function(results) {
         

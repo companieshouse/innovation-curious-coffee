@@ -1,12 +1,8 @@
-var express = require('express');
-var router = express.Router();
-const Participant = require('../../models/participant');
+const Participant = require('../../../models/participant');
 
-router.get('/', function(req, res) {
-    res.render('participants_department_chart');
-});
-
-router.get('/data', getData);
+function get(req, res) {
+    return res.render('participants_department_chart');
+};
 
 async function getData(req, res) {
     let participantsByDepartmentData = await getParticipantsByDepartment();
@@ -75,4 +71,5 @@ function getParticipantsByDepartment() {
     }]);
 };
 
-module.exports = router;
+module.exports.get = get;
+module.exports.getData = getData;

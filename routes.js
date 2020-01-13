@@ -17,6 +17,9 @@ const matched = require('./src/admin/match/matched');
 const participants = require('./src/admin/participants');
 const removeParticipant = require('./src/admin/participants/remove');
 
+const dateParticipantsRegistered = require('./src/stats/dateParticipantsRegistered');
+const participantsByDepartment = require('./src/stats/participantsByDepartment');
+
 router.use('/', homepage);
 
 router.use('/faq', faq);
@@ -34,5 +37,8 @@ router.use('/admin/matches/email', email);
 
 router.use('/admin/participants/all', participants);
 router.use('/admin/participants/remove', removeParticipant);
+
+router.use('/stats/dateParticipantsRegistered', dateParticipantsRegistered);
+router.use('/stats/participantsByDepartment', participantsByDepartment);
 
 module.exports = router;
