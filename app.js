@@ -10,7 +10,6 @@ const routes = require('./routes');
 const register = require('./registration/register/registerController');
 const deregister = require('./registration/deregister/deregister');
 const match = require('./matching/match/match');
-const matched = require('./matching/matched/matched');
 const emailMatched = require('./matching/emailMatched/emailMatched');
 const participantsByDepartment = require('./stats/participants-by-department/participants-by-department');
 const dateParticipantsRegistered = require('./stats/date-participants-registered/dateParticipantsRegistered');
@@ -78,7 +77,6 @@ app.use('/register', register);
 app.use('/deregister', deregister);
 
 app.use('/match', match);
-app.use('/matched', matched);
 app.use('/emailMatched', emailMatched);
 app.use('/participants-by-department', participantsByDepartment);
 app.use('/date-participants-registered', dateParticipantsRegistered);
