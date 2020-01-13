@@ -7,6 +7,7 @@ const oops = require('./src/error');
 
 const admin = require('./src/admin');
 const cleanup = require('./src/admin/cleanup');
+const participants = require('./src/admin/participants');
 
 router.use('/', homepage);
 
@@ -16,6 +17,7 @@ router.use('/oops', oops);
 
 router.use('/admin', admin);
 router.use('/admin/cleanup', cleanup);
+router.use('/admin/participants', participants);
 
 module.exports = router;
 
