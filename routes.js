@@ -1,5 +1,6 @@
 const router = require('express').Router();
 
+const deregister = require('./src/registration/deregister');
 const faq = require('./src/faq');
 const feedback = require('./src/feedback');
 const homepage = require('./src/homepage');
@@ -23,6 +24,7 @@ const participantsByDepartment = require('./src/stats/participantsByDepartment')
 
 router.use('/', homepage);
 
+router.use('/deregister', deregister);
 router.use('/faq', faq);
 router.use('/feedback', feedback);
 router.use('/oops', oops);

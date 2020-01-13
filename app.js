@@ -7,8 +7,6 @@ const flash = require('connect-flash');
 
 const routes = require('./routes');
 
-const deregister = require('./registration/deregister/deregister');
-
 require('console-stamp')(console, '[HH:MM:ss.l]');
 
 const port = config.app.port;
@@ -65,8 +63,6 @@ global.db.on('open', function() {
 });
 
 app.use('/', routes);
-
-app.use('/deregister', deregister);
 
 app.listen(port, () => {
     console.log('Listening on port ' + port);
