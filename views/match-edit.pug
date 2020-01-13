@@ -35,7 +35,7 @@ block content
             div(class='alert alert-warning alert-dismissible fade show text-center' role='alert')
                         span= 'Please review your updated match before saving:'
                         button(type='button' class='close' data-dismiss='alert' aria-label='Close')
-        form(class='form-horizontal' method='POST', action='/match-edit/' + match._id role='form')
+        form(class='form-horizontal' method='POST', action='/admin/matches/edit/' + match._id role='form')
             div(class='form-group')
                 table(class='table table-striped')
                     thead(class='thead-dark')

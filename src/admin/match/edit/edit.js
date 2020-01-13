@@ -1,26 +1,15 @@
-const express = require('express');
-const router = express.Router();
-const middleware = require('../../core/middleware/middleware');
-const Match = require('../../models/match');
-const Participant = require('../../models/participant');
-
-router.get('/:id', middleware, get);
+const Match = require('../../../../models/match');
+const Participant = require('../../../../models/participant');
 
 async function get(req, res) {
 
-    console.log('Getting match at id: ', req.params.id);
-
-    let match = await getMatch(req.params.id);
-    let options = await Participant.getAllVerifiedParticipants();
+    let match = await Match.findById(req.params.id);
+    let options = await Participant.find({verify: true});
 
     return res.render('match-edit', {match: match, options: options, messages: req.flash('info')});
 };
 
-router.post('/:id', middleware, post);
-
 async function post(req, res) {
-
-    console.log('Posting updated match at id: ', req.params.id);
 
     let match1 = {
         name: req.body.match1name,
@@ -41,11 +30,11 @@ async function post(req, res) {
         req.flash('info', "You cannot match people within the same department");
         return res.redirect('/match-edit/' + req.params.id);
     } else {
-        let match = await getMatch(req.params.id);
+        let match = await Match.findById(req.params.id);
 
         //remove old matches from list
-        await Participant.update({email: match.person_1.email}, {$pull: {matches: match.person_2.email}});
-        await Participant.update({email: match.person_2.email}, {$pull: {matches: match.person_1.email}});
+        await Participant.updateOne({email: match.person_1.email}, {$pull: {matches: match.person_2.email}});
+        await Participant.updateOne({email: match.person_2.email}, {$pull: {matches: match.person_1.email}});
 
         match.person_1.name = match1.name;
         match.person_1.email = match1.email;
@@ -58,33 +47,23 @@ async function post(req, res) {
         match.save();
 
         //add new matches to lists
-        await Participant.update({email: match1.email}, {$push: {matches: match2.email}});
-        await Participant.update({email: match2.email}, {$push: {matches: match1.email}});
+        await Participant.updateOne({email: match1.email}, {$push: {matches: match2.email}});
+        await Participant.updateOne({email: match2.email}, {$push: {matches: match1.email}});
 
         req.flash('info', 'Match updated successfully. Please check the matched list to ensure there are no duplicates as a result of your change.');
         return res.redirect('/');
     }
 };
 
-router.get('/data/:email', middleware, getData);
-
 async function getData(req, res) {
 
     res.setHeader('Content-Type', 'application/json');
 
-    console.log('Query fired, email: ', req.params.email);
-
-    let participant = await getParticipant(req.params.email);
+    let participant = await Participant.findOne({email: req.params.email});
 
     return res.send({data: participant});
 };
 
-function getMatch(id) {
-    return Match.findById(id);
-};
-
-function getParticipant(email) {
-    return Participant.findOne({email: email});
-};
-
-module.exports = router;
+module.exports.get = get;
+module.exports.post = post;
+module.exports.getData = getData;
