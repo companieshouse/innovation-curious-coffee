@@ -1,14 +1,8 @@
-const express = require('express');
-const router = express.Router();
-const middleware = require('../../core/middleware/middleware');
-const Participant = require('../../models/participant');
-
-router.get('/', middleware, get);
-router.post('/', middleware, post);
+const Participant = require('../../../../models/participant');
 
 async function get(req, res) {
 
-    let options = await Participant.getAllVerifiedParticipants();
+    let options = await Participant.find({verify: true});
 
     return res.render('remove', {options: options});
 };
@@ -31,4 +25,5 @@ function post(req, res) {
     res.redirect('/');
 };
 
-module.exports = router;
+module.exports.get = get;
+module.exports.post = post;

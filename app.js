@@ -16,7 +16,6 @@ const participantsByDepartment = require('./stats/participants-by-department/par
 const dateParticipantsRegistered = require('./stats/date-participants-registered/dateParticipantsRegistered');
 const verify = require('./verification/verify/verify');
 const matchEdit = require('./matching/match-edit/matchEdit');
-const remove = require('./core/remove/remove');
 
 require('console-stamp')(console, '[HH:MM:ss.l]');
 
@@ -85,7 +84,6 @@ app.use('/participants-by-department', participantsByDepartment);
 app.use('/date-participants-registered', dateParticipantsRegistered);
 app.use('/verify', verify);
 app.use('/match-edit', matchEdit);
-app.use('/remove', remove);
 
 app.listen(port, () => {
     console.log('Listening on port ' + port);

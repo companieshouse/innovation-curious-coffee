@@ -13,7 +13,7 @@ block content
                     | Select a participant (by email) below and press the remove button. 
                     | This will delete them from the system.
 
-    form(method='POST' action='/remove')
+    form(method='POST' action='/admin/participants/remove')
         if options
             div(class='form-group form-row align-items-center')
                 div(class='col-sm-2')
