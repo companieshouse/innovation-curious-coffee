@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "encrypt": "encrypt config/config.js config/config.js.cast5",
-    "decrypt": "decrypt config/config.js.cast5 config/config.js"
+    "encrypt": "encrypt src/config/config.js src/config/config.js.cast5",
+    "decrypt": "decrypt src/config/config.js.cast5 src/config/config.js"
   },
   "author": "Dafydd Rosser",
   "license": "MIT",
