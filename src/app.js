@@ -4,14 +4,12 @@ const config = require('../config/config');
 const validator = require('express-validator');
 const session = require('express-session');
 const flash = require('connect-flash');
-
-const routes = require('./routes');
-
 const path = require ('path');
 
-require('console-stamp')(console, '[HH:MM:ss.l]');
-
+const routes = require('./routes');
 const port = config.app.port;
+
+require('console-stamp')(console, '[HH:MM:ss.l]');
 
 app.set('view engine', 'pug');
 
@@ -42,7 +40,7 @@ app.use(validator({
     }
 }));
 
-app.use(express.static(path.join(__dirname + '/../public')));
+app.use(express.static(path.join(__dirname + '/public')));
 app.use(session({secret: 'curious', resave: false, saveUninitialized: true}));
 
 app.use(function(req, res, next) {
