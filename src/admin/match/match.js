@@ -1,5 +1,5 @@
-const Match = require('../../../models/match');
-const Participant = require('../../../models/participant');
+const Match = require('../../models/match');
+const Participant = require('../../models/participant');
 
 function get(req, res) {
     return res.render('match');

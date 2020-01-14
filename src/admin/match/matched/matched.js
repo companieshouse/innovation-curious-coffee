@@ -1,4 +1,4 @@
-const Match = require('../../../../models/match');
+const Match = require('../../../models/match');
 
 async function get(req, res) {
     let matches = await Match.find();

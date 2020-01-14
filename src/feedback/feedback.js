@@ -1,6 +1,6 @@
 const {transformViewToDb} = require('./transform');
 
-var ViewFeedback = require('../../models/view/feedback');
+var ViewFeedback = require('../models/view/feedback');
 
 function get(req, res) {
     return res.render('feedback', {
