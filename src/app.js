@@ -7,6 +7,8 @@ const flash = require('connect-flash');
 
 const routes = require('./routes');
 
+const path = require ('path');
+
 require('console-stamp')(console, '[HH:MM:ss.l]');
 
 const port = config.app.port;
@@ -40,7 +42,7 @@ app.use(validator({
     }
 }));
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname + '/../public')));
 app.use(session({secret: 'curious', resave: false, saveUninitialized: true}));
 
 app.use(function(req, res, next) {
