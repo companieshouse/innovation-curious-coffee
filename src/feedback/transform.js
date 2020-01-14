@@ -1,4 +1,4 @@
-var Feedback = require('../../models/feedback');
+var Feedback = require('../models/feedback');
 
 function transformViewToDb(viewFeedback) {
     return new Feedback({

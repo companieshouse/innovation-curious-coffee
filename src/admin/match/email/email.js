@@ -1,4 +1,4 @@
-const Match = require('../../../../models/match');
+const Match = require('../../../models/match');
 const aws = require('aws-sdk');
 
 aws.config.update({region: 'eu-west-1'});

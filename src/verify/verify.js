@@ -1,6 +1,6 @@
 const config =  require('../config');
 const aws = require('aws-sdk');
-const Participant = require('../../models/participant');
+const Participant = require('../models/participant');
 
 aws.config.update({region: 'eu-west-1'});
 

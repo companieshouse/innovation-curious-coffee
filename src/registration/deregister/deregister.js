@@ -1,4 +1,4 @@
-const Participant = require('../../../models/participant');
+const Participant = require('../../models/participant');
 
 function get(req, res) {
     return res.render('deregister');

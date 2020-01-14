@@ -1,5 +1,5 @@
-const Match = require('../../../../models/match');
-const Participant = require('../../../../models/participant');
+const Match = require('../../../models/match');
+const Participant = require('../../../models/participant');
 
 async function get(req, res) {
 
