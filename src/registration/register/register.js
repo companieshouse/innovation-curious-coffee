@@ -1,4 +1,4 @@
-const config = require('../../../config/config');
+const config = require('../../config');
 
 const aws = require('aws-sdk');
 aws.config.update({region: 'eu-west-1'});
