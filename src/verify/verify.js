@@ -1,4 +1,4 @@
-const config =  require('../../config/config.js');
+const config =  require('../config');
 const aws = require('aws-sdk');
 const Participant = require('../../models/participant');
 

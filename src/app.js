@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const config = require('../config/config');
+const config = require('./config');
 const validator = require('express-validator');
 const session = require('express-session');
 const flash = require('connect-flash');

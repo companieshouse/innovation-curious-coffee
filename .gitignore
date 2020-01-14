@@ -2,5 +2,5 @@
 ._*
 node_modules
 
-config/config.js
-config/config.js.bak
+src/config/config.js
+src/config/config.js.bak
