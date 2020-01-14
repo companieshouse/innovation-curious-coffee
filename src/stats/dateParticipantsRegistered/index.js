@@ -1,8 +1,7 @@
 const router = require('express').Router();
 const {get, getData} = require('./dateParticipantsRegistered');
-const middleware = require('../../../core/middleware/middleware');
 
-router.get('/', middleware, get);
-router.get('/data', middleware, getData);
+router.get('/', get);
+router.get('/data', getData);
 
 module.exports = router;

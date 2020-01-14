@@ -7,6 +7,7 @@ const flash = require('connect-flash');
 const path = require ('path');
 
 const routes = require('./routes');
+const adminMiddleware = require('./admin/middleware');
 const port = config.app.port;
 
 require('console-stamp')(console, '[HH:MM:ss.l]');
@@ -50,6 +51,8 @@ app.use(function(req, res, next) {
 });
 
 app.use(flash());
+
+app.use(adminMiddleware.validate);
 
 //MongoDB setup
 const mongoose = require('mongoose');
