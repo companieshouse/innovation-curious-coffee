@@ -18,7 +18,7 @@ Source code for the Curious Coffee initiative
 - [Deploying curious coffee](#deploy)
 
 ## Introduction
-#CuriousCoffee is a initiative designed to break down silos within Companies House and match participants with people from different departments. Participants can register on the site, and the system will ad-hoc match participants and email them to inform them they've been matched and with who. It's then up to the matched participants to decide what to do next.
+#CuriousCoffee is a initiative designed to break down silos within an organisation and match participants with people from different departments. Participants can register on the site and the system will ad-hoc match participants, as well as email them to inform them they've been matched and with who. It's then up to the matched participants to decide what to do next.
 
 ## Prerequisites
 You will need the following:
