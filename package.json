@@ -4,9 +4,12 @@
   "description": "Meet new people from other departments",
   "main": "app.js",
   "scripts": {
+    "prebuild": "rm -r ./dist",
     "build": "tsc",
+    "postbuild": "./postbuild.sh",
     "test": "mocha -r ts-node/register --recursive test/**/*.test.ts",
     "lint": "eslint src test",
+    "start": "node ./dist/app.js",
     "encrypt": "encrypt src/config/config.js src/config/config.js.cast5",
     "decrypt": "decrypt src/config/config.js.cast5 src/config/config.js"
   },
