@@ -1,3 +1,5 @@
+"use strict";
+
 const config =  require('../config');
 const aws = require('aws-sdk');
 const Participant = require('../models/participant');
@@ -51,6 +53,7 @@ async function get(req, res) {
         var sendPromise = new aws.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
     
         sendPromise.then(function(data) {
+            console.log(data);
             req.flash('info', 'Congratulations! You have signed up for #CuriousCoffee. You will receive an email in due course matching you for your #CuriousCoffee');
             return res.redirect('/');
         }).catch(function(err) {
@@ -59,6 +62,6 @@ async function get(req, res) {
     } else {
         return res.redirect('/');
     }
-};
+}
 
 module.exports.get = get;
