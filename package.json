@@ -4,8 +4,9 @@
   "description": "Meet new people from other departments",
   "main": "app.js",
   "scripts": {
+    "build": "tsc",
+    "test": "mocha --recursive",
     "lint": "eslint src test",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "encrypt": "encrypt src/config/config.js src/config/config.js.cast5",
     "decrypt": "decrypt src/config/config.js.cast5 src/config/config.js"
   },
@@ -29,6 +30,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.19.2",
     "@typescript-eslint/parser": "^2.19.2",
-    "eslint": "^6.8.0"
+    "eslint": "^6.8.0",
+    "mocha": "^7.0.1"
   }
 }
