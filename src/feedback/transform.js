@@ -1,3 +1,5 @@
+"use strict";
+
 var Feedback = require('../models/feedback');
 
 function transformViewToDb(viewFeedback) {
@@ -5,6 +7,6 @@ function transformViewToDb(viewFeedback) {
         email: viewFeedback.email,
         feedback: viewFeedback.feedback
     });
-};
+}
 
 module.exports.transformViewToDb = transformViewToDb;

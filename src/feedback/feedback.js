@@ -1,3 +1,5 @@
+"use strict";
+
 const {transformViewToDb} = require('./transform');
 
 var ViewFeedback = require('../models/view/feedback');
@@ -6,7 +8,7 @@ function get(req, res) {
     return res.render('feedback', {
         feedbackModel: ViewFeedback
     });
-};
+}
 
 async function post(req, res) {
 
@@ -28,7 +30,7 @@ async function post(req, res) {
         req.flash('info', 'Thank you for your feedback!');
         return res.redirect('/');
     }
-};
+}
 
 module.exports.get = get;
 module.exports.post = post;
