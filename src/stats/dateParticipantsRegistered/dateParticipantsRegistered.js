@@ -1,3 +1,5 @@
+"use strict";
+
 const Participant = require('../../models/participant');
 
 function get(req, res) {
@@ -63,7 +65,7 @@ async function getData(req, res) {
             }
         }
     });
-};
+}
 
 function getDateRegistered() {
 
@@ -79,7 +81,7 @@ function getDateRegistered() {
             "_id": 1
         }
     }]);
-};
+}
 
 module.exports.get = get;
 module.exports.getData = getData;

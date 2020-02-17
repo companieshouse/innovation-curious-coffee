@@ -1,3 +1,5 @@
+"use strict";
+
 const Match = require('../../../models/match');
 const aws = require('aws-sdk');
 
@@ -5,7 +7,7 @@ aws.config.update({region: 'eu-west-1'});
 
 function get(req, res) {
     return res.render('email');
-};
+}
 
 async function post(req, res) {
     let matches = await Match.find();
@@ -44,7 +46,7 @@ async function post(req, res) {
     });
 
     return res.redirect('/');
-};
+}
 
 module.exports.get = get;
 module.exports.post = post;
