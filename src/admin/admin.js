@@ -1,8 +1,10 @@
+"use strict";
+
 const config = require('../config');
 
 function get(req, res) {
     return res.render('admin');
-};
+}
 
 function post(req, res) {
     if (req.body.password == config.admin.password) {
@@ -14,7 +16,7 @@ function post(req, res) {
                 password_error: "Incorrect password."
         });
     }
-};
+}
 
 module.exports.get = get;
 module.exports.post = post;

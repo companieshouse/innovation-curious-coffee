@@ -1,3 +1,5 @@
+"use strict";
+
 module.exports.validate = function(req, res, next) {
 
     if (req.originalUrl.startsWith("/admin/")) {
