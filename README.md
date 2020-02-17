@@ -2,6 +2,8 @@
     <img src="readme-images/curious-coffee.png" alt="Curious Coffee" title="Curious Coffee" width="30%" />
 </p>
 
+![Node.js CI](https://github.com/drosser/innovation-curious-coffee/workflows/Node.js%20CI/badge.svg?branch=master)
+
 # #CuriousCoffee
 Source code for the Curious Coffee initiative
 
