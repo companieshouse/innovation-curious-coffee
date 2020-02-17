@@ -1,3 +1,5 @@
+"use strict";
+
 const Participant = require('../models/participant');
 
 async function get(req, res) {

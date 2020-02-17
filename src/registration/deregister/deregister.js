@@ -1,3 +1,5 @@
+"use strict";
+
 const Participant = require('../../models/participant');
 
 function get(req, res) {
@@ -26,7 +28,7 @@ async function post(req, res) {
         });
     }
 
-    let result = Participant.findOne({email: email});
+    let result = Participant.findOne({email: req.body.email});
 
     if (result === null) {
 
@@ -35,21 +37,21 @@ async function post(req, res) {
             param: 'email'
         };
 
-        var errors = [];
-        errors.push(error);
+        var resultErrors = [];
+        resultErrors.push(error);
 
         return res.render('deregister', {
             email: req.body.email,
             email_error: true,
-            errors: errors
+            errors: resultErrors
         });
     }
 
-    await Participant.deleteOne({email: email});
+    await Participant.deleteOne({email: req.body.email});
 
     req.flash('info', 'You have now deregistered. If you wish to get involved again, simply re-register.');
     return res.redirect('/');
-};
+}
 
 module.exports.get = get;
 module.exports.post = post;

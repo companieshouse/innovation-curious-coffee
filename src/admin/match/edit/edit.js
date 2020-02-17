@@ -1,3 +1,5 @@
+"use strict";
+
 const Match = require('../../../models/match');
 const Participant = require('../../../models/participant');
 
@@ -7,7 +9,7 @@ async function get(req, res) {
     let options = await Participant.find({verify: true});
 
     return res.render('match-edit', {match: match, options: options, messages: req.flash('info')});
-};
+}
 
 async function post(req, res) {
 
@@ -53,7 +55,7 @@ async function post(req, res) {
         req.flash('info', 'Match updated successfully. Please check the matched list to ensure there are no duplicates as a result of your change.');
         return res.redirect('/');
     }
-};
+}
 
 async function getData(req, res) {
 
@@ -62,7 +64,7 @@ async function getData(req, res) {
     let participant = await Participant.findOne({email: req.params.email});
 
     return res.send({data: participant});
-};
+}
 
 module.exports.get = get;
 module.exports.post = post;

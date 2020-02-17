@@ -1,9 +1,11 @@
+"use strict";
+
 const Match = require('../../models/match');
 const Participant = require('../../models/participant');
 
 function get(req, res) {
     return res.render('match');
-};
+}
 
 async function post(req, res) {
     let participants = await Participant.find({verify: true});
@@ -69,6 +71,8 @@ async function post(req, res) {
                         console.error(err);
                         return err;
                     }
+
+                    return doc;
                 });
 
                 Participant.findOneAndUpdate({email: second[0].email}, {$push: {matches: firstPerson.email}}, function(err, doc) {
@@ -76,6 +80,8 @@ async function post(req, res) {
                         console.error(err);
                         return err;
                     }
+
+                    return doc;
                 });
             }
         } else {
@@ -84,7 +90,7 @@ async function post(req, res) {
     }
 
     return res.redirect('/');
-};
+}
 
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -103,7 +109,7 @@ function shuffle(array) {
     }
   
     return array;
-};
+}
 
 module.exports.get = get;
 module.exports.post = post;
