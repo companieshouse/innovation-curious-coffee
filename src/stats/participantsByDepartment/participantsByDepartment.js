@@ -1,8 +1,10 @@
+"use strict";
+
 const Participant = require('../../models/participant');
 
 function get(req, res) {
     return res.render('participants_department_chart');
-};
+}
 
 async function getData(req, res) {
     let participantsByDepartmentData = await getParticipantsByDepartment();
@@ -58,7 +60,7 @@ async function getData(req, res) {
 
 function randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
-};
+}
 
 function getParticipantsByDepartment() {
     return Participant.aggregate([{
@@ -69,7 +71,7 @@ function getParticipantsByDepartment() {
             }
         }
     }]);
-};
+}
 
 module.exports.get = get;
 module.exports.getData = getData;
