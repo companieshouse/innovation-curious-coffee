@@ -1,6 +1,7 @@
 .DS_Store
 ._*
 node_modules
+/dist
 
 src/config/config.js
 src/config/config.js.bak
