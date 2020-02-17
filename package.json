@@ -4,6 +4,7 @@
   "description": "Meet new people from other departments",
   "main": "app.js",
   "scripts": {
+    "lint": "eslint src test",
     "test": "echo \"Error: no test specified\" && exit 1",
     "encrypt": "encrypt src/config/config.js src/config/config.js.cast5",
     "decrypt": "decrypt src/config/config.js.cast5 src/config/config.js"
@@ -24,5 +25,10 @@
     "mongoose": "^5.7.13",
     "popper.js": "^1.16.0",
     "pug": "^2.0.4"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.19.2",
+    "@typescript-eslint/parser": "^2.19.2",
+    "eslint": "^6.8.0"
   }
 }
