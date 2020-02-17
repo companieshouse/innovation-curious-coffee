@@ -15,6 +15,7 @@ const port = config.app.port;
 require('console-stamp')(console, '[HH:MM:ss.l]');
 
 app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, '/views'));
 
 const bodyParser = require("body-parser");
 
@@ -44,6 +45,7 @@ app.use(validator({
 }));
 
 app.use(express.static(path.join(__dirname + '/public')));
+
 app.use(session({secret: 'curious', resave: false, saveUninitialized: true}));
 
 app.use(function(req, res, next) {
