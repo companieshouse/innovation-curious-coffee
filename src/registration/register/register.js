@@ -1,4 +1,7 @@
+"use strict";
+
 const config = require('../../config');
+const Participant = require('../../models/participant');
 
 const aws = require('aws-sdk');
 aws.config.update({region: 'eu-west-1'});
@@ -50,12 +53,7 @@ async function post(req, res) {
         return;
     } else {
     
-        let participant = await Participant.findOne({email: email});
-
-        if (err !== null) {
-            console.error(err);
-            return res.redirect('/oops');
-        }
+        let participant = await Participant.findOne({email: req.body.email});
         
         //If the participant is not null, then we need to error as it already exists under that email address
         if (participant !== null) {
@@ -65,20 +63,22 @@ async function post(req, res) {
                 param: 'email'
             };
 
-            var errors = [];
-            errors.push(error);
+            var resultErrors = [];
+            resultErrors.push(error);
 
             return res.render('register', {
                 name: req.body.name,
                 department: req.body.department,
                 email: req.body.email,
                 consent: req.body.consent,
-                errors: errors,
+                errors: resultErrors,
                 email_error: true
                 });
         } 
 
-        registerService.insert(req.body, function(err, participant) {
+        Participant.insert(req.body, function(err, participant) {
+
+            console.log(participant);
 
             if (err) {
                 console.log('Error inserting record');
@@ -117,6 +117,7 @@ async function post(req, res) {
             var sendPromise = new aws.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
 
             sendPromise.then(function(data) {
+                console.log(data);
 
                 req.flash('info', 'Thank you for registering for #CuriousCoffee. To complete registration, please verify with the link sent to you in an email.');
                 return res.redirect('/');
@@ -126,7 +127,7 @@ async function post(req, res) {
             });
         });
     }
-};
+}
 
 module.exports.get = get;
 module.exports.post = post;
