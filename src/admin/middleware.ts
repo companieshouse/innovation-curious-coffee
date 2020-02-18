@@ -1,6 +1,6 @@
 import {Request, Response, NextFunction} from 'express';
 
-export function validate(req: Request, res: Response, next: NextFunction) {
+export function validate(req: Request, res: Response, next: NextFunction): void {
 
     if (req.originalUrl.startsWith("/admin/")) {
         if (!req.session) {
