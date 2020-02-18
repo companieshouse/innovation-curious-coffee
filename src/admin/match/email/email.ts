@@ -1,20 +1,20 @@
-"use strict";
+import {Request, Response} from 'express';
+import aws from 'aws-sdk';
 
-const Match = require('../../../models/match');
-const aws = require('aws-sdk');
+import Match from '../../../models/match';
 
 aws.config.update({region: 'eu-west-1'});
 
-function get(req, res) {
+export function get(req: Request, res: Response): void {
     return res.render('email');
 }
 
-async function post(req, res) {
-    let matches = await Match.find();
+export async function post(req: Request, res: Response): Promise<void> {
+    const matches = await Match.find();
 
     matches.forEach(function(match) {
 
-        var params = {
+        const params = {
             Destination: {
                 ToAddresses: [
                     match.person_1.email,
@@ -36,7 +36,7 @@ async function post(req, res) {
             Source: 'curious-coffee@companieshouse.gov.uk'
         };
 
-        var sendPromise = new aws.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
+        const sendPromise = new aws.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
 
         sendPromise.then(function(data) {
             console.log(data.MessageId);
@@ -47,6 +47,3 @@ async function post(req, res) {
 
     return res.redirect('/');
 }
-
-module.exports.get = get;
-module.exports.post = post;
