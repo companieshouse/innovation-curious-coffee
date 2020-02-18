@@ -42,6 +42,7 @@
     "@types/express-session": "^1.15.16",
     "@types/mocha": "^7.0.1",
     "@types/mongoose": "^5.7.1",
+    "@types/morgan": "^1.7.37",
     "@typescript-eslint/eslint-plugin": "^2.19.2",
     "@typescript-eslint/parser": "^2.19.2",
     "acorn": "^7.0.0",
