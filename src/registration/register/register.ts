@@ -73,7 +73,7 @@ export async function post(req: Request, res: Response): Promise<void> {
 
         const newParticipant = new Participant({
             name: req.body.name,
-            department: req.body.email,
+            department: req.body.department,
             email: req.body.email,
             "date_registered": Date.now(),
             verify: false
