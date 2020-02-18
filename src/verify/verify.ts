@@ -1,22 +1,22 @@
-"use strict";
+import {Request, Response} from 'express';
+import aws from 'aws-sdk';
 
-const config =  require('../config');
-const aws = require('aws-sdk');
-const Participant = require('../models/participant');
+import config from '../config';
+import Participant from '../models/participant';
 
 aws.config.update({region: 'eu-west-1'});
 
-async function get(req, res) {
+export async function get(req: Request, res: Response): Promise<void> {
 
     //get email to verify
-    var decode = req.params;
+    const decode = req.params;
 
     //decode the string from base64 encoded
-    var decoded = Buffer.from(decode.email, 'base64').toString('utf8');
+    const decoded = Buffer.from(decode.email, 'base64').toString('utf8');
 
     //get signature
-    var decodedSignature = decoded.slice(-Math.abs(config.verify.signature.length));
-    var decodedEmail = decoded.slice(0, decoded.length - config.verify.signature.length);
+    const decodedSignature = decoded.slice(-Math.abs(config.verify.signature.length));
+    const decodedEmail = decoded.slice(0, decoded.length - config.verify.signature.length);
 
     if (decodedEmail.length == 0) {
         return res.redirect('/');
@@ -29,7 +29,7 @@ async function get(req, res) {
     if (decodedSignature == config.verify.signature) {
         await Participant.updateOne({email: decodedEmail}, {$set: {verify: true}});
         
-        var params = {
+        const params = {
             Destination: {
                 ToAddresses: [
                     decodedEmail
@@ -50,7 +50,7 @@ async function get(req, res) {
             Source: 'curious-coffee@companieshouse.gov.uk'
         };
 
-        var sendPromise = new aws.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
+        const sendPromise = new aws.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
     
         sendPromise.then(function(data) {
             console.log(data);
@@ -63,5 +63,3 @@ async function get(req, res) {
         return res.redirect('/');
     }
 }
-
-module.exports.get = get;
