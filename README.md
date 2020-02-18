@@ -118,12 +118,12 @@ git clone https://github.com/companieshouse/innovation-curious-coffee.git
 Inside the directory: 
 
 ```
-npm install --save
+npm install
 ```
 
 And run the application:
 ```
-node app
+npm run start
 ```
 
 You'll need a MongoDB instance deployed somewhere with the config pointing at it, otherwise the app will fail on startup.
