@@ -12,7 +12,7 @@ const routes = require('./routes');
 const adminMiddleware = require('./admin/middleware');
 const port = config.app.port;
 
-require('console-stamp')(console, '[HH:MM:ss.l]');
+const morgan = require('morgan');
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '/views'));
@@ -24,6 +24,8 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(bodyParser.json());
+
+app.use(morgan('combined'));
 
 app.use(validator({
     customValidators: {
