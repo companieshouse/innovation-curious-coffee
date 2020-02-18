@@ -7,16 +7,27 @@ export function get(req: Request, res: Response): void {
     return res.render('date_registered_chart');
 }
 
-function getDateRegistered(): mongoose.Aggregate<any[]> {
+interface Aggregation {
+    _id: {
+        yearRegistered: Date;
+        monthRegistered: Date;
+        dayRegistered: Date;
+    };
+    count: number;
+}
+
+function getDateRegistered(): mongoose.Aggregate<Aggregation[]> {
 
     return Participant.aggregate([{
         $group: {
             _id: {
-            yearRegistered: {"$year": "$date_registered"},
-            monthRegistered: {"$month": "$date_registered"},
-            dayRegistered: {"$dayOfMonth": "$date_registered"}},
+                yearRegistered: {"$year": "$date_registered"},
+                monthRegistered: {"$month": "$date_registered"},
+                dayRegistered: {"$dayOfMonth": "$date_registered"}
+        },
             count: {"$sum": 1}
-        }}, {
+        }
+    }, {
         $sort: {
             "_id": 1
         }
