@@ -1,17 +1,38 @@
-"use strict";
+import {Request, Response} from 'express';
+import mongoose from 'mongoose';
 
-const Participant = require('../../models/participant');
+import Participant from '../../models/participant';
 
-function get(req, res) {
+export function get(req: Request, res: Response): void {
     return res.render('participants_department_chart');
 }
 
-async function getData(req, res) {
-    let participantsByDepartmentData = await getParticipantsByDepartment();
+interface Aggregation {
+    _id: string;
+    count: number;
+}
 
-    var labels = [];
-    var data = [];
-    var bgColor = [];
+function getParticipantsByDepartment(): mongoose.Aggregate<Aggregation[]> {
+    return Participant.aggregate([{
+        "$group": {
+            _id: "$department",
+            count: {
+                "$sum": 1
+            }
+        }
+    }]);
+}
+
+function randomIntFromInterval(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+export async function getData(req: Request, res: Response): Promise<Response> {
+    const participantsByDepartmentData = await getParticipantsByDepartment();
+
+    const labels: string[] = [];
+    const data: number[] = [];
+    const bgColor: string[] = [];
 
     participantsByDepartmentData.forEach(element => {
         labels.push(element._id);
@@ -57,21 +78,3 @@ async function getData(req, res) {
         }
     });
 }
-
-function randomIntFromInterval(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-function getParticipantsByDepartment() {
-    return Participant.aggregate([{
-        "$group": {
-            _id: "$department",
-            count: {
-                "$sum": 1
-            }
-        }
-    }]);
-}
-
-module.exports.get = get;
-module.exports.getData = getData;
