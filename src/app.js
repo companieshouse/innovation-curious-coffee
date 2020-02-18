@@ -27,24 +27,7 @@ app.use(bodyParser.json());
 
 app.use(morgan('combined'));
 
-app.use(validator({
-    customValidators: {
-        departmentError: function(value) {
-            if (value == "choose the department you belong to") {
-                return false;
-            } else {
-                return true;
-            }
-        },
-        consentChecked: function(value) {
-            if (value == "on") {
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-}));
+app.use(validator());
 
 app.use(express.static(path.join(__dirname + '/public')));
 
