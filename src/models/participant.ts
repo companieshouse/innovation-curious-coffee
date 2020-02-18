@@ -4,7 +4,7 @@ export interface InterfaceParticipant extends Document {
     name: string;
     department: string;
     email: string;
-    dateRegistered: Date;
+    date_registered: Date;
     verify: boolean;
     matches: [string];
 }

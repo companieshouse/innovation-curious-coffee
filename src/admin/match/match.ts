@@ -1,19 +1,38 @@
-"use strict";
+import {Request, Response} from 'express';
 
-const Match = require('../../models/match');
-const Participant = require('../../models/participant');
+import Match from '../../models/match';
+import Participant, {InterfaceParticipant} from '../../models/participant';
 
-function get(req, res) {
+function shuffle(array: Array<InterfaceParticipant>): Array<InterfaceParticipant> {
+    let currentIndex = array.length, temporaryValue, randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+  
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+  
+    return array;
+}
+
+export function get(req: Request, res: Response): void {
     return res.render('match');
 }
 
-async function post(req, res) {
+export async function post(req: Request, res: Response): Promise<void> {
     let participants = await Participant.find({verify: true});
 
     participants = shuffle(participants);
-    var participantsCopy = participants.slice();
+    const participantsCopy = participants.slice();
     
-    for (var i = 0, notEnough = false; i < participants.length && notEnough == false; i++) {
+    for (let i = 0, notEnough = false; i < participants.length && notEnough == false; i++) {
         
         if (participantsCopy.length > 1)  {
 
@@ -21,18 +40,18 @@ async function post(req, res) {
             let diffDepartments = false;
             let previouslyMatched = false;
 
-            let first = participantsCopy.splice(0, 1);
-            let firstPerson = first[0];
+            const first = participantsCopy.splice(0, 1);
+            const firstPerson = first[0];
 
             let second = participantsCopy.slice(0, 1);
 
             while (diffDepartments == false && previouslyMatched == false) {
 
-                let potential = participantsCopy.slice(x, x + 1);
-                let potentialPerson = potential[0];
+                const potential = participantsCopy.slice(x, x + 1);
+                const potentialPerson = potential[0];
 
                 if (firstPerson.matches !== undefined) {
-                    let found = firstPerson.matches.find(function(element) {
+                    const found = firstPerson.matches.find(function(element) {
                         return element === potentialPerson.email;
                     });
 
@@ -51,7 +70,7 @@ async function post(req, res) {
 
             if (previouslyMatched == false) {
 
-                var match = new Match({
+                const match = new Match({
                     person_1: {
                         name: firstPerson.name,
                         email: firstPerson.email,
@@ -91,25 +110,3 @@ async function post(req, res) {
 
     return res.redirect('/');
 }
-
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-  
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-  
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-  
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-  
-    return array;
-}
-
-module.exports.get = get;
-module.exports.post = post;
