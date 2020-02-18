@@ -16,11 +16,11 @@ function consentChecked(value: string): boolean {
     }
 }
 
-const customValidations = [
+const validation = [
     check('name', 'Name cannot be blank').isLength({min:1}).trim(),
     check('email', 'Please enter a valid email address').isEmail(),
     check('department', 'Please select a department').custom(departmentValidation),
     check('consent', 'You must consent for your data to be used to register').custom(consentChecked)
 ];
 
-export = customValidations;
+export = validation;

@@ -1,48 +1,46 @@
-"use strict";
+import {Request, Response} from 'express';
 
-const Participant = require('../../models/participant');
+import Participant from '../../models/participant';
 
-function get(req, res) {
+export function get(req: Request, res: Response): void {
     return res.render('deregister');
 }
 
-async function post(req, res) { 
-    req.checkBody('email', 'Please enter a valid email address').isEmail();
-
-    var errors = req.validationErrors();
+export async function post(req: Request, res: Response): Promise<void> { 
+    const errors = req.validationErrors();
 
     if (errors) {
 
-        var email_error;
+        let emailError;
 
-        errors.forEach(function(error) {
+        errors.forEach(function(error: any) {
             if ("email" == error.param) {
-                email_error = true;
+                emailError = true;
             }
         });
 
         return res.render('deregister', {
             email: req.body.email,
-            email_error: email_error,
+            "email_error": emailError,
             errors: errors
         });
     }
 
-    let result = Participant.findOne({email: req.body.email});
+    const result = Participant.findOne({email: req.body.email});
 
     if (result === null) {
 
-        var error = {
+        const error = {
             msg: 'Email address does not exist!',
             param: 'email'
         };
 
-        var resultErrors = [];
+        const resultErrors = [];
         resultErrors.push(error);
 
         return res.render('deregister', {
             email: req.body.email,
-            email_error: true,
+            "email_error": true,
             errors: resultErrors
         });
     }
@@ -52,6 +50,3 @@ async function post(req, res) {
     req.flash('info', 'You have now deregistered. If you wish to get involved again, simply re-register.');
     return res.redirect('/');
 }
-
-module.exports.get = get;
-module.exports.post = post;
