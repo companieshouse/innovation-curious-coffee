@@ -1,5 +1,7 @@
-const router = require('express').Router();
-const {get, post} = require('./admin');
+import express from 'express';
+import {get, post} from './admin';
+
+const router = express.Router();
 
 router.get('/', get);
 router.post('/', post);

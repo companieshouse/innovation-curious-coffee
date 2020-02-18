@@ -1,6 +1,6 @@
 import {Request, Response, NextFunction} from 'express';
 
-module.exports.validate = function(req: Request, res: Response, next: NextFunction) {
+export function validate(req: Request, res: Response, next: NextFunction) {
 
     if (req.originalUrl.startsWith("/admin/")) {
         if (!req.session) {
@@ -13,4 +13,4 @@ module.exports.validate = function(req: Request, res: Response, next: NextFuncti
     }
     
     return next();
-};
+}
