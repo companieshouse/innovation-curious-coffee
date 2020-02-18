@@ -1,5 +1,5 @@
 import express from 'express';
-import {get, post} from './register';
+import {get, post} from './deregister';
 import validation from './validation';
 
 const router = express.Router();
