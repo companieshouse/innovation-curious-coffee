@@ -1,18 +1,35 @@
-"use strict";
+import {Request, Response} from 'express';
+import mongoose from 'mongoose';
 
-const Participant = require('../../models/participant');
+import Participant, {InterfaceParticipant} from '../../models/participant';
 
-function get(req, res) {
+export function get(req: Request, res: Response): void {
     return res.render('date_registered_chart');
 }
 
-async function getData(req, res) {
+function getDateRegistered(): mongoose.Aggregate<any[]> {
+
+    return Participant.aggregate([{
+        $group: {
+            _id: {
+            yearRegistered: {"$year": "$date_registered"},
+            monthRegistered: {"$month": "$date_registered"},
+            dayRegistered: {"$dayOfMonth": "$date_registered"}},
+            count: {"$sum": 1}
+        }}, {
+        $sort: {
+            "_id": 1
+        }
+    }]);
+}
+
+export async function getData(req: Request, res: Response): Promise<Response> {
     res.setHeader('Content-Type', 'application/json');
 
-    let dateRegisteredData = await getDateRegistered();
+    const dateRegisteredData = await getDateRegistered();
 
-    let labels = [];
-    let data = [];
+    const labels: string[] = [];
+    const data: number[] = [];
 
     dateRegisteredData.forEach(element => {
         labels.push(element._id.yearRegistered + "-" + element._id.monthRegistered + "-" + element._id.dayRegistered);
@@ -21,7 +38,7 @@ async function getData(req, res) {
 
     await labels, data;
 
-    var maxPlusOne = Math.max.apply(Math, data) + 1;
+    const maxPlusOne = Math.max(...data) + 1;
     data.push(maxPlusOne);
 
     return res.send({
@@ -66,22 +83,3 @@ async function getData(req, res) {
         }
     });
 }
-
-function getDateRegistered() {
-
-    return Participant.aggregate([{
-        $group: {
-            _id: {
-            yearRegistered: {"$year": "$date_registered"},
-            monthRegistered: {"$month": "$date_registered"},
-            dayRegistered: {"$dayOfMonth": "$date_registered"}},
-            count: {"$sum": 1}
-        }}, {
-        $sort: {
-            "_id": 1
-        }
-    }]);
-}
-
-module.exports.get = get;
-module.exports.getData = getData;
