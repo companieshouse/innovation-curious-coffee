@@ -1,23 +1,21 @@
-"use strict";
+import bodyParser from 'body-parser';
+import express from 'express';
+import flash from 'connect-flash';
+import mongoose from 'mongoose';
+import morgan from 'morgan';
+import path from 'path';
+import session from 'express-session';
+import validator from 'express-validator';
 
-const express = require('express');
+import config from './config';
+import routes from './routes';
+import adminMiddleware from './admin/middleware';
+
 const app = express();
-const config = require('./config');
-const validator = require('express-validator');
-const session = require('express-session');
-const flash = require('connect-flash');
-const path = require ('path');
-
-const routes = require('./routes');
-const adminMiddleware = require('./admin/middleware');
 const port = config.app.port;
-
-const morgan = require('morgan');
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '/views'));
-
-const bodyParser = require("body-parser");
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -41,16 +39,12 @@ app.use(function(req, res, next) {
 
 app.use(flash());
 
-app.use(adminMiddleware.validate);
+app.use(adminMiddleware);
 
 //MongoDB setup
-const mongoose = require('mongoose');
 mongoose.connect(config.db.url.server + config.db.url.port + "/" + config.db.name, {useNewUrlParser: true, useFindAndModify: false});
-global.db = mongoose.connection;
-
-global.db.on('error', console.error.bind(console, 'connection error: '));
-
-global.db.on('open', function() {
+mongoose.connection.on('error', console.error.bind(console, 'connection error: '));
+mongoose.connection.on('open', function() {
     console.log('Mongoose connection opened');
 });
 

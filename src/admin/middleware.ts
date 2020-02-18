@@ -1,7 +1,7 @@
 import {Request, Response, NextFunction} from 'express';
 import logger from '../logger';
 
-export function validate(req: Request, res: Response, next: NextFunction): void {
+export default function validate(req: Request, res: Response, next: NextFunction): void {
 
     if (req.originalUrl.startsWith("/admin/")) {
 
