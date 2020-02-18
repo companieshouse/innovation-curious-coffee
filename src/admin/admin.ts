@@ -1,11 +1,11 @@
 import config from '../config';
 import {Request, Response} from 'express';
 
-function get(req: Request, res: Response) {
+export function get(req: Request, res: Response) {
     return res.render('admin');
 }
 
-function post(req: Request, res: Response) {
+export function post(req: Request, res: Response) {
     if (req.body.password == config.admin.password) {
         res.locals.session.user = true;
         return res.redirect('/');
@@ -16,6 +16,3 @@ function post(req: Request, res: Response) {
         });
     }
 }
-
-module.exports.get = get;
-module.exports.post = post;
