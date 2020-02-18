@@ -121,6 +121,12 @@ Inside the directory:
 npm install
 ```
 
+Build the contents: 
+
+```
+npm run build
+```
+
 And run the application:
 ```
 npm run start
