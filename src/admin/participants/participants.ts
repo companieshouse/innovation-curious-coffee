@@ -1,8 +1,11 @@
 import {Request, Response} from 'express';
 
 import Participant from '../../models/participant';
+import logger from '../../logger';
 
 export async function get(req: Request, res: Response): Promise<void> {
+
+    logger.info('Rendering page: participants');
 
     const participants = await Participant.find({
         verify: true
