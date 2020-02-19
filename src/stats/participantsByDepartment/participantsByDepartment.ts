@@ -2,9 +2,11 @@ import {Request, Response} from 'express';
 import mongoose from 'mongoose';
 
 import Participant from '../../models/participant';
+import logger from '../../logger';
 
 export function get(req: Request, res: Response): void {
-    return res.render('participants_department_chart');
+    logger.info("Rendering page: participantsDepartmentChart");
+    return res.render('participantsDepartmentChart');
 }
 
 interface Aggregation {
@@ -13,6 +15,7 @@ interface Aggregation {
 }
 
 function getParticipantsByDepartment(): mongoose.Aggregate<Aggregation[]> {
+    logger.info("Aggregating info");
     return Participant.aggregate([{
         "$group": {
             _id: "$department",
@@ -28,6 +31,7 @@ function randomIntFromInterval(min: number, max: number): number {
 }
 
 export async function getData(req: Request, res: Response): Promise<Response> {
+    logger.info("Attempting to get data to see how many registered from each department");
     const participantsByDepartmentData = await getParticipantsByDepartment();
 
     const labels: string[] = [];

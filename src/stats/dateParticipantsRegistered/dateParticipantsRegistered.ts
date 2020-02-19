@@ -1,10 +1,12 @@
 import {Request, Response} from 'express';
 import mongoose from 'mongoose';
 
-import Participant, {InterfaceParticipant} from '../../models/participant';
+import Participant from '../../models/participant';
+import logger from '../../logger';
 
 export function get(req: Request, res: Response): void {
-    return res.render('date_registered_chart');
+    logger.info("Rendering page: dateRegisteredChart");
+    return res.render('dateRegisteredChart');
 }
 
 interface Aggregation {
@@ -17,6 +19,7 @@ interface Aggregation {
 }
 
 function getDateRegistered(): mongoose.Aggregate<Aggregation[]> {
+    logger.info("Aggregating info");
 
     return Participant.aggregate([{
         $group: {
@@ -35,6 +38,7 @@ function getDateRegistered(): mongoose.Aggregate<Aggregation[]> {
 }
 
 export async function getData(req: Request, res: Response): Promise<Response> {
+    logger.info("Attempting to get data to see how many registered on each date");
     res.setHeader('Content-Type', 'application/json');
 
     const dateRegisteredData = await getDateRegistered();
