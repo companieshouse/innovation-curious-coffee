@@ -30,9 +30,9 @@ You will need the following:
 - [AWS-SES](https://aws.amazon.com/ses/) (Looking to remove this in later revisions to be less-dependant on specific non-required technologies)
 
 ## Config
-Config is CAST5-ecrypted using [config-leaf](https://github.com/jed/config-leaf). Please see there for instructions on how to encrypt/decrypt it.
+Config is stored in the `env_vars` folder (in root) and needs to be sourced to run properly. Change the env vars to match whatever settings you need.
 
-It is decoded is in the following format:
+It is in the following format
 ```javascript
 const config = {
     app: {
@@ -59,14 +59,14 @@ const config = {
     devmode: true
 };
 
-module.exports = config;
+export = config;
 ```
 
 The config can then be used as follows:
 
 ```javascript
 //import the config module
-const config = require('./config/config');
+import config from './config/config';
 
 //access it as a normal object
 const port = config.app.port;
@@ -102,10 +102,10 @@ Each config item is as follows:
 | verify.signature | String | Signature to be appended to email before being Base64 encoded to generate unique verify link | `"test"` |
 | verify.url | String | Base URL to attach to verification email so user can verify their email | `"http://localhost:3000/verify"` |
 
-#### Devmode
+#### Env
 | Item | Type | Description | Example |
 | ---- | ---- | ---- | ----|
-| devmode | Boolean | Flag to indicate whether devmode is enabled or not. Devmode will stop emails being sent (this will be removed in a later revision) | `true` |
+| env | string | Used to determine what environment is being run (dev, test, prod, etc) | `"dev"` |
 
 
 ## Deploy

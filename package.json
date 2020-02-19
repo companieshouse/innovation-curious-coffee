@@ -9,9 +9,7 @@
     "postbuild": "./scripts/postbuild.sh",
     "test": "mocha -r ts-node/register --recursive test/**/*.test.ts",
     "lint": "eslint src",
-    "start": "node ./dist/app.js",
-    "encrypt": "encrypt src/config/config.js src/config/config.js.cast5",
-    "decrypt": "decrypt src/config/config.js.cast5 src/config/config.js"
+    "start": "node ./dist/app.js"
   },
   "repository": {
     "type": "git",
@@ -23,7 +21,6 @@
     "aws-sdk": "^2.585.0",
     "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",
-    "config-leaf": "^0.3.0",
     "connect-flash": "^0.1.1",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
