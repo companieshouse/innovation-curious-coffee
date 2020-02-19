@@ -39,7 +39,12 @@ app.use(flash());
 app.use(adminMiddleware);
 
 //MongoDB setup
-mongoose.connect(config.db.url.server + config.db.url.port + "/" + config.db.name, {useNewUrlParser: true, useFindAndModify: false});
+mongoose.connect(config.db.url.server + config.db.url.port + "/" + config.db.name, {
+    useNewUrlParser: true, 
+    useFindAndModify: false,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+});
 mongoose.connection.on('error', console.error.bind(console, 'connection error: '));
 mongoose.connection.on('open', function() {
     console.log('Mongoose connection opened');
