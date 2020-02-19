@@ -2,6 +2,7 @@ import {Request, Response} from 'express';
 
 import Match from '../../models/match';
 import Participant, {InterfaceParticipant} from '../../models/participant';
+import logger from '../../logger';
 
 function shuffle(array: Array<InterfaceParticipant>): Array<InterfaceParticipant> {
     let currentIndex = array.length, temporaryValue, randomIndex;
@@ -23,13 +24,16 @@ function shuffle(array: Array<InterfaceParticipant>): Array<InterfaceParticipant
 }
 
 export function get(req: Request, res: Response): void {
+    logger.info('Rendering page: match');
     return res.render('match');
 }
 
 export async function post(req: Request, res: Response): Promise<void> {
+    logger.info("Attempting to match participants");
     let participants = await Participant.find({verify: true});
 
     participants = shuffle(participants);
+
     const participantsCopy = participants.slice();
     
     for (let i = 0, notEnough = false; i < participants.length && notEnough == false; i++) {
@@ -71,23 +75,25 @@ export async function post(req: Request, res: Response): Promise<void> {
             if (previouslyMatched == false) {
 
                 const match = new Match({
-                    person_1: {
+                    "person_1": {
                         name: firstPerson.name,
                         email: firstPerson.email,
                         department: firstPerson.department
                     },
-                    person_2: {
+                    "person_2": {
                         name: second[0].name,
                         email: second[0].email,
                         department: second[0].department
                     }
                 });
 
+                logger.info("Match created, saving the following: " + match);
+
                 match.save();
 
                 Participant.findOneAndUpdate({email: firstPerson.email}, {$push: {matches: second[0].email}}, function(err, doc) {
                     if (err) {
-                        console.error(err);
+                        logger.error(err);
                         return err;
                     }
 
@@ -96,7 +102,7 @@ export async function post(req: Request, res: Response): Promise<void> {
 
                 Participant.findOneAndUpdate({email: second[0].email}, {$push: {matches: firstPerson.email}}, function(err, doc) {
                     if (err) {
-                        console.error(err);
+                        logger.error(err);
                         return err;
                     }
 
