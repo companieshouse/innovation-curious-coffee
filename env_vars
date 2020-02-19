@@ -1,0 +1,9 @@
+export APP_PORT=3000
+export DB_URL_SERVER="mongodb://localhost:"
+export DB_URL_PORT="27017"
+export DB_NAME="curious"
+export DB_COLLECTIONS="people,matches,feedback"
+export ADMIN_PASSWORD="test"
+export VERIFY_SIGNATURE="test"
+export VERIFY_URL="http://127.0.0.1:3000/verify/"
+export NODE_ENV="dev"
