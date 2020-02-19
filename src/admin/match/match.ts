@@ -93,23 +93,19 @@ export async function post(req: Request, res: Response): Promise<void> {
 
                 logger.info("Updating participant match lists");
 
-                Participant.findOneAndUpdate({email: firstPerson.email}, {$push: {matches: second[0].email}}, function(err, doc) {
-                    if (err) {
-                        logger.error(err);
-                        return err;
-                    }
+                await Participant.findOneAndUpdate({
+                    email: firstPerson.email
+                }, {
+                    $push: {
+                        matches: second[0].email
+                    }});
 
-                    return doc;
-                });
-
-                Participant.findOneAndUpdate({email: second[0].email}, {$push: {matches: firstPerson.email}}, function(err, doc) {
-                    if (err) {
-                        logger.error(err);
-                        return err;
-                    }
-
-                    return doc;
-                });
+                await Participant.findOneAndUpdate({
+                    email: second[0].email
+                }, {
+                    $push: {
+                        matches: firstPerson.email
+                    }});
             }
         } else {
             notEnough = true;
