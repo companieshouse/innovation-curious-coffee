@@ -7,7 +7,7 @@ function displayError() {
 };
 
 function email() {
-    var fn = document.getElementById('email_error').textContent;
+    var fn = document.getElementById('emailError').textContent;
 
     if (undefined === fn || '' == fn) {
         $('#email').removeClass('is-valid');
