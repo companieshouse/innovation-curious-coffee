@@ -3,55 +3,41 @@ import aws from 'aws-sdk';
 
 import config from '../../config';
 import Participant from '../../models/participant';
+import logger from '../../logger';
 
 aws.config.update({region: 'eu-west-1'});
 
 export function get(req: Request, res: Response): void {
+    logger.info("Rendering page: register");
     return res.render('register');
 }
 
 export async function post(req: Request, res: Response): Promise<void> {
+    logger.info("Attempting to register new participant");
 
     const errors = req.validationErrors();
 
     if (errors) {
-
-        let nameError;
-        let emailError;
-        let departmentError;
-        let consentError;
-
-        errors.forEach(function(error: any) {
-            if ("name" == error.param) {
-                nameError = true;
-            } else if ("email" == error.param) {
-                emailError = true;
-            } else if ("department" == error.param) {
-                departmentError = true;
-            } else if ("consent" == error.param) {
-                consentError = true;
-            }
-        });
-
+        logger.info("Errors in registration data, rendering page: register, with errors");
         res.render('register', {
             name: req.body.name,
-            "name_error": nameError,
             department: req.body.department,
-            "department_error": departmentError,
             email: req.body.email,
-            "email_error": emailError,
             consent: req.body.consent,
-            "consent_error": consentError,
             errors: errors
         });
 
         return;
     } else {
     
-        const participant = await Participant.findOne({email: req.body.email});
+        logger.info("Validating participant doesn't already exist");
+        const participant = await Participant.findOne({
+            email: req.body.email
+        });
         
         //If the participant is not null, then we need to error as it already exists under that email address
         if (participant !== null) {
+            logger.info("Participant already exists");
 
             const error = {
                 msg: 'Email address already registered!',
@@ -61,13 +47,14 @@ export async function post(req: Request, res: Response): Promise<void> {
             const resultErrors = [];
             resultErrors.push(error);
 
+            logger.info("Rendering page: register, with errors");
+
             return res.render('register', {
                 name: req.body.name,
                 department: req.body.department,
                 email: req.body.email,
                 consent: req.body.consent,
-                errors: resultErrors,
-                "email_error": true
+                errors: resultErrors
                 });
         } 
 
@@ -79,13 +66,18 @@ export async function post(req: Request, res: Response): Promise<void> {
             verify: false
         });
 
+        logger.info("Registering new participant");
         newParticipant.save();
+        logger.info("New participant registered");
 
         //Don't attempt to do anything after this if we are in dev mode
         if (config.devmode) {
+            logger.info("Devmode enabled; redirecing to /");
             return res.redirect('/');
         }
 
+
+        logger.info("Sending email to verify email address of new participant");
         const params = {
             Destination: {
                 ToAddresses: [
@@ -111,8 +103,8 @@ export async function post(req: Request, res: Response): Promise<void> {
 
         const sendPromise = new aws.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
 
-        sendPromise.then(function(data) {
-            console.log(data);
+        sendPromise.then(function(data: aws.SES.Types.SendEmailResponse) {
+            logger.info("Email sent, response: " + data);
 
             req.flash('info', 'Thank you for registering for #CuriousCoffee. To complete registration, please verify with the link sent to you in an email.');
             return res.redirect('/');

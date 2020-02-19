@@ -10,7 +10,7 @@ function displayError() {
 };
 
 function name() {
-    var fn = document.getElementById('name_error').textContent;
+    var fn = document.getElementById('nameError').textContent;
 
     if (undefined === fn || '' == fn) {
         $('#name').removeClass('is-valid');
@@ -20,7 +20,7 @@ function name() {
 };
 
 function email() {
-    var fn = document.getElementById('email_error').textContent;
+    var fn = document.getElementById('emailError').textContent;
 
     if (undefined === fn || '' == fn) {
         $('#email').removeClass('is-valid');
@@ -30,7 +30,7 @@ function email() {
 };
 
 function department() {
-    var fn = document.getElementById('department_error').textContent;
+    var fn = document.getElementById('departmentError').textContent;
 
     if (undefined === fn || '' == fn) {
         $('#department').removeClass('is-valid');
@@ -40,7 +40,7 @@ function department() {
 };
 
 function consent() {
-    var fn = document.getElementById('consent_error').textContent;
+    var fn = document.getElementById('consentError').textContent;
 
     if (undefined === fn || '' == fn) {
         $('#consent').removeClass('is-valid');
