@@ -91,6 +91,8 @@ export async function post(req: Request, res: Response): Promise<void> {
 
                 match.save();
 
+                logger.info("Updating participant match lists");
+
                 Participant.findOneAndUpdate({email: firstPerson.email}, {$push: {matches: second[0].email}}, function(err, doc) {
                     if (err) {
                         logger.error(err);
