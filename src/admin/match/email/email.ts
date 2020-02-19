@@ -2,17 +2,21 @@ import {Request, Response} from 'express';
 import aws from 'aws-sdk';
 
 import Match from '../../../models/match';
+import logger from '../../../logger';
 
 aws.config.update({region: 'eu-west-1'});
 
 export function get(req: Request, res: Response): void {
+    logger.info('Rendering page: email');
     return res.render('email');
 }
 
 export async function post(req: Request, res: Response): Promise<void> {
+    logger.info("Preparing to email matches");
     const matches = await Match.find();
 
     matches.forEach(function(match) {
+        logger.info("Emailing match: " + match);
 
         const params = {
             Destination: {
