@@ -2,7 +2,6 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import flash from 'connect-flash';
 import mongoose from 'mongoose';
-import morgan from 'morgan';
 import path from 'path';
 import session from 'express-session';
 import validator from 'express-validator';
@@ -22,8 +21,6 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(bodyParser.json());
-
-app.use(morgan('combined'));
 
 app.use(validator());
 
