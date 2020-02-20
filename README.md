@@ -50,9 +50,8 @@ app.listen(port, () => {
 });
 ```
 
-The environment variables needed are as follows:
+The environment variables needed are below.
 
-#### App
 | Item | Type | Description | Example |
 | ---- | ---- | ---- | ----|
 | APP_PORT | Integer | The port that the application is run on | `3000` |
