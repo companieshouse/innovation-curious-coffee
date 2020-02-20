@@ -1,6 +1,5 @@
-"use strict";
-
-const expect = require('chai').expect;
+import chai from 'chai';
+const expect = chai.expect;
 
 describe("foo", function() {
     it("bar", function() {
