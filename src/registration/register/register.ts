@@ -71,7 +71,7 @@ export async function post(req: Request, res: Response): Promise<void> {
         logger.info("New participant registered");
 
         //Don't attempt to do anything after this if we are in dev mode
-        if (config.devmode) {
+        if (config.env === "dev") {
             logger.info("Devmode enabled; redirecing to /");
             return res.redirect('/');
         }
