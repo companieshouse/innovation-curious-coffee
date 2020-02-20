@@ -16,7 +16,10 @@ const config = {
         signature: (process.env.VERIFY_SIGNATURE as string),
         url: (process.env.VERIFY_URL as string)
     },
-    env: (process.env.NODE_ENV as string)
+    env: (process.env.NODE_ENV as string),
+    aws: {
+        region: (process.env.AWS_REGION as string)
+    }
 };
 
 export default config;
