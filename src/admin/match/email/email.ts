@@ -1,5 +1,6 @@
 import {Request, Response} from 'express';
 
+import config from '../../../config';
 import {Email, Params, notify} from '../../../notify';
 import Match from '../../../models/match';
 import logger from '../../../logger';
@@ -11,6 +12,13 @@ export function get(req: Request, res: Response): void {
 
 export async function post(req: Request, res: Response): Promise<void> {
     logger.info("Preparing to email matches");
+
+    //Don't attempt to do anything after this if we are in dev mode
+    if (config.env === "dev") {
+        logger.info("Devmode enabled; redirecing to /");
+        return res.redirect('/');
+    }
+
     const matches = await Match.find();
 
     matches.forEach(function(match) {
