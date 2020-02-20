@@ -1,8 +1,8 @@
 import chai from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-
 import {Request, Response} from 'express';
+
 import {get, post} from '../../src/admin/admin';
 
 const expect = chai.expect;
