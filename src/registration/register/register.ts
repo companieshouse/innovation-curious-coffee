@@ -1,12 +1,9 @@
 import {Request, Response} from 'express';
-//import aws from 'aws-sdk';
 
 import config from '../../config';
 import {Email, Params, notify} from '../../notify';
 import Participant from '../../models/participant';
 import logger from '../../logger';
-
-//aws.config.update({region: 'eu-west-1'});
 
 export function get(req: Request, res: Response): void {
     logger.info("Rendering page: register");
@@ -91,44 +88,7 @@ export async function post(req: Request, res: Response): Promise<void> {
             email: email
         };
         notify(params);
-        
-        /*(const params = {
-            Destination: {
-                ToAddresses: [
-                    req.body.email
-                ]
-            },
-            Message: {
-                Body: {
-                    Html: {
-                        Charset: 'UTF-8',
-                        Data: '<p>Thank you for registering for #CuriousCoffee. To complete registration, please verify with the link below.</p>'
-                        + '<br/>'
-                        + '<a href="' + config.verify.url + Buffer.from(req.body.email + config.verify.signature).toString('base64') + '">Verify</a>'
-                    }
-                },
-                Subject: {
-                    Charset: 'UTF-8',
-                    Data: 'Verification - Curious Coffee'
-                }
-            },
-            Source: 'curious-coffee@companieshouse.gov.uk'
-        };
-
-        const sendPromise = new aws.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
-
-        sendPromise.then(function(data: aws.SES.Types.SendEmailResponse) {
-            logger.info("Email sent, response: " + data);
-
-            req.flash('info', 'Thank you for registering for #CuriousCoffee. To complete registration, please verify with the link sent to you in an email.');
-            return res.redirect('/');
-        }).catch(function(err) {
-            console.error(err, err.stack);
-            return res.redirect('/oops');
-        });*/
-
-        
-
+    
         req.flash('info', 'Thank you for registering for #CuriousCoffee. To complete registration, please verify with the link sent to you in an email.');
         return res.redirect('/');
     }
