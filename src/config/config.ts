@@ -7,8 +7,7 @@ const config = {
             server: (process.env.DB_URL_SERVER as string),
             port: (process.env.DB_URL_PORT as string)
         },
-        name: (process.env.DB_NAME as string),
-        collections: (process.env.DB_COLLECTIONS as string)
+        name: (process.env.DB_NAME as string)
     },
     admin: {
         password: (process.env.ADMIN_PASSWORD as string),
