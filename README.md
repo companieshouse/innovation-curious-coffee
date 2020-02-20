@@ -22,11 +22,14 @@ Source code for the Curious Coffee initiative
 ## Introduction
 #CuriousCoffee is a initiative designed to break down silos within an organisation and match participants with people from different departments. Participants can register on the site and the system will ad-hoc match participants, as well as email them to inform them they've been matched and with who. It's then up to the matched participants to decide what to do next.
 
+It is written in TypeScript, and by default uses MongoDB as it's data store and AWS-SES as it's notifier.
+
 ## Prerequisites
 You will need the following:
 - [npm](https://www.npmjs.com/)
 - [Node.js](https://nodejs.org/en/)
-- [MongoDB](https://www.mongodb.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [MongoDB](https://www.mongodb.com/) (Can be swapped out, see `src/database` module)
 - [AWS-SES](https://aws.amazon.com/ses/) (Looking to remove this in later revisions to be less-dependant on specific non-required technologies)
 
 ## Config
@@ -71,6 +74,7 @@ import config from './config/config';
 //access it as a normal object
 const port = config.app.port;
 
+//start the listener
 app.listen(port, () => {
     console.log('Listening on port ' + port);
 });
@@ -121,15 +125,8 @@ Inside the directory:
 npm install
 ```
 
-Build the contents: 
+Build the contents and run:
 
 ```
-npm run build
+./run.sh
 ```
-
-And run the application:
-```
-npm run start
-```
-
-You'll need a MongoDB instance deployed somewhere with the config pointing at it, otherwise the app will fail on startup.
