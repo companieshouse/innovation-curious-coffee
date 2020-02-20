@@ -1,11 +1,8 @@
 import {Request, Response} from 'express';
-import aws from 'aws-sdk';
 
 import {Email, Params, notify} from '../../../notify';
 import Match from '../../../models/match';
 import logger from '../../../logger';
-
-aws.config.update({region: 'eu-west-1'});
 
 export function get(req: Request, res: Response): void {
     logger.info('Rendering page: email');
