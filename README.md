@@ -35,7 +35,7 @@ You will need the following:
 ## Config
 Config is stored in the `env_vars` folder (in root) and needs to be sourced to run properly. Change the env vars to match whatever settings you need.
 
-It is in the following format
+The config structure is as follows:
 ```javascript
 const config = {
     app: {
@@ -59,7 +59,7 @@ const config = {
         signature: "SIGNATURE",
         url: "URL_TO_VERIFY_ENDPOINT"
     },
-    devmode: true
+    env: "ENV"
 };
 
 export = config;
