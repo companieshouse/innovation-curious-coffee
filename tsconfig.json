@@ -12,7 +12,8 @@
         "strictNullChecks": true,
         "sourceMap": true,
         "allowJs": true,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "noImplicitAny": true
     },
     "include": [
         "./src"

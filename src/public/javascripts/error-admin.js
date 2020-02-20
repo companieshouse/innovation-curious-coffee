@@ -7,7 +7,7 @@ function displayError() {
 };
 
 function password() {
-    var fn = document.getElementById('password_error').textContent;
+    var fn = document.getElementById('passwordError').textContent;
 
     if (undefined === fn || '' == fn) {
         $('#password').removeClass('is-valid');

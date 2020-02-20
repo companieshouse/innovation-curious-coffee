@@ -14,10 +14,10 @@ block content
                 div(class='col-sm-4')
                     input#name(class='form-control custom-form-control' type='text', placeholder='name', name='name' value=undefined===name ? '' : name)
                 div(class='col-sm-4 text-left')
-                    if name_error
+                    if errors
                         for error in errors
                             if error.param == 'name'
-                                    span= error.msg
+                                    span(id='nameError')= error.msg
             
             div(class='form-group form-row align-items-center')
                 div(class='col-sm-2')
@@ -26,10 +26,10 @@ block content
                 div(class='col-sm-4')
                     input#email(class='form-control custom-form-control' type='text', placeholder='email', name='email' value=undefined===email ? '' : email)
                 div(class='col-sm-4 text-left')
-                    if email_error
+                    if errors
                         for error in errors
                             if error.param == 'email'
-                                    span= error.msg
+                                    span(id='emailError')= error.msg
             
             div(class='form-group form-row align-items-center')
                 div(class='col-sm-2')
@@ -72,10 +72,10 @@ block content
                         option(value='Technical Offences' selected= department == 'Technical Offences')= "Technical Offences"
                         
                 div(class='col-sm-4 text-left')
-                    if department_error
+                    if errors
                         for error in errors
                             if error.param == 'department'
-                                    span= error.msg
+                                    span(id='departmentError')= error.msg
 
             div(class='form-group form-row align-items-center')
                 div(class='col-sm-2')
@@ -96,20 +96,15 @@ block content
                 div(class='checkbox')
                     input#consent(type='checkbox' class='custom-checkbox' name='consent')
                 div(class='col-sm-4 text-center')
-                    if consent_error
+                    if errors
                         for error in errors
                             if error.param == 'consent'
-                                    span= error.msg
+                                    span(id='consentError')= error.msg
             
             div(class='form-group form-row align-items-center')
                 div(class='col-sm-4')
                 div(class='col-sm-2')
                     button(class='btn btn-primary custom-button' type='submit') Register
-            
-            span#name_error(hidden)= name_error
-            span#email_error(hidden)= email_error
-            span#department_error(hidden)= department_error
-            span#consent_error(hidden)= consent_error
 
     script(src='/javascripts/jquery.min.js')
     script(src='/javascripts/error-register.js')

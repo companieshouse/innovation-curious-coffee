@@ -13,15 +13,15 @@ block content
                 div(class='col-sm-4')
                     input#password(class='form-control custom-form-control' type='password', placeholder='password', name='password' value=undefined===password ? '' : password)
                 div(class='col-sm-4 text-left')
-                    if password_error
-                        span= password_error
+                    if passwordError
+                        span= passwordError
 
             div(class='form-group form-row align-items-center')
                 div(class='col-sm-4')
                 div(class='col-sm-2')
                     button(class='btn btn-primary custom-button' type='submit') Log in
 
-            span#password_error(hidden)= password_error
+            span#passwordError(hidden)= passwordError
 
     script(src='/javascripts/jquery.min.js')
     script(src='/javascripts/error-admin.js')

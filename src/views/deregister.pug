@@ -28,17 +28,15 @@ block content
                 div(class='col-sm-4')
                     input#email(class='form-control custom-form-control' type='text', placeholder='email', name='email' value=undefined===email ? '' : email)
                 div(class='col-sm-4 text-left')
-                    if email_error
+                    if errors
                         for error in errors
                             if error.param == 'email'
-                                    span= error.msg
+                                    span(id="emailError")= error.msg
 
             div(class='form-group form-row align-items-center')
                 div(class='col-sm-4')
                 div(class='col-sm-2')
                     button(class='btn btn-primary custom-button' type='submit') Submit
-
-            span#email_error(hidden)= email_error
     
     script(src='/javascripts/jquery.min.js')
     script(src='/javascripts/error-deregister.js')
