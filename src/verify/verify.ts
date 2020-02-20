@@ -1,11 +1,9 @@
 import {Request, Response} from 'express';
-import aws from 'aws-sdk';
 
 import config from '../config';
+import {Email, Params, notify} from '../notify';
 import Participant from '../models/participant';
 import logger from '../logger';
-
-aws.config.update({region: 'eu-west-1'});
 
 export async function get(req: Request, res: Response): Promise<void> {
     logger.info("Attempting to verify email address");
@@ -40,38 +38,20 @@ export async function get(req: Request, res: Response): Promise<void> {
                 verify: true
             }
         });
-        
-        const params = {
-            Destination: {
-                ToAddresses: [
-                    decodedEmail
-                ]
-            },
-            Message: {
-                Body: {
-                    Html: {
-                        Charset: 'UTF-8',
-                        Data: '<p>Congratulations! You have signed up for #CuriousCoffee. You will receive an email in due course matching you for your #CuriousCoffee</p>'
-                    }
-                },
-                Subject: {
-                    Charset: 'UTF-8',
-                    Data: 'Sign up confirmed!'
-                }
-            },
-            Source: 'curious-coffee@companieshouse.gov.uk'
-        };
 
-        const sendPromise = new aws.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
-    
-        sendPromise.then(function(data: aws.SES.Types.SendEmailResponse) {
-            logger.info("Email sent, response: " + data);
-            
-            req.flash('info', 'Congratulations! You have signed up for #CuriousCoffee. You will receive an email in due course matching you for your #CuriousCoffee');
-            return res.redirect('/');
-        }).catch(function(err) {
-            console.error(err, err.stack);
-        });
+        const email: Email = {
+            sendFrom: "curious-coffee@companieshouse.gov.uk",
+            sendTo: [decodedEmail],
+            subject: "Registration confirmed!",
+            body: "<p>Congratulations! You have signed up for #CuriousCoffee. You will receive an email in due course matching you for your #CuriousCoffee</p>"
+        };
+        const params: Params = {
+            email: email
+        };
+        notify(params);
+
+        req.flash('info', 'Congratulations! You have signed up for #CuriousCoffee. You will receive an email in due course matching you for your #CuriousCoffee');
+        return res.redirect('/');
     } else {
         return res.redirect('/');
     }
