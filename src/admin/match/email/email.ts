@@ -1,6 +1,7 @@
 import {Request, Response} from 'express';
 import aws from 'aws-sdk';
 
+import {Email, Params, notify} from '../../../notify';
 import Match from '../../../models/match';
 import logger from '../../../logger';
 
@@ -18,35 +19,20 @@ export async function post(req: Request, res: Response): Promise<void> {
     matches.forEach(function(match) {
         logger.info("Emailing match: " + match);
 
-        const params = {
-            Destination: {
-                ToAddresses: [
-                    match.person_1.email,
-                    match.person_2.email
-                ]
-            },
-            Message: {
-                Body: {
-                    Text: {
-                        Charset: 'UTF-8',
-                        Data: 'Congratulations! You have both been matched together to go and get a #CuriousCoffee. Now its over to you to start the conversation!'
-                    }
-                },
-                Subject: {
-                    Charset: 'UTF-8',
-                    Data: 'It\'s a match!'
-                }
-            },
-            Source: 'curious-coffee@companieshouse.gov.uk'
+        const email: Email = {
+            sendFrom: "curious-coffee@companieshouse.gov.uk",
+            sendTo: [
+                match.person_1.email,
+                match.person_2.email
+            ],
+            subject: "It's a match!",
+            body: "Congratulations! You have both been matched together to go and get a #CuriousCoffee."
+                + " Now its over to you to start the conversation!"
         };
-
-        const sendPromise = new aws.SES({apiVersion: '2010-12-01'}).sendEmail(params).promise();
-
-        sendPromise.then(function(data) {
-            console.log(data.MessageId);
-        }).catch(function(err) {
-            console.log(err);
-        });
+        const params: Params = {
+            email: email
+        };
+        notify(params);
     });
 
     return res.redirect('/');
