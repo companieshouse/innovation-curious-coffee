@@ -35,36 +35,6 @@ You will need the following:
 ## Config
 Config is stored in the `env_vars` folder (in root) and needs to be sourced to run properly. Change the env vars to match whatever settings you need.
 
-The config structure is as follows:
-```javascript
-const config = {
-    app: {
-        port: APPLICATION_PORT
-    },
-    db: {z
-        url: {
-            server: "MONGO_SERVER",
-            port: MONGO_PORT
-        },
-        name: "DB_NAME",
-        collections: [
-            "COLLECTION_1",
-            "COLLECTION_2"
-        ]    
-    },
-    admin: {
-        password: "PASSWORD",
-    },
-    verify: {
-        signature: "SIGNATURE",
-        url: "URL_TO_VERIFY_ENDPOINT"
-    },
-    env: "ENV"
-};
-
-export = config;
-```
-
 The config can then be used as follows:
 
 ```javascript
@@ -80,36 +50,19 @@ app.listen(port, () => {
 });
 ```
 
-Each config item is as follows:
+The environment variables needed are as follows:
 
 #### App
 | Item | Type | Description | Example |
 | ---- | ---- | ---- | ----|
-| app.port | Integer | The port that the application is run on | `3000` |
-
-#### DB
-| Item | Type | Description | Example |
-| ---- | ---- | ---- | ----|
-| db.url.server | String | MongoDB server location | `"mongodb://localhost:"` |
-| db.url.port | Integer | MongoDB port | `27017` |
-| db.name | String | MongoDB db name | `"curious_coffee"` |
-| db.collections | Array String | collections in the db | `["people", "feedback"]` |
-
-#### Admin
-| Item | Type | Description | Example |
-| ---- | ---- | ---- | ----|
-| admin.password | String | Password for that admin site | `"test"` |
-
-#### Verify
-| Item | Type | Description | Example |
-| ---- | ---- | ---- | ----|
-| verify.signature | String | Signature to be appended to email before being Base64 encoded to generate unique verify link | `"test"` |
-| verify.url | String | Base URL to attach to verification email so user can verify their email | `"http://localhost:3000/verify"` |
-
-#### Env
-| Item | Type | Description | Example |
-| ---- | ---- | ---- | ----|
-| env | string | Used to determine what environment is being run (dev, test, prod, etc) | `"dev"` |
+| APP_PORT | Integer | The port that the application is run on | `3000` |
+| DB_URL_SERVER | String | MongoDB server location | `"mongodb://localhost:"` |
+| DB_URL_PORT | Integer | MongoDB port | `27017` |
+| DB_NAME | String | MongoDB db name | `"curious_coffee"` |
+| ADMIN_PASSWORD | String | Password for that admin site | `"test"` |
+| VERIFY_SIGNATURE | String | Signature to be appended to email before being Base64 encoded to generate unique verify link | `"test"` |
+| VERIFY_URL | String | Base URL to attach to verification email so user can verify their email | `"http://localhost:3000/verify"` |
+| NODE_ENV | string | Used to determine what environment is being run (dev, test, prod, etc) | `"dev"` |
 
 
 ## Deploy
