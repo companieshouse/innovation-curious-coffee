@@ -2,7 +2,7 @@
     <img src="readme-images/curious-coffee.png" alt="Curious Coffee" title="Curious Coffee" width="30%" />
 </p>
 
-![Build and test](https://github.com/drosser/innovation-curious-coffee/workflows/Build%20and%20test/badge.svg)
+![Build and test](https://github.com/companieshouse/innovation-curious-coffee/workflows/Build%20and%20test/badge.svg)
 
 # #CuriousCoffee
 Source code for the Curious Coffee initiative
