@@ -39,6 +39,13 @@ export async function get(req: Request, res: Response): Promise<void> {
             }
         });
 
+        //Don't attempt to do anything after this if we are in dev mode
+        if (config.env === "dev") {
+            logger.info("Devmode enabled; redirecing to /");
+            return res.redirect('/');
+        }
+
+        logger.info("Sending verified email");
         const email: Email = {
             sendFrom: "curious-coffee@companieshouse.gov.uk",
             sendTo: [decodedEmail],
