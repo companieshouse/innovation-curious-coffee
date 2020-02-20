@@ -29,8 +29,14 @@ You will need the following:
 - [npm](https://www.npmjs.com/)
 - [Node.js](https://nodejs.org/en/)
 - [TypeScript](https://www.typescriptlang.org/)
-- [MongoDB](https://www.mongodb.com/) (Can be swapped out, see `src/database` module)
-- [AWS-SES](https://aws.amazon.com/ses/) (Looking to remove this in later revisions to be less-dependant on specific non-required technologies)
+- [MongoDB](https://www.mongodb.com/) (See below for more details)
+- [AWS-SES](https://aws.amazon.com/ses/) (See below for more details)
+
+## Database
+By default, Curious Coffee uses MongoDB via [MongooseJS](https://mongoosejs.com/). An attempt has been made to make this as generic as possible (see the `src/database` module), but the models themselves need to be bound in a certain way via Mongoose. This makes it a bit harder to swap out, but the models aren't complicated so it shouldn't be much work.
+
+## Notify
+By default, Curious Coffee notifies participants three times - during registration, when they have verified, and when they have been matched. The default implementation of this uses AWS-SES (see the `src/notify` module). This can be swapped out for another provider easily enough as the notify module has been built so that the user simply needs to configure the from, to, subject and body of the email before calling `notify(params)`. This can also be extended to use other types of notifications by adding an interface for the new type of communication (for example, `SMS`) and then adding an object of that interface to the `Params` interface.
 
 ## Config
 Config is stored in the `env_vars` folder (in root) and needs to be sourced to run properly. Change the env vars to match whatever settings you need.
