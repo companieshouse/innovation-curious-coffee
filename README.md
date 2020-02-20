@@ -62,6 +62,7 @@ The environment variables needed are below.
 | VERIFY_SIGNATURE | String | Signature to be appended to email before being Base64 encoded to generate unique verify link | `"test"` |
 | VERIFY_URL | String | Base URL to attach to verification email so user can verify their email | `"http://localhost:3000/verify"` |
 | NODE_ENV | string | Used to determine what environment is being run (dev, test, prod, etc) | `"dev"` |
+| AWS_REGION | string | Used to determine which AWS region to use | `"eu-west-1"` |
 
 
 ## Deploy
