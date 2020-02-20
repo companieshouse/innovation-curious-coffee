@@ -1,11 +1,12 @@
 import {Request, Response} from 'express';
-import aws from 'aws-sdk';
+//import aws from 'aws-sdk';
 
 import config from '../../config';
+import {Email, Params, notify} from '../../notify';
 import Participant from '../../models/participant';
 import logger from '../../logger';
 
-aws.config.update({region: 'eu-west-1'});
+//aws.config.update({region: 'eu-west-1'});
 
 export function get(req: Request, res: Response): void {
     logger.info("Rendering page: register");
@@ -78,7 +79,20 @@ export async function post(req: Request, res: Response): Promise<void> {
 
 
         logger.info("Sending email to verify email address of new participant");
-        const params = {
+        const email: Email = {
+            sendFrom: "curious-coffee@companieshouse.gov.uk",
+            sendTo: [req.body.email],
+            subject: "Verification - Curious Coffee",
+            body: "<p>Thank you for registering for #CuriousCoffee. To complete registration, please verify with the link below.</p>"
+            + "<br/>"
+            + "<a href=\"" + config.verify.url + Buffer.from(req.body.email + config.verify.signature).toString('base64') + "\">Verify</a>"
+        };
+        const params: Params = {
+            email: email
+        };
+        notify(params);
+        
+        /*(const params = {
             Destination: {
                 ToAddresses: [
                     req.body.email
@@ -111,6 +125,11 @@ export async function post(req: Request, res: Response): Promise<void> {
         }).catch(function(err) {
             console.error(err, err.stack);
             return res.redirect('/oops');
-        });
+        });*/
+
+        
+
+        req.flash('info', 'Thank you for registering for #CuriousCoffee. To complete registration, please verify with the link sent to you in an email.');
+        return res.redirect('/');
     }
 }
