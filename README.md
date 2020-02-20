@@ -45,7 +45,7 @@ The config can then be used as follows:
 
 ```javascript
 //import the config module
-import config from './config/config';
+import config from './config';
 
 //access it as a normal object
 const port = config.app.port;
