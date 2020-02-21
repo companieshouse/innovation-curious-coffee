@@ -3,6 +3,6 @@ import {get} from './verify';
 
 const router = express.Router();
 
-router.get('/', get);
+router.get('/:email', get);
 
 export = router;
