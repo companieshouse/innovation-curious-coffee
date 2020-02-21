@@ -7,7 +7,7 @@
     "prebuild": "./scripts/prebuild.sh",
     "build": "tsc",
     "postbuild": "./scripts/postbuild.sh",
-    "test": "source env_vars && mocha -r ts-node/register --recursive \"test/**/*.test.ts\"",
+    "test": "mocha -r ts-node/register --recursive \"test/**/*.test.ts\"",
     "lint": "eslint src",
     "start": "node ./dist/app.js"
   },
