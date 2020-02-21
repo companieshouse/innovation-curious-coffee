@@ -28,11 +28,14 @@ export function get(req: Request, res: Response): void {
     return res.render('match');
 }
 
+async function getShuffledParticipants(): Promise<Array<InterfaceParticipant>> {
+    const participants = await Participant.find({verify: true});
+    return shuffle(participants);
+}
+
 export async function post(req: Request, res: Response): Promise<void> {
     logger.info("Attempting to match participants");
-    let participants = await Participant.find({verify: true});
-
-    participants = shuffle(participants);
+    const participants = await getShuffledParticipants();
 
     const participantsCopy = participants.slice();
     
