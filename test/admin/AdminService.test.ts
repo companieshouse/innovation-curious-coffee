@@ -8,7 +8,7 @@ import AdminService from '../../src/admin/AdminService';
 const expect = chai.expect;
 chai.use(sinonChai);
 
-describe("admin", function () {
+describe("admin/AdminService", function () {
 
     describe("#get()", function () {
         it("tries to render the admin page", function () {
