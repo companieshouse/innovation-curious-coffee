@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 import logger from '../logger';
-import {InterfaceFeedbackRepository} from '../repository/FeedbackRepository';
+import {InterfaceFeedbackRepository} from './FeedbackRepository';
 
 export default class FeedbackService {
 
