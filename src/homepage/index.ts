@@ -1,8 +1,10 @@
 import express from 'express';
-import {get} from './homepage';
+import HomepageService from './HomepageService';
 
 const router = express.Router();
 
-router.get('/', get);
+const homepageService = new HomepageService();
+
+router.get('/', homepageService.get);
 
 export = router;
