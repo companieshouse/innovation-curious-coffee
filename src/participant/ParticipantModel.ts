@@ -1,6 +1,6 @@
 import mongoose, {Schema, Document} from 'mongoose';
 
-export interface InterfaceParticipant extends Document {
+export interface Participant extends Document {
     name: string;
     department: string;
     email: string;
@@ -18,10 +18,10 @@ const ParticipantSchema: Schema = new Schema({
     matches: {type: [String]}
 });
 
-ParticipantSchema.statics.getAllVerifiedParticipants = async function(): Promise<InterfaceParticipant> {
+ParticipantSchema.statics.getAllVerifiedParticipants = async function(): Promise<Participant> {
     return this.find({verify: true})
             .collation({ locale: "en" })
             .sort({email: 1});
 };
 
-export default mongoose.model<InterfaceParticipant>('Participant', ParticipantSchema, "people");
+export default mongoose.model<Participant>('Participant', ParticipantSchema, "people");
