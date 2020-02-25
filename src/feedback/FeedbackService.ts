@@ -11,20 +11,6 @@ export default class FeedbackService {
         this.repository = repository;
     }
 
-    private validateData(req: Request, res: Response): void {
-        const errors = req.validationErrors();
-
-        if (errors) {
-            logger.info("Errors in feedback data, rendering page: feedback");
-            return res.render('feedback', {
-                feedbackModel: req.body.feedbackModel,
-                errors: errors
-            });
-        } else {
-            return;
-        }
-    }
-
     public get(req: Request, res: Response): void {
         logger.info("Rendering page: feedback");
         return res.render('feedback');
@@ -32,8 +18,6 @@ export default class FeedbackService {
 
     public async post(req: Request, res: Response): Promise<void> {
         logger.info("Attempting to save feedback");
-
-        this.validateData(req, res);
 
         logger.info("Saving feedback");
 
