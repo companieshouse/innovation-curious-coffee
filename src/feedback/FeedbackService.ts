@@ -18,7 +18,7 @@ export default class FeedbackService {
     public post = async (req: Request, res: Response): Promise<void> => {
         logger.info("Attempting to save feedback");
 
-        this._repository.save(req.body.feedbackModel.email, req.body.feedbackModel.feedback);
+        this._repository.save(req.body.feedbackModel);
 
         req.flash('info', 'Thank you for your feedback!');
         return res.redirect('/');
