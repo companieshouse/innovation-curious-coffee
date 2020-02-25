@@ -1,12 +1,12 @@
 import {Request, Response} from 'express';
 import logger from '../logger';
-import {InterfaceFeedbackRepository} from './FeedbackRepository';
+import {FeedbackRepository} from './FeedbackRepository';
 
 export default class FeedbackService {
 
-    private _repository: InterfaceFeedbackRepository;
+    private _repository: FeedbackRepository;
 
-    constructor(repository: InterfaceFeedbackRepository) {
+    constructor(repository: FeedbackRepository) {
         this._repository = repository;
     }
 
