@@ -18,7 +18,7 @@ block content
                 div(class='col-sm-2')
                 label(for='email' class='control-label col-sm-2 text-right') Email: 
                 div(class='col-sm-4')
-                    input(id='email' class='form-control custom-form-control' type='text', placeholder='email', name='feedbackModel[email]' value= feedbackModel.email)
+                    input(id='email' class='form-control custom-form-control' type='text', placeholder='email', name='feedbackModel[email]' value= undefined===feedbackModel || undefined===feedbackModel.email ? '' : feedbackModel.email)
                 div(class='col-sm-4 text-left')
                     if errors
                         for error in errors
@@ -29,7 +29,7 @@ block content
                 div(class='col-sm-2')
                 label(for='feedback' class='control-label col-sm-2 text-right') Feedback:
                 div(class='col-sm-4')
-                    textarea(id='feedback' class='form-control custom-form-control' rows=5 name='feedbackModel[feedback]')= feedbackModel.feedback
+                    textarea(id='feedback' class='form-control custom-form-control' rows=5 name='feedbackModel[feedback]')= undefined=== feedbackModel || undefined===feedbackModel.feedback ? '' : feedbackModel.feedback
                 div(class='col-sm-4 text-left')
                     if errors
                         for error in errors
