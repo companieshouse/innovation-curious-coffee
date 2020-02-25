@@ -1,8 +1,10 @@
 import express from 'express';
-import {get} from './error';
+import ErrorService from './ErrorService';
 
 const router = express.Router();
 
-router.get('/', get);
+const errorService = new ErrorService();
+
+router.get('/', errorService.get);
 
 export = router;
