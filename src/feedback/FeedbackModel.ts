@@ -6,8 +6,14 @@ export interface Feedback extends Document {
 }
 
 const FeedbackSchema: Schema = new Schema({
-    email: {type: String, required: true},
-    feedback: {type: String, required: true}
+    email: {
+        type: String, 
+        required: true
+    },
+    feedback: {
+        type: String, 
+        required: true
+    }
 });
 
 export default mongoose.model<Feedback>('Feedback', FeedbackSchema, 'feedback');
