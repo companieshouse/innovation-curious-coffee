@@ -1,10 +1,10 @@
 import {Request, Response} from 'express';
 
 import Match from '../../models/match';
-import Participant, {InterfaceParticipant} from '../../participant/participant';
+import ParticipantImpl, {Participant} from '../../participant/ParticipantModel';
 import logger from '../../logger';
 
-function shuffle(array: Array<InterfaceParticipant>): Array<InterfaceParticipant> {
+function shuffle(array: Array<Participant>): Array<Participant> {
     let currentIndex = array.length, temporaryValue, randomIndex;
   
     // While there remain elements to shuffle...
@@ -28,8 +28,8 @@ export function get(req: Request, res: Response): void {
     return res.render('match');
 }
 
-async function getShuffledParticipants(): Promise<Array<InterfaceParticipant>> {
-    const participants = await Participant.find({verify: true});
+async function getShuffledParticipants(): Promise<Array<Participant>> {
+    const participants = await ParticipantImpl.find({verify: true});
     return shuffle(participants);
 }
 
@@ -96,14 +96,14 @@ export async function post(req: Request, res: Response): Promise<void> {
 
                 logger.info("Updating participant match lists");
 
-                await Participant.findOneAndUpdate({
+                await ParticipantImpl.findOneAndUpdate({
                     email: firstPerson.email
                 }, {
                     $push: {
                         matches: second[0].email
                     }});
 
-                await Participant.findOneAndUpdate({
+                await ParticipantImpl.findOneAndUpdate({
                     email: second[0].email
                 }, {
                     $push: {

@@ -1,5 +1,5 @@
 import {Request, Response} from 'express';
-import Participant from '../../../participant/participant';
+import Participant from '../../../participant/ParticipantModel';
 import logger from '../../../logger';
 
 export async function get(req: Request, res: Response): Promise<void> {
