@@ -1,10 +1,13 @@
 import express from 'express';
-import {get, post} from './feedback';
-import validation from './validation';
+import FeedbackService from './FeedbackService';
+import FeedbackRepository from '../repository/FeedbackRepository';
+import validation, {checkValidation} from './validation';
 
 const router = express.Router();
 
-router.get('/', get);
-router.post('/', validation, post);
+const feedbackService = new FeedbackService(new FeedbackRepository());
+
+router.get('/', feedbackService.get);
+router.post('/', validation, checkValidation, feedbackService.post);
 
 export = router;
