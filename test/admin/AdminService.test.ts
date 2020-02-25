@@ -3,15 +3,15 @@ import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import {Request, Response} from 'express';
 
-import {get, post} from '../../src/admin/admin';
+import AdminService from '../../src/admin/AdminService';
 
 const expect = chai.expect;
 chai.use(sinonChai);
 
-describe("admin", function () {
+describe("admin/AdminService", function () {
 
     describe("#get()", function () {
-        it("tries to render the admin page", function () {
+        it("renders the admin page", function () {
             const mockRequest: Partial<Request> = {
             };
 
@@ -19,7 +19,9 @@ describe("admin", function () {
                 render: sinon.spy()
             };
 
-            get(
+            const adminService = new AdminService();
+
+            adminService.get(
                 mockRequest as Request,
                 mockResponse as Response
             );
@@ -46,7 +48,9 @@ describe("admin", function () {
                 redirect: sinon.spy()
             };
 
-            post(
+            const adminService = new AdminService();
+
+            adminService.post(
                 mockRequest as Request,
                 mockResponse as Response
             );
@@ -67,7 +71,9 @@ describe("admin", function () {
                 render: sinon.spy()
             };
 
-            post(
+            const adminService = new AdminService();
+
+            adminService.post(
                 mockRequest as Request,
                 mockResponse as Response
             );

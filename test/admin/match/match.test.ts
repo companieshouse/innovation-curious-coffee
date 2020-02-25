@@ -9,7 +9,7 @@ const expect = chai.expect;
 chai.use(sinonChai);
 
 describe("#get()", function () {
-    it("tries to render the match page", function () {
+    it("renders the match page", function () {
         const mockRequest: Partial<Request> = {
         };
 

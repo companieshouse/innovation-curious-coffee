@@ -1,7 +1,7 @@
 import {Request, Response} from 'express';
 
 import Match from '../../../models/match';
-import Participant from '../../../models/participant';
+import Participant from '../../../participant/ParticipantModel';
 import logger from '../../../logger';
 
 export async function get(req: Request, res: Response): Promise<void> {
