@@ -1,9 +1,9 @@
 import express from 'express';
-import {get, getData} from './participantsByDepartment';
+import participantService from '../../participant';
 
 const router = express.Router();
 
-router.get('/', get);
-router.get('/data', getData);
+router.get('/', participantService.getGroupedByDepartment);
+router.get('/data', participantService.getGroupedByDepartmentData);
 
 export = router;

@@ -1,6 +1,6 @@
 import {Request, Response} from 'express';
 
-import Participant from '../../models/participant';
+import Participant from '../../participant/ParticipantModel';
 import logger from '../../logger';
 
 export function get(req: Request, res: Response): void {
