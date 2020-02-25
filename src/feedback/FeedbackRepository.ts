@@ -1,4 +1,4 @@
-import Feedback, {InterfaceFeedback} from '../models/feedback';
+import FeedbackImpl, {Feedback} from './FeedbackModel';
 import logger from '../logger';
 
 export interface InterfaceFeedbackRepository {
@@ -9,7 +9,7 @@ export default class FeedbackRepository implements InterfaceFeedbackRepository {
     public save = (email: string, feedback: string): void => {
         logger.info("Saving feedback");
 
-        const feedbackToSave: InterfaceFeedback = new Feedback({
+        const feedbackToSave: Feedback = new FeedbackImpl({
             email: email,
             feedback: feedback
         });
