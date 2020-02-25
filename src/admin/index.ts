@@ -1,9 +1,11 @@
 import express from 'express';
-import {get, post} from './admin';
+import AdminService from './AdminService';
 
 const router = express.Router();
 
-router.get('/', get);
-router.post('/', post);
+const adminService = new AdminService();
+
+router.get('/', adminService.get);
+router.post('/', adminService.post);
 
 export = router;
