@@ -1,11 +1,11 @@
 import FeedbackImpl, {Feedback} from './FeedbackModel';
 import logger from '../logger';
 
-export interface InterfaceFeedbackRepository {
+export interface FeedbackRepository {
     save(feedback: Feedback): void;
 }
 
-export default class FeedbackRepository implements InterfaceFeedbackRepository {
+export default class FeedbackRepositoryImpl implements FeedbackRepository {
     public save = (feedback: Feedback): void => {
         logger.info("Saving feedback");
 
