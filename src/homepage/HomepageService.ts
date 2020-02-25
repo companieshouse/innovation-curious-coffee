@@ -1,5 +1,5 @@
 import {Request, Response} from 'express';
-import Participant from '../models/participant';
+import Participant from '../participant/participant';
 import logger from '../logger';
 
 export default class HomepageService {
