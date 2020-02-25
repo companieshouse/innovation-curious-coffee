@@ -1,7 +1,7 @@
 import {Request, Response} from 'express';
 import mongoose from 'mongoose';
 
-import Participant from '../../models/participant';
+import Participant from '../../participant/participant';
 import logger from '../../logger';
 
 export function get(req: Request, res: Response): void {

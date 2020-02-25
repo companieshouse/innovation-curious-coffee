@@ -1,7 +1,7 @@
 import {Request, Response} from 'express';
 
 import Match from '../../models/match';
-import Participant, {InterfaceParticipant} from '../../models/participant';
+import Participant, {InterfaceParticipant} from '../../participant/participant';
 import logger from '../../logger';
 
 function shuffle(array: Array<InterfaceParticipant>): Array<InterfaceParticipant> {
