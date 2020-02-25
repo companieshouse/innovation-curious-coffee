@@ -1,8 +1,10 @@
 import express from 'express';
-import {get} from './faq';
+import FaqService from './FaqService';
 
 const router = express.Router();
 
-router.get('/', get);
+const faqService = new FaqService();
+
+router.get('/', faqService.get);
 
 export = router;
