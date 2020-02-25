@@ -12,7 +12,7 @@ chai.use(sinonChai);
 describe("feedback/FeedbackService.ts", () => {
 
     describe("get", () => {
-        it("tries to render the feedback page", () => {
+        it("renders the feedback page", () => {
             const mockRequest: Partial<Request> = {
             };
 
