@@ -11,7 +11,7 @@ chai.use(sinonChai);
 describe("admin/AdminService", function () {
 
     describe("#get()", function () {
-        it("tries to render the admin page", function () {
+        it("renders the admin page", function () {
             const mockRequest: Partial<Request> = {
             };
 
