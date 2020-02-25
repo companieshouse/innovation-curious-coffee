@@ -6,9 +6,7 @@ import FeedbackRepository, {InterfaceFeedbackRepository} from '../repository/Fee
 export default class FeedbackService {
     get(req: Request, res: Response): void {
         logger.info("Rendering page: feedback");
-        return res.render('feedback', {
-            feedbackModel: new Feedback()
-        });    
+        return res.render('feedback');
     }
 
     async post(req: Request, res: Response): Promise<void> {
