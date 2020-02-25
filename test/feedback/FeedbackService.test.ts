@@ -9,7 +9,7 @@ import {FeedbackRepository} from '../../src/feedback/FeedbackRepository';
 const expect = chai.expect;
 chai.use(sinonChai);
 
-describe("FeedbackService", () => {
+describe("feedback/FeedbackService.ts", () => {
 
     describe("get", () => {
         it("tries to render the feedback page", () => {
