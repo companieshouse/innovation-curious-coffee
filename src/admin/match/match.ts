@@ -18,8 +18,12 @@ export async function post(req: Request, res: Response): Promise<void> {
     
     const { matches } = matchService.createMatches(participants)
 
-    matchRepository.saveMatches(matches)
-    participantRepository.saveMatchesToPreviousMatches(matches)
+
+    await Promise.all([
+        matchRepository.saveMatches(matches),
+        participantRepository.saveMatchesToPreviousMatches(matches),
+    ])
+
 
     return res.redirect('/');
 }

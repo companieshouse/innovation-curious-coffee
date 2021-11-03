@@ -83,13 +83,18 @@ export default class ParticipantRepositoryImpl implements ParticipantRepository 
         }]);
     }
 
-    public saveMatchesToPreviousMatches = (matches: Array<Match>) => {
+    public saveMatchesToPreviousMatches = async (matches: Array<Match>): Promise<unknown[]> => {
+        const promises: Array<Promise<unknown>> = []
         for (let { participant_1: p1, participant_2: p2 } of matches) {
             p1.matches.push(p2.email)
             p2.matches.push(p1.email)
 
-            p1.save()
-            p2.save()
+            promises.push(
+                p1.save(), 
+                p2.save()
+            )
         }
+
+        return Promise.all(promises)
     }
 }

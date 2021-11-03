@@ -7,9 +7,11 @@ export interface MatchRepository {
 }
 
 export class MongoMatchRepository implements MatchRepository {
-    saveMatches(matches: Match[]): void {
-        matches.forEach((match) => {
-            new MongoMatch(match).save()
+    async saveMatches(matches: Match[]): Promise<unknown[]> {
+        const promises = matches.map(async ({participant_1: person_1, participant_2: person_2}) => {
+            await new MongoMatch({person_1, person_2}).save()
         })
+
+        return Promise.all(promises)
     }
 }
