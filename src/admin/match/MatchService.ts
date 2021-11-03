@@ -87,7 +87,7 @@ export const defaultRules : Array<MatchRule> = [
     },
     {
         debugMessage: "Participants cannot be matched with someone they have previously matched with",
-        predicate: (p1, p2) => p1.matches.contains(p2.email),
+        predicate: (p1, p2) => !p1.matches.contains(p2.email),
     },
     {
         debugMessage: "Participants can only match someone who is in a common network",
