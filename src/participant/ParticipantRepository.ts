@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 import ParticipantImpl, {Participant} from './ParticipantModel';
 import logger from '../logger';
+import { Match } from '../admin/match/MatchService';
 
 interface DepartmentAggregation {
     _id: string;
@@ -19,7 +20,7 @@ interface DateRegisteredAggregation {
 
 export interface ParticipantRepository {
     getOne(email: string): Promise<Participant|null>;
-    getAll(): Promise<Participant[]>;
+    getAllVerified(): Promise<Participant[]>;
     getAllGroupedByDepartment(): mongoose.Aggregate<DepartmentAggregation[]>;
     getAllGroupedByDateRegistered(): mongoose.Aggregate<DateRegisteredAggregation[]>;
 }
@@ -33,7 +34,7 @@ export default class ParticipantRepositoryImpl implements ParticipantRepository 
         return participant;
     }
 
-    public getAll = async (): Promise<Participant[]> => {
+    public getAllVerified = async (): Promise<Participant[]> => {
         const participants = await ParticipantImpl.find({
            verify: true 
         }).sort({
@@ -80,5 +81,15 @@ export default class ParticipantRepositoryImpl implements ParticipantRepository 
                 "_id": 1
             }
         }]);
+    }
+
+    public saveMatchesToPreviousMatches = (matches: Array<Match>) => {
+        for (let { participant_1: p1, participant_2: p2 } of matches) {
+            p1.matches.push(p2.email)
+            p2.matches.push(p1.email)
+
+            p1.save()
+            p2.save()
+        }
     }
 }

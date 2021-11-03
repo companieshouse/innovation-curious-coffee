@@ -1,119 +1,25 @@
 import {Request, Response} from 'express';
 
-import Match from '../../models/match';
-import ParticipantImpl, {Participant} from '../../participant/ParticipantModel';
+import { matchService } from './MatchService';
 import logger from '../../logger';
+import ParticipantRepositoryImpl from '../../participant/ParticipantRepository';
+import { MongoMatchRepository } from './MatchRepository';
 
-function shuffle(array: Array<Participant>): Array<Participant> {
-    let currentIndex = array.length, temporaryValue, randomIndex;
-  
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-  
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-  
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-  
-    return array;
-}
+const participantRepository = new ParticipantRepositoryImpl()
+const matchRepository = new MongoMatchRepository()
 
 export function get(req: Request, res: Response): void {
     logger.info('Rendering page: match');
     return res.render('match');
 }
 
-async function getShuffledParticipants(): Promise<Array<Participant>> {
-    const participants = await ParticipantImpl.find({verify: true});
-    return shuffle(participants);
-}
-
 export async function post(req: Request, res: Response): Promise<void> {
-    logger.info("Attempting to match participants");
-    const participants = await getShuffledParticipants();
-
-    const participantsCopy = participants.slice();
+    const participants = await participantRepository.getAllVerified()
     
-    for (let i = 0, notEnough = false; i < participants.length && notEnough == false; i++) {
-        
-        if (participantsCopy.length > 1)  {
+    const { matches } = matchService.createMatches(participants)
 
-            let x = 0;
-            let diffDepartments = false;
-            let previouslyMatched = false;
-
-            const first = participantsCopy.splice(0, 1);
-            const firstPerson = first[0];
-
-            let second = participantsCopy.slice(0, 1);
-
-            while (diffDepartments == false && previouslyMatched == false) {
-
-                const potential = participantsCopy.slice(x, x + 1);
-                const potentialPerson = potential[0];
-
-                if (firstPerson.matches !== undefined) {
-                    const found = firstPerson.matches.find(function(element) {
-                        return element === potentialPerson.email;
-                    });
-
-                    if (found !== undefined) {
-                        previouslyMatched = true;
-                    }
-                }
-
-                if (firstPerson.department != potentialPerson.department) {
-                    second = participantsCopy.splice(x, 1);
-                    diffDepartments = true;
-                }
-
-                x++;
-            }
-
-            if (previouslyMatched == false) {
-
-                const match = new Match({
-                    "person_1": {
-                        name: firstPerson.name,
-                        email: firstPerson.email,
-                        department: firstPerson.department
-                    },
-                    "person_2": {
-                        name: second[0].name,
-                        email: second[0].email,
-                        department: second[0].department
-                    }
-                });
-
-                logger.info("Match created, saving the following: " + match);
-
-                match.save();
-
-                logger.info("Updating participant match lists");
-
-                await ParticipantImpl.findOneAndUpdate({
-                    email: firstPerson.email
-                }, {
-                    $push: {
-                        matches: second[0].email
-                    }});
-
-                await ParticipantImpl.findOneAndUpdate({
-                    email: second[0].email
-                }, {
-                    $push: {
-                        matches: firstPerson.email
-                    }});
-            }
-        } else {
-            notEnough = true;
-        }
-    }
+    matchRepository.saveMatches(matches)
+    participantRepository.saveMatchesToPreviousMatches(matches)
 
     return res.redirect('/');
 }

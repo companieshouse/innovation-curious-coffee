@@ -6,7 +6,8 @@ export interface Participant extends Document {
     email: string;
     date_registered: Date;
     verify: boolean;
-    matches: [string];
+    matches: string[];
+    networks: string[];
 }
 
 const ParticipantSchema: Schema = new Schema({
@@ -15,7 +16,8 @@ const ParticipantSchema: Schema = new Schema({
     email: {type: String, required: true},
     date_registered: {type: Date, required: true},
     verify: {type: Boolean, required: true},
-    matches: {type: [String]}
+    matches: {type: [String]},
+    networks: {type: [String]}
 });
 
 ParticipantSchema.statics.getAllVerifiedParticipants = async function(): Promise<Participant> {
