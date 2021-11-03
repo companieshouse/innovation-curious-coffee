@@ -1,0 +1,2 @@
+MONGO_CONTAINER_NAME=$(docker ps | grep mongo | awk '{ print $11 }');
+docker exec -ti ${MONGO_CONTAINER_NAME} mongo -quiet --eval 'db.getSiblingDB("curious").people.updateMany({}, {$set: {"matches": []}})'
