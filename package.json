@@ -19,7 +19,7 @@
   "author": "Dafydd Rosser",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.585.0",
+    "aws-sdk": "^2.814.0",
     "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",
     "connect-flash": "^0.1.1",
