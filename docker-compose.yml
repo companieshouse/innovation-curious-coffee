@@ -4,6 +4,7 @@ services:
     restart: always
     image:
         curious_coffee
+    build: .
     ports:
       - 3000:3000
       - 9229:9229
@@ -19,6 +20,7 @@ services:
         - VERIFY_URL=http://127.0.0.1:3000/verify/
         - NODE_ENV=development
         - AWS_REGION=eu-west-1
+    # command: sh -c "npm run-script build && node --inspect=0.0.0.0:9229 ./dist/app.js"
   mongo:
     image: mongo
     ports:
