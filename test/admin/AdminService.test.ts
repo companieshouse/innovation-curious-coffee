@@ -45,7 +45,8 @@ describe("admin/AdminService", function () {
                         user: sinon.spy()
                     },
                 },
-                redirect: sinon.spy()
+                redirect: sinon.spy(),
+                render: sinon.spy()
             };
 
             const adminService = new AdminService();
