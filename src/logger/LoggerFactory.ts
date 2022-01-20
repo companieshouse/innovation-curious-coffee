@@ -1,3 +1,4 @@
+import config from '../config'
 import winston from 'winston';
 
 class LoggerFactory {
@@ -9,7 +10,7 @@ class LoggerFactory {
         return winston.createLogger({
             transports: [
                 new winston.transports.Console({
-                    level: 'debug',
+                    level: config.logging.level,
                     format: winston.format.combine(
                         winston.format.timestamp(),
                         winston.format.printf(({ level, message, timestamp }) => {

@@ -19,6 +19,9 @@ const config = {
     env: (process.env.NODE_ENV as string),
     aws: {
         region: (process.env.AWS_REGION as string)
+    },
+    logging: {
+        level: (process.env.LOGGING_LEVEL as string)
     }
 };
 
