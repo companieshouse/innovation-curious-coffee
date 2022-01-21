@@ -17,11 +17,32 @@ export type Match = {
     participant_2: Participant,
 }
 
+function createMatch(p1: Participant, p2: Participant): Match;
+function createMatch(participants: Participant[]): Match;
+function createMatch(a1: Participant | Participant[], a2?: Participant): Match {
+    if (a1 instanceof Array) {
+        if (a1.length < 2) throw `Need 2 participants to create match`
+        return {
+            participant_1: a1[0],
+            participant_2: a1[1],
+        }
+    }
+
+    if (a2 === undefined) throw `Need 2 participants to create match. Second argument cannot be undefined`
+    return {
+        participant_1: a1,
+        participant_2: a2,
+    }
+}
+
 export type MatchRule = {
     debugMessage: string, 
     predicate: (participant1: Participant, participant2: Participant) => boolean,
 }
 
+// GreedyMatchService is an implementation of the MatchService usign a greedy algorithm to match participants.
+// The greedy algorithm matches each participant with the first other participant it finds which matches the criteria
+// this isn't optimal (in terms of performance or finding the most optimal matches), but it works fine.
 export class GreedyMatchService implements MatchService {
     private rules: Array<MatchRule>
 
@@ -29,40 +50,36 @@ export class GreedyMatchService implements MatchService {
         this.rules = rules
     }
 
+    // creates matches using a greedy algorithm to find the first 
     createMatches(participants: Array<Participant>): MatchResult {
-        // shuffle
-        participants.shuffle();
+        participants = participants.shuffle().copy();
 
         const result : MatchResult = {
             matches: [],
             unmatched: [],
         }
 
-        for (let i = 0; i < participants.length; i++) {
-            const currentParticipant = participants.remove(i);
-            if (currentParticipant === undefined) {
-                break;
+        const unmatched = Array.from({length: participants.length}, (_, i) => i)
+        
+        outerLoop:
+        while (unmatched.length > 0) {
+            const idx = unmatched.pop()!
+            const currentParticipant = participants[idx]
+            const canMatch = this.combineRulePrecicates(currentParticipant)
+            
+            
+            for (let i = 0; i < unmatched.length; i++) {
+                if (canMatch(participants[i])) {
+                    result.matches.push(createMatch(currentParticipant, participants[i]))
+                    const removed = unmatched.removeElem(unmatched[i])
+                    if (removed === undefined) debugger
+                    continue outerLoop
+                }
             }
 
-            logger.debug(`Attempting to find match for ${currentParticipant.email}`)
-
-            // Find match from remaining participants
-            // WARNING: this runs in O(n) time within a loop, making this method run in O(n^2). This could easily cause performance issues
-            const maybeMatch = participants.find(this.combineRulePrecicates(currentParticipant))
-            if (maybeMatch !== undefined) {
-                logger.debug(`Matched with: ${maybeMatch.email}`)
-                // Remove match so they're not matched with anyone else
-                participants.removeElem(maybeMatch)
-                result.matches.push({
-                    participant_1: currentParticipant, 
-                    participant_2: maybeMatch,
-                })
-            } else {
-                logger.debug(`No match found for ${currentParticipant.email}`)
-                result.unmatched.push(currentParticipant)
-            }
+            result.unmatched.push(currentParticipant)
         }
-
+        
         return result
     }
 
@@ -80,6 +97,11 @@ export class GreedyMatchService implements MatchService {
     }
 }
 
+
+function randomInteger(from: number, to: number) {
+    return Math.ceil(from) + Math.floor(Math.random() * (Math.floor(to) - from))
+}
+
 export const defaultRules : Array<MatchRule> = [
     {
         debugMessage: "Particpants connot match within the same department are in the same department",
@@ -87,11 +109,11 @@ export const defaultRules : Array<MatchRule> = [
     },
     {
         debugMessage: "Participants cannot be matched with someone they have previously matched with",
-        predicate: (p1, p2) => !p1.matches.contains(p2.email),
+        predicate: (p1, p2) => !p1.matches.contains(p2.email) && !p2.matches.contains(p1.email),
     },
     {
         debugMessage: "Participants can only match someone who is in a common network",
-        predicate: (p1, p2) => p1.networks.intersection(p2.networks).length > 0, // TODO: this
+        predicate: (p1, p2) => p1.networks.hasIntersection(p2.networks), // TODO: this
     }
 ]
 

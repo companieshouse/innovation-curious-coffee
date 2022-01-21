@@ -7,6 +7,7 @@ declare global {
         copy(): Array<T>;
         contains(elem: T, predicate?: (e1: T, e2: T) => boolean): boolean;
         randomElement(): T;
+        hasIntersection(other: Array<T>): boolean;
     }
 }
 
@@ -23,7 +24,7 @@ Array.prototype.removeElem = function<T>(elem: T, predicate?: (e1: T, e2: T) => 
     const idx = predicate !== undefined 
         ? this.find(v => predicate(v, elem))
         : this.indexOf(elem)
-        
+
     if (idx === -1) return undefined
     return this.remove(idx)
 }
@@ -71,4 +72,17 @@ Array.prototype.contains = function<T>(elem: T, predicate?: (e1: T, e2: T) => bo
 
 Array.prototype.randomElement = function<T>(): T {
     return this[Math.floor(Math.random() * this.length)]
+}
+
+Array.prototype.hasIntersection = function<T>(other: Array<T>): boolean {
+    const [smallest, largest] = [this, other].sort((a, b) => a.length - b.length)
+
+    const set = new Set(largest)
+    for (let i = 0; i < smallest.length; i++) {
+        if (set.has(smallest[i])) {
+            return true
+        }
+    }
+    
+    return false   
 }

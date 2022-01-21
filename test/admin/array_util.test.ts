@@ -1,8 +1,7 @@
 import chai from "chai";
-import sinon from "sinon";
 import sinonChai from "sinon-chai";
-import {performance} from 'perf_hooks'
 import '../../src/admin/match/array_utils'
+import logger from '../../src/logger'
 
 const expect = chai.expect;
 chai.use(sinonChai);
@@ -180,5 +179,41 @@ describe("array.randomElement", function() {
         const re = a.randomElement()
 
         expect(a.contains(re)).to.be.true
+    })
+})
+
+describe("array.hasIntersection", function() {
+    it("returns true when there is a common element in both arrays", function() {
+        const a = [1, 2, 3]
+        const b = [3, 4, 5]
+
+        expect(a.hasIntersection(b)).to.be.true
+    })
+
+    it("returns false when the elements do not have a common element", function() {
+        const a = [1, 2, 3]
+        const b = [4, 5, 6]
+
+        expect(a.hasIntersection(b)).to.be.false
+    })
+
+    function randomInt(to: number) {
+        return Math.floor(Math.random() * to)
+    }
+
+    function randomIntArray(l: number) {
+        return Array.from({length: l}, () => randomInt(Number.MAX_SAFE_INTEGER))
+    }
+
+    it("completes quickly", function() {
+        const a = randomIntArray(10_000)
+        const b = randomIntArray(10_000)
+
+        const timerName = "array.hasIntersection"
+        console.time(timerName)
+
+        a.hasIntersection(b)
+
+        console.timeEnd(timerName)
     })
 })
