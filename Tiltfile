@@ -1,6 +1,6 @@
 local_resource(
   name = 'Build JS',
-  cmd = 'npm run-script build',
+  cmd = 'npm run-script build-quick',
   deps = ['src']
 )
 

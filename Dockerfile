@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["npm", "run-script", "start:dev"]
+CMD ["node", "dist/app.js"]
