@@ -10,3 +10,5 @@ if [ -d "$DIR/dist" ]; then
 else
     echo "No dist folder present, skipping prebuild step"
 fi
+
+mkdir ./dist

@@ -3,9 +3,14 @@ extends layout
 block content
     h1(class='text-center')
         img(src='/icons/coffee.svg' width='50' height='50' class='rotate')
-        = 'Participants'
-
-    table(class='table table-striped' data-toggle='table')
+        = 'Participants' 
+    h2 Filter
+    select(id='field-selection')
+        option(value='name') Name 
+        option(value='email') Email 
+        option(value='department') Department
+    input(id='filter-text' type="text" oninput='applyFilter()')
+    table(class='table table-striped' data-toggle='table' id='participant-table')
         thead(class='thead-dark')
             tr
                 th(scope='col' data-sortable='true' data-field='name') Name
@@ -15,6 +20,9 @@ block content
             tr
                 td= participant.name
                 td= participant.email
-                td= participant.department
+                td
+                    =participant.department
+                    a(class = "float-right link-primary" href="/admin/participants/" + participant.email) Edit
 
     script(src='/javascripts/jquery.min.js')
+    script(src='/javascripts/participant-filter.js')

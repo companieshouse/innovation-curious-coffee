@@ -1,0 +1,96 @@
+extends layout
+
+block content
+    h1(class='text-center')
+        img(src='/icons/coffee.svg' width='50' height='50' class='rotate')
+        = 'Participants'
+
+    if (!participant)
+        h1 No user with email #{emailRequested} found
+    else
+        div(id="network-input-template" class="d-none")
+            li(class="list-group-item") 
+                input(type='text' readonly class='form-control-plaintext w-50 d-inline existing-network-input' name='network-420' value="%network-name%")
+                button(class="btn btn-danger float-right") Remove
+
+        form(id='user-form' class='form-horizontal' method='POST' action='/admin/participants/' + participant.email)
+            div(class='form-group form-row align-items-center')
+                div(class='col-sm-2')
+                div(class='col-sm-2 pull-left text-right')
+                    label(class='control-label text-right' for='name') Name:
+                div(class='col-sm-4')
+                    input#name(class='form-control custom-form-control' type='text', placeholder='name', name='name' value=participant.name)
+                div(class='col-sm-4 text-left')
+                    if errors
+                        for error in errors
+                            if error.param == 'name'
+                                    span(id='nameError')= error.msg
+            
+            div(class='form-group form-row align-items-center')
+                div(class='col-sm-2')
+                div(class='col-sm-2 pull-left text-right')
+                    label(for='email' class='control-label text-right') Email: 
+                div(class='col-sm-4')
+                    input#email(class='form-control custom-form-control' type='text', placeholder='email', name='email' value=participant.email)
+                div(class='col-sm-4 text-left')
+                    if errors
+                        for error in errors
+                            if error.param == 'email'
+                                    span(id='emailError')= error.msg
+            
+            div(class='form-group form-row align-items-center')
+                div(class='col-sm-2')
+                div(class='col-sm-2 pull-left text-right')
+                    label(for='department' class='control-label text-right') Department: 
+                div(class='col-sm-4')
+                    select#department(class='form-control custom-form-control' name='department' value=participant.department)
+                        option(value='choose the department you belong to')= "choose the department you belong to"
+                        option(value='Analysis & Corporate Insight' selected=participant.department == 'Analysis & Corporate Insight')= "Analysis & Corporate Insight"
+                        option(value='Belfast Office' selected=participant.department == 'Belfast Office')= "Belfast Office"
+                        option(value='Building Services' selected=participant.department == 'Building Services')= "Building Services"
+                        option(value='Communications Team' selected=participant.department == 'Communications Team')= "Communications Team"
+                        option(value='COT Company Support' selected=participant.department == 'COT Company Support')= "COT Company Support"
+                        option(value='CPES' selected=participant.department == 'CPES')= "CPES"
+                        option(value='Customer Delivery Support' selected=participant.department == 'Customer Delivery Support')= "Customer Delivery Support"
+                        option(value='Customer Services' selected=participant.department == 'Customer Services')= "Customer Services"
+                        option(value='Development' selected=participant.department == 'Development')= "Development"
+                        option(value='Directors Support' selected=participant.department == 'Directors Support')= "Directors Support"
+                        option(value='Edinburgh Office' selected=participant.department == 'Edinburgh Office')= "Edinburgh Office"
+                        option(value='Finance Operations' selected=participant.department == 'Finance Operations')= "Finance Operations"
+                        option(value='Finance Systems' selected=participant.department == 'Finance Systems')= "Finance Systems"
+                        option(value='Future CH' selected=participant.department == 'Future CH')= "Future CH"
+                        option(value='Human Resources & Estates' selected=participant.department == 'Human Resources & Estates')= "Human Resources & Estates"
+                        option(value='IT Services' selected=participant.department == 'IT Services')= "IT Services"
+                        option(value='Legal' selected=participant.department == 'Legal')= "Legal"
+                        option(value='LFP' selected=participant.department == 'LFP')= "LFP"
+                        option(value='LFP Belfast' selected=participant.department == 'LFP Belfast')= "LFP Belfast"
+                        option(value='LFP Edinburgh' selected=participant.department == 'LFP Edinburgh')= "LFP Edinburgh"
+                        option(value='London Office' selected=participant.department == 'London Office')= "London Office"
+                        option(value='Management Accounts' selected=participant.department == 'Management Accounts')= "Management Accounts"
+                        option(value='Payroll' selected=participant.department == 'Payroll')= "Payroll"
+                        option(value='Product' selected=participant.department == 'Product')= "Product"
+                        option(value='Programmes & Project Management' selected=participant.department == 'Programmes & Project Management')= "Programmes & Project Management"
+                        option(value='Prosecution' selected=participant.department == 'Prosecution')= "Prosecution"
+                        option(value='Purchasing' selected=participant.department == 'Purchasing')= "Purchasing"
+                        option(value='Register Integrity' selected=participant.department == 'Register Integrity')= "Register Integrity" 
+                        option(value='Registrars Function' selected=participant.department == 'Registrars Function')= "Registrars Function"
+                        option(value='Secure Unit' selected=participant.department == 'Secure Unit')= "Secure Unit"
+                        option(value='Strategy and Policy' selected=participant.department == 'Strategy and Policy')= "Strategy and Policy"
+                        option(value='Technical Offences' selected=participant.department == 'Technical Offences')= "Technical Offences"
+            div(class='form-group form-row align-items-center')
+                div(class='col-sm-2')
+                div(class='col-sm-2 pull-left text-right')
+                    label(for='networks' class='control-label text-right') Networks: 
+                div(class='col-sm-4')
+                    ul(class="list-group" id='network-list')
+                        each network, i in participant.networks
+                            li(class="list-group-item") 
+                                input(type='text' readonly class='form-control-plaintext w-50 d-inline existing-network-input' name='network-' + i value=network)
+                                button(class="btn btn-danger float-right remove-network-button") Remove
+                        li(class="list-group-item") 
+                            input(id='new-network-input' placeholder = 'New Network Name') 
+                            button(id='add-network-button' class="btn btn-success float-right") Add
+            div(class='row justify-content-center')
+                button(class='btn btn-primary') Apply 
+    script(src='/javascripts/jquery.min.js')
+    script(src='/javascripts/participant-update.js')

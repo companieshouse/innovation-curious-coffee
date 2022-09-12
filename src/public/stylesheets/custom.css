@@ -111,3 +111,7 @@ i.fa {
 body {
     padding-bottom: 50px;
 }
+
+.hidden {
+    display: none;
+}

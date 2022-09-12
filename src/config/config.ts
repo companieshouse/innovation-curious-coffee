@@ -1,28 +1,29 @@
 const config = {
     app: {
-        port: (process.env.APP_PORT as string)
+        port: process.env.APP_PORT as string,
+        domain: (process.env.DOMAIN as string) ?? "localhost",
     },
     db: {
         url: {
-            server: (process.env.DB_URL_SERVER as string),
-            port: (process.env.DB_URL_PORT as string)
+            server: process.env.DB_URL_SERVER as string,
+            port: process.env.DB_URL_PORT as string,
         },
-        name: (process.env.DB_NAME as string)
+        name: process.env.DB_NAME as string,
     },
     admin: {
-        password: (process.env.ADMIN_PASSWORD as string),
+        password: process.env.ADMIN_PASSWORD as string,
     },
     verify: {
-        signature: (process.env.VERIFY_SIGNATURE as string),
-        url: (process.env.VERIFY_URL as string)
+        signature: process.env.VERIFY_SIGNATURE as string,
+        url: process.env.VERIFY_URL as string,
     },
-    env: (process.env.NODE_ENV as string),
+    env: process.env.NODE_ENV as string,
     aws: {
-        region: (process.env.AWS_REGION as string)
+        region: process.env.AWS_REGION as string,
     },
     logging: {
-        level: (process.env.LOGGING_LEVEL as string)
-    }
+        level: process.env.LOGGING_LEVEL as string,
+    },
 };
 
 export default config;
