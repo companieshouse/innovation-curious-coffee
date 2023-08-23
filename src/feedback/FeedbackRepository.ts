@@ -1,18 +1,18 @@
-import FeedbackImpl, {Feedback} from './FeedbackModel';
+import FeedbackImpl, { Feedback } from './FeedbackModel';
 import logger from '../logger';
 
 export interface FeedbackRepository {
-    save(feedback: Feedback): void;
+    save(feedback: Feedback): Promise<void>;
 }
 
 export default class FeedbackRepositoryImpl implements FeedbackRepository {
-    public save = (feedback: Feedback): void => {
+    public save = async (feedback: Feedback): Promise<void> => {
         logger.info("Saving feedback");
 
         const feedbackToSave: Feedback = new FeedbackImpl(feedback);
 
-        feedbackToSave.save();
+        await feedbackToSave.save();
 
         logger.info("Feedback saved");
-    }
+    };
 }

@@ -1,3 +1,3 @@
-import {connect} from "./database";
+import { connect } from "./database";
 
 export default connect;

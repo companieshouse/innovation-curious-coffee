@@ -2,3 +2,6 @@
 ._*
 node_modules
 /dist
+database
+docker/database
+*.pem

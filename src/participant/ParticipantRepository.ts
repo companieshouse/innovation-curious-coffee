@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import ParticipantImpl, {Participant} from './ParticipantModel';
+import ParticipantImpl, { Participant } from './ParticipantModel';
 import logger from '../logger';
 
 interface DepartmentAggregation {
@@ -31,17 +31,17 @@ export default class ParticipantRepositoryImpl implements ParticipantRepository 
         });
 
         return participant;
-    }
+    };
 
     public getAll = async (): Promise<Participant[]> => {
         const participants = await ParticipantImpl.find({
-           verify: true 
+            verify: true
         }).sort({
             "date_registered": 1
         });
 
         return participants;
-    }
+    };
 
     public getAllGroupedByDepartment = (): mongoose.Aggregate<DepartmentAggregation[]> => {
         logger.info("Getting all participants grouped by department");
@@ -53,7 +53,7 @@ export default class ParticipantRepositoryImpl implements ParticipantRepository 
                 }
             }
         }]);
-    }
+    };
 
     public getAllGroupedByDateRegistered = (): mongoose.Aggregate<DateRegisteredAggregation[]> => {
         logger.info("Getting all participants grouped by date registered");
@@ -70,7 +70,7 @@ export default class ParticipantRepositoryImpl implements ParticipantRepository 
                     dayRegistered: {
                         "$dayOfMonth": "$date_registered"
                     }
-            },
+                },
                 count: {
                     "$sum": 1
                 }
@@ -80,5 +80,5 @@ export default class ParticipantRepositoryImpl implements ParticipantRepository 
                 "_id": 1
             }
         }]);
-    }
+    };
 }

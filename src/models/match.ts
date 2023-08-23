@@ -1,4 +1,4 @@
-import mongoose, {Schema, Document} from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
 
 interface Person {
     name: string;
@@ -6,21 +6,22 @@ interface Person {
     department: string;
 }
 
+
 export interface InterfaceMatch extends Document {
-    person_1: Person;
-    person_2: Person;
+    person_1: Person; // eslint-disable-line
+    person_2: Person; // eslint-disable-line
 }
 
 const MatchSchema: Schema = new mongoose.Schema({
-    person_1 : {
-        name: {type: String, required: true},
-        email: {type: String, required: true},
-        department: {type: String, required: true}
+    person_1: {
+        name: { type: String, required: true },
+        email: { type: String, required: true },
+        department: { type: String, required: true }
     },
-    person_2 : {
-        name: {type: String, required: true},
-        email: {type: String, required: true},
-        department: {type: String, required: true}
+    person_2: {
+        name: { type: String, required: true },
+        email: { type: String, required: true },
+        department: { type: String, required: true }
     }
 });
 

@@ -14,7 +14,7 @@ class LoggerFactory {
                         winston.format.timestamp(),
                         winston.format.printf(({ level, message, timestamp }) => {
                             return colorizer.colorize(level, `${timestamp} ${level}: ${message}`);
-                          })
+                        })
                     )
                 })
             ]

@@ -8,7 +8,7 @@ export async function connect(): Promise<void> {
     logger.info("Port: " + config.db.url.port);
 
     await mongoose.connect(config.db.url.server + config.db.url.port + "/" + config.db.name, {
-        useNewUrlParser: true, 
+        useNewUrlParser: true,
         useFindAndModify: false,
         useUnifiedTopology: true,
         useCreateIndex: true
@@ -18,7 +18,7 @@ export async function connect(): Promise<void> {
 mongoose.connection.on('error', function () {
     logger.error("Could not connect to MongoDB");
     process.exit();
-})
+});
 
 mongoose.connection.on('connecting', function () {
     logger.info("Connecting to MongoDB...");

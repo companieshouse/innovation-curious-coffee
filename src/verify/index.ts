@@ -1,5 +1,5 @@
 import express from 'express';
-import {get} from './verify';
+import { get } from './verify';
 
 const router = express.Router();
 
