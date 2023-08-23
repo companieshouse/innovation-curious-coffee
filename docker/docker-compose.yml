@@ -1,0 +1,31 @@
+version: '3'
+services:
+  curious_coffee:
+    restart: always
+    image:
+        curious_coffee
+    build: 
+      dockerfile: Dockerfile.dev
+      context: .
+    ports:
+      - 3000:3000
+      - 9229:9229
+    depends_on: 
+        - mongo
+    environment: 
+        - "DB_URL_SERVER=mongodb://mongo:"
+        - APP_PORT=3000
+        - DB_URL_PORT=27017
+        - DB_NAME=curious
+        - ADMIN_PASSWORD=test
+        - VERIFY_SIGNATURE=test
+        - VERIFY_URL=http://127.0.0.1:3000/verify/
+        - NODE_ENV=development
+        - AWS_REGION=eu-west-1
+    # command: sh -c "npm run-script build && node --inspect=0.0.0.0:9229 ./dist/app.js"
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+    - './database:/data/db'

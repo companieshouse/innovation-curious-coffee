@@ -2,15 +2,15 @@
   "name": "curious-coffee",
   "version": "0.0.1",
   "description": "Meet new people from other departments",
-  "main": "app.js",
+  "main": "src/app.ts",
   "scripts": {
     "prebuild": "./scripts/prebuild.sh",
     "build": "tsc",
     "postbuild": "./scripts/postbuild.sh",
     "test": "mocha -r ts-node/register --recursive \"test/**/*.test.ts\"",
-    "lint": "eslint src",
+    "lint": "eslint src/**/*.ts",
     "start": "node ./dist/app.js",
-    "start:dev": "NODE_ENV=development nodemon"
+    "start:dev": "nodemon --watch src --ignore 'src/**/*.unit.ts' --ext ts --exec 'NODE_OPTIONS=\"--inspect=0.0.0.0\" ts-node ./src/app.ts'"
   },
   "repository": {
     "type": "git",
@@ -51,8 +51,8 @@
     "nodemon": "^2.0.2",
     "sinon": "^9.0.0",
     "sinon-chai": "^3.5.0",
-    "ts-node": "^8.6.2",
-    "typescript": "~3.7.5"
+    "ts-node": "^8.10.2",
+    "typescript": "^4.9.5"
   },
   "nodemonConfig": {
     "watch": [
