@@ -32,7 +32,7 @@ export async function post(req: Request, res: Response): Promise<void> {
             param: 'email'
         };
 
-        const resultErrors = [];
+        const resultErrors = [] as any[];
         resultErrors.push(error);
 
         return res.render('deregister', {
