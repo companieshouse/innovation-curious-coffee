@@ -18,6 +18,7 @@ Source code for the Curious Coffee initiative
   - [Verify](#verify)
   - [Devmode](#devmode)
 - [Deploying curious coffee](#deploy)
+- [Developing curious coffee](#develop)
 
 ## Introduction
 #CuriousCoffee is a initiative designed to break down silos within an organisation and match participants with people from different departments. Participants can register on the site and the system will ad-hoc match participants, as well as email them to inform them they've been matched and with who. It's then up to the matched participants to decide what to do next.
@@ -89,3 +90,34 @@ Build the contents and run:
 ```
 ./run.sh
 ```
+
+## Deploy with Docker
+
+To build the docker image, use the production dockerfile located at `docker/Dockerfile`.
+
+To build the docker image run the following command in the root of the repository:
+
+```
+docker build -t curious-coffee -f docker/Dockerfile . 
+```
+
+To run the image as a container:
+```
+source env_vars
+docker run --rm --it --env-file <(env) curious-coffee 
+```
+
+# Develop
+
+[Docker compose](https://docs.docker.com/compose/) and [Tilt](https://tilt.dev/) are used to provide a mongo database instance as well as live reloading during development. 
+
+
+First ensure both tools have been installed.
+Then in the root of the repository run:
+```
+tilt up
+```
+
+This will start tilt, which in turn will start mongo, and an instance of curious coffe.
+
+Anytime a file in src or views is changed, the new files will be copied into the container, and the app will restart.
