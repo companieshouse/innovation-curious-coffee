@@ -1,4 +1,4 @@
-import {Request, Response} from 'express';
+import { Request, Response } from 'express';
 import Participant from '../participant/ParticipantModel';
 import logger from '../logger';
 
@@ -8,7 +8,7 @@ export default class HomepageService {
         const participants = await Participant.find({
             verify: true, matches: {
                 $exists: true
-            }});
+            } });
 
         let count = 0;
 
@@ -16,11 +16,11 @@ export default class HomepageService {
             count += value.matches.length;
         });
 
-        return Math.round(count / 2);    
-    }
+        return Math.round(count / 2);
+    };
 
     public get = async (req: Request, res: Response): Promise<void> => {
-        const numParticipants = await Participant.countDocuments({verify: true});
+        const numParticipants = await Participant.countDocuments({ verify: true });
         const numMatches = await this.getMatchCount();
 
         logger.info("Rendering page: homepage");
@@ -31,5 +31,5 @@ export default class HomepageService {
             },
             messages: req.flash('info')
         });
-    }
+    };
 }
