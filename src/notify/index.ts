@@ -1,4 +1,4 @@
-import {Email, Params, notify} from './notify';
+import { Email, Params, notify } from './notify';
 
 export {
     Email,

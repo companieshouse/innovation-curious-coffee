@@ -55,7 +55,7 @@ describe("admin/AdminService", function () {
                 mockResponse as Response
             );
 
-            expect(mockResponse.locals.session.user).to.equal(true);
+            expect(mockResponse.locals?.session?.user).to.equal(true);
             expect(mockResponse.redirect).to.have.been.calledOnce;
             expect(mockResponse.redirect).to.have.been.calledWith("/");
         });

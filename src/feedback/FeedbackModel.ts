@@ -1,4 +1,4 @@
-import mongoose, {Schema, Document} from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
 
 export interface Feedback extends Document {
     email: string;
@@ -7,11 +7,11 @@ export interface Feedback extends Document {
 
 const FeedbackSchema: Schema = new Schema({
     email: {
-        type: String, 
+        type: String,
         required: true
     },
     feedback: {
-        type: String, 
+        type: String,
         required: true
     }
 });

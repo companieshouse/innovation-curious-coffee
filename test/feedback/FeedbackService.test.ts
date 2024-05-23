@@ -36,7 +36,7 @@ describe("feedback/FeedbackService.ts", () => {
     });
 
     describe("post", () => {
-        it("calls save on the repository when valid data is provided", () => {
+        it("calls save on the repository when valid data is provided", async () => {
             const mockRequest: Partial<Request> = {
                 body: {
                     feedbackModel: {
@@ -57,7 +57,7 @@ describe("feedback/FeedbackService.ts", () => {
 
             const feedbackService = new FeedbackService(mockRepository as FeedbackRepository);
             
-            feedbackService.post(
+            await feedbackService.post(
                 mockRequest as Request,
                 mockResponse as Response
             );

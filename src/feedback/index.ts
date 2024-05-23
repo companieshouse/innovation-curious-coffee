@@ -1,7 +1,7 @@
 import express from 'express';
 import FeedbackService from './FeedbackService';
 import FeedbackRepositoryImpl from './FeedbackRepository';
-import validation, {checkValidation} from './validation';
+import validation, { checkValidation } from './validation';
 
 const router = express.Router();
 

@@ -39,10 +39,11 @@ app.use(flash());
 
 app.use(adminMiddleware);
 
+console.log("Connecting to mongo")
 connect();
 
 app.use('/', routes);
-
+console.log(`Port: ${port}`)
 app.listen(port, () => {
     console.log('Listening on port ' + port);
 });
