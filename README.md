@@ -9,16 +9,16 @@ Source code for the Curious Coffee initiative
 
 ## Table of content
 
-- [Introduction](#introduction)
-- [Prerequisites](#prerequisites)
-- [Config](#config)
-  - [App](#app)
-  - [DB](#db)
-  - [Admin](#admin)
-  - [Verify](#verify)
-  - [Devmode](#devmode)
-- [Deploying curious coffee](#deploy)
-- [Developing curious coffee](#develop)
+- [#CuriousCoffee](#curiouscoffee)
+  - [Table of content](#table-of-content)
+  - [Introduction](#introduction)
+  - [Prerequisites](#prerequisites)
+  - [Database](#database)
+  - [Notify](#notify)
+  - [Config](#config)
+  - [Deploy](#deploy)
+  - [Deploy with Docker](#deploy-with-docker)
+- [Develop](#develop)
 
 ## Introduction
 #CuriousCoffee is a initiative designed to break down silos within an organisation and match participants with people from different departments. Participants can register on the site and the system will ad-hoc match participants, as well as email them to inform them they've been matched and with who. It's then up to the matched participants to decide what to do next.
@@ -26,6 +26,7 @@ Source code for the Curious Coffee initiative
 It is written in TypeScript, and by default uses MongoDB as it's data store and AWS-SES as it's notifier.
 
 ## Prerequisites
+
 You will need the following:
 - [npm](https://www.npmjs.com/)
 - [Node.js](https://nodejs.org/en/)
@@ -34,12 +35,15 @@ You will need the following:
 - [AWS-SES](https://aws.amazon.com/ses/) (See below for more details)
 
 ## Database
+
 By default, Curious Coffee uses MongoDB via [MongooseJS](https://mongoosejs.com/). An attempt has been made to make this as generic as possible (see the `src/database` module), but the models themselves need to be bound in a certain way via Mongoose. This makes it a bit harder to swap out, but the models aren't complicated so it shouldn't be much work.
 
 ## Notify
+
 By default, Curious Coffee notifies participants three times - during registration, when they have verified, and when they have been matched. The default implementation of this uses AWS-SES (see the `src/notify` module). This can be swapped out for another provider easily enough as the notify module has been built so that the user simply needs to configure the from, to, subject and body of the email before calling `notify(params)`. This can also be extended to use other types of notifications by adding an interface for the new type of communication (for example, `SMS`) and then adding an object of that interface to the `Params` interface.
 
 ## Config
+
 Config is stored in the `env_vars` folder (in root) and needs to be sourced to run properly. Change the env vars to match whatever settings you need.
 
 The config can then be used as follows:
@@ -93,16 +97,19 @@ Build the contents and run:
 
 ## Deploy with Docker
 
+Note: **Not currently used**
+
 To build the docker image, use the production dockerfile located at `docker/Dockerfile`.
 
 To build the docker image run the following command in the root of the repository:
 
-```
+``` bash
 docker build -t curious-coffee -f docker/Dockerfile . 
 ```
 
 To run the image as a container:
-```
+
+``` bash
 source env_vars
 docker run --rm --it --env-file <(env) curious-coffee 
 ```
@@ -111,13 +118,13 @@ docker run --rm --it --env-file <(env) curious-coffee
 
 [Docker compose](https://docs.docker.com/compose/) and [Tilt](https://tilt.dev/) are used to provide a mongo database instance as well as live reloading during development. 
 
-
 First ensure both tools have been installed.
 Then in the root of the repository run:
-```
+
+``` bash
 tilt up
 ```
 
-This will start tilt, which in turn will start mongo, and an instance of curious coffe.
+This will start tilt, which in turn will start mongo, and an instance of [curious coffee](http://localhost:3000/).
 
 Anytime a file in src or views is changed, the new files will be copied into the container, and the app will restart.
