@@ -116,9 +116,10 @@ docker run --rm --it --env-file <(env) curious-coffee
 
 # Develop
 
-[Docker compose](https://docs.docker.com/compose/) and [Tilt](https://tilt.dev/) are used to provide a mongo database instance as well as live reloading during development. 
+[Docker compose](https://docs.docker.com/compose/) and [Tilt](https://tilt.dev/) are used to provide a mongo database instance as well as live reloading during development.
 
 First ensure both tools have been installed.
+Log in to docker eu-west-1
 Then in the root of the repository run:
 
 ``` bash
