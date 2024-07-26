@@ -5,7 +5,8 @@
 ![Build and test](https://github.com/companieshouse/innovation-curious-coffee/workflows/Build%20and%20test/badge.svg)
 
 # #CuriousCoffee
-Source code for the Curious Coffee initiative
+
+[Source code for the Curious Coffee initiative](https://github.com/companieshouse/innovation-curious-coffee.git)
 
 ## Table of content
 
@@ -18,9 +19,11 @@ Source code for the Curious Coffee initiative
   - [Config](#config)
   - [Deploy](#deploy)
   - [Deploy with Docker](#deploy-with-docker)
-- [Develop](#develop)
+  - [Develop](#develop)
+  - [Use within Companies House](#use-within-companies-house)
 
 ## Introduction
+
 #CuriousCoffee is a initiative designed to break down silos within an organisation and match participants with people from different departments. Participants can register on the site and the system will ad-hoc match participants, as well as email them to inform them they've been matched and with who. It's then up to the matched participants to decide what to do next.
 
 It is written in TypeScript, and by default uses MongoDB as it's data store and AWS-SES as it's notifier.
@@ -75,8 +78,8 @@ The environment variables needed are below.
 | NODE_ENV | string | Used to determine what environment is being run (dev, test, prod, etc) | `"dev"` |
 | AWS_REGION | string | Used to determine which AWS region to use | `"eu-west-1"` |
 
-
 ## Deploy
+
 To deploy your own implementation of Curious Coffee:
 
 ```
@@ -114,7 +117,7 @@ source env_vars
 docker run --rm --it --env-file <(env) curious-coffee 
 ```
 
-# Develop
+## Develop
 
 [Docker compose](https://docs.docker.com/compose/) and [Tilt](https://tilt.dev/) are used to provide a mongo database instance as well as live reloading during development.
 
@@ -129,3 +132,7 @@ tilt up
 This will start tilt, which in turn will start mongo, and an instance of [curious coffee](http://localhost:3000/).
 
 Anytime a file in src or views is changed, the new files will be copied into the container, and the app will restart.
+
+## Use within Companies House
+
+See pages on [Companies House Confluence](https://companieshouse.atlassian.net/wiki/spaces/DEV/pages/778338309/CuriousCoffee)
