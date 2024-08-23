@@ -19,12 +19,12 @@
   - [Config](#config)
   - [Deploy](#deploy)
   - [Deploy with Docker](#deploy-with-docker)
-  - [Develop](#develop)
+  - [Development testing with Docker](#development-testing-with-docker)
   - [Use within Companies House](#use-within-companies-house)
 
 ## Introduction
 
-#CuriousCoffee is a initiative designed to break down silos within an organisation and match participants with people from different departments. Participants can register on the site and the system will ad-hoc match participants, as well as email them to inform them they've been matched and with who. It's then up to the matched participants to decide what to do next.
+CuriousCoffee is a initiative designed to break down silos within an organisation and match participants with people from different departments. Participants can register on the site and the system will ad-hoc match participants, as well as email them to inform them they've been matched and with who. It's then up to the matched participants to decide what to do next.
 
 It is written in TypeScript, and by default uses MongoDB as it's data store and AWS-SES as it's notifier.
 
@@ -86,15 +86,15 @@ To deploy your own implementation of Curious Coffee:
 git clone https://github.com/companieshouse/innovation-curious-coffee.git
 ```
 
-Inside the directory: 
+Inside the directory:
 
-```
+``` bash
 npm install
 ```
 
 Build the contents and run:
 
-```
+``` bash
 ./run.sh
 ```
 
@@ -102,7 +102,7 @@ Build the contents and run:
 
 Note: **Not currently used**
 
-To build the docker image, use the production dockerfile located at `docker/Dockerfile`.
+To build the docker image, use the production docker file located at `docker/Dockerfile`.
 
 To build the docker image run the following command in the root of the repository:
 
@@ -117,7 +117,7 @@ source env_vars
 docker run --rm --it --env-file <(env) curious-coffee 
 ```
 
-## Develop
+## Development testing with Docker
 
 [Docker compose](https://docs.docker.com/compose/) and [Tilt](https://tilt.dev/) are used to provide a mongo database instance as well as live reloading during development.
 
