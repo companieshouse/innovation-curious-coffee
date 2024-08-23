@@ -6,3 +6,5 @@ node_modules
 database
 docker/database*
 *.pem
+.nyc_output/
+coverage/
