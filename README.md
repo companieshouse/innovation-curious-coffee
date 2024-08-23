@@ -1,10 +1,6 @@
-<p align="center">
-    <img src="readme-images/curious-coffee.png" alt="Curious Coffee" title="Curious Coffee" width="30%" />
-</p>
-
-![Build and test](https://github.com/companieshouse/innovation-curious-coffee/workflows/Build%20and%20test/badge.svg)
-
 # #CuriousCoffee
+
+![project logo](readme-images/curious-coffee.png)
 
 [Source code for the Curious Coffee initiative](https://github.com/companieshouse/innovation-curious-coffee.git)
 
@@ -31,7 +27,8 @@ It is written in TypeScript, and by default uses MongoDB as it's data store and 
 ## Prerequisites
 
 You will need the following:
-- [npm](https://www.npmjs.com/)
+
+- [NPM](https://www.npmjs.com/)
 - [Node.js](https://nodejs.org/en/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [MongoDB](https://www.mongodb.com/) (See below for more details)
@@ -82,7 +79,7 @@ The environment variables needed are below.
 
 To deploy your own implementation of Curious Coffee:
 
-```
+``` bash
 git clone https://github.com/companieshouse/innovation-curious-coffee.git
 ```
 
