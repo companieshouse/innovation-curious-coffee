@@ -4,6 +4,7 @@ import sinonChai from 'sinon-chai';
 import {Request, Response} from 'express';
 
 import AdminService from '../../src/admin/AdminService';
+import config from "../../src/config";
 
 const expect = chai.expect;
 chai.use(sinonChai);
@@ -47,6 +48,8 @@ describe("admin/AdminService", function () {
                 },
                 redirect: sinon.spy()
             };
+
+            config.admin.password = "test";
 
             const adminService = new AdminService();
 
