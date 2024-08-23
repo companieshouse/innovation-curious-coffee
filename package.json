@@ -10,7 +10,9 @@
     "test": "mocha -r ts-node/register --recursive \"test/**/*.test.ts\"",
     "lint": "eslint src/**/*.ts",
     "start": "node ./dist/app.js",
-    "start:dev": "nodemon --watch src --ignore 'src/**/*.unit.ts' --ext ts --exec 'NODE_OPTIONS=\"--inspect=0.0.0.0\" ts-node ./src/app.ts'"
+    "start:dev": "nodemon --watch src --ignore 'src/**/*.unit.ts' --ext ts --exec 'NODE_OPTIONS=\"--inspect=0.0.0.0\" ts-node ./src/app.ts'",
+    "test:coverage": "nyc --check-coverage --reporter=text-summary npm run test",
+    "coverage:report": "nyc --reporter=lcov --reporter=text npm run test"
   },
   "repository": {
     "type": "git",
@@ -23,12 +25,13 @@
     "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",
     "connect-flash": "^0.1.1",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "express-session": "^1.17.0",
     "express-validator": "^5.3.1",
     "express-winston": "^4.0.3",
     "jquery": "^3.4.1",
     "mongoose": "^5.7.13",
+    "nyc": "^17.0.0",
     "popper.js": "^1.16.0",
     "pug": "^2.0.4",
     "winston": "^3.2.1"
