@@ -1,0 +1,23 @@
+// Step 1: Extract emails from Matches collection
+const emailsInMatches = db.matches.aggregate([
+    {
+      $project: {
+        emails: ["$person_1.email", "$person_2.email"]
+      }
+    },
+    {
+      $unwind: "$emails"
+    },
+    {
+      $group: {
+        _id: null,
+        allEmails: { $addToSet: "$emails" }
+      }
+    }
+  ]).toArray();
+  
+  // Step 2: Find persons whose email is not in the matches emails
+  db.people.find({
+    verify: true,
+    email: { $nin: emailsInMatches[0].allEmails }
+  });
