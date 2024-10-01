@@ -1,7 +1,10 @@
 .DS_Store
 ._*
+.vscode
 node_modules
 /dist
 database
-docker/database
+docker/database*
 *.pem
+.nyc_output/
+coverage/

@@ -20,12 +20,12 @@ services:
         - ADMIN_PASSWORD=test
         - VERIFY_SIGNATURE=test
         - VERIFY_URL=http://127.0.0.1:3000/verify/
-        - NODE_ENV=development
+        - NODE_ENV=dev
         - AWS_REGION=eu-west-1
     # command: sh -c "npm run-script build && node --inspect=0.0.0.0:9229 ./dist/app.js"
   mongo:
-    image: mongo
+    image: mongo:7.0
     ports:
       - 27017:27017
     volumes:
-    - './database:/data/db'
+       - './database_v7:/data/db'

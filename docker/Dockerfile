@@ -11,6 +11,7 @@ RUN npm install
 COPY . .
 
 # Build the application
+RUN echo "Build application"
 RUN npm run build
 
 # Stage 2: Create the final runtime image
