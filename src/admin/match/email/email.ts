@@ -32,7 +32,8 @@ export async function post(req: Request, res: Response): Promise<void> {
             ],
             subject: "It's a match!",
             body: "Congratulations! You have both been matched together to go and get a #CuriousCoffee."
-                + " With the restrictions lifted you can now meet-up in the office, its over to you to start the conversation!"
+                + " This is an opportunity to meet someone outside of your area, you can meet in person or online."
+                + " Now it's over to you to make the arrangements and start the conversation!"
         };
         const params: Params = {
             email: email
