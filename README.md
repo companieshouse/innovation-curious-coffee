@@ -130,6 +130,23 @@ This will start tilt, which in turn will start mongo, and an instance of [curiou
 
 Anytime a file in src or views is changed, the new files will be copied into the container, and the app will restart.
 
+## Running with chs-dev
+
+The app can also run as part of [docker-chs-development](https://github.com/companieshouse/docker-chs-development) as the `innovation-curious-coffee` service, using the shared MongoDB instance.
+
+Clone this repository to `docker-chs-development/repositories/innovation-curious-coffee`, 
+add `curious-coffee.chs.local` to your hosts file: `127.0.0.1	curious-coffee.chs.local`
+
+then from the docker-chs-development directory run:
+
+``` bash
+chs-dev modules enable curious-coffee
+chs-dev development enable innovation-curious-coffee
+chs-dev up
+```
+
+The app is available at <http://curious-coffee.chs.local>. In development mode chs-dev runs `npm run chs-dev`, which starts `src/bin/nodemon-entry.ts` using `nodemon.json` and restarts on changes to `src`. The Node.js debugger is exposed on `localhost:9246`.
+
 ## Use within Companies House
 
 See pages on [Companies House Confluence](https://companieshouse.atlassian.net/wiki/spaces/DEV/pages/778338309/CuriousCoffee)

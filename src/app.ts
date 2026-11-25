@@ -43,7 +43,13 @@ console.log("Connecting to mongo")
 connect();
 
 app.use('/', routes);
-console.log(`Port: ${port}`)
-app.listen(port, () => {
-    console.log('Listening on port ' + port);
-});
+
+// Only listen when run directly; chs-dev starts the app via src/bin/nodemon-entry.ts
+if (require.main === module) {
+    console.log(`Port: ${port}`);
+    app.listen(port, () => {
+        console.log('Listening on port ' + port);
+    });
+}
+
+export default app;
