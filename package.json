@@ -5,6 +5,7 @@
   "main": "src/app.ts",
   "scripts": {
     "prebuild": "./scripts/prebuild.sh",
+    "chs-dev": "nodemon --legacy-watch",
     "build": "tsc",
     "postbuild": "./scripts/postbuild.sh",
     "test": "mocha -r ts-node/register --recursive \"test/**/*.test.ts\"",
