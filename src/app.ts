@@ -47,3 +47,5 @@ console.log(`Port: ${port}`)
 app.listen(port, () => {
     console.log('Listening on port ' + port);
 });
+
+export default app;
